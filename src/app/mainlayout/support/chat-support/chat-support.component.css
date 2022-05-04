@@ -1,0 +1,48 @@
+@media only screen and (min-width: 320px) and (max-width: 797px) {
+.chat-box .chat-form .btn {
+    padding: 0;
+    width: 33px;
+    height: 34px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: -29px!important;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 25px 0 rgb(0 0 0 / 10%);
+}
+.chat-box .chat-form .form-control {
+    font-size: 11px;
+}
+}
+.chat-box .chat-form .btn{
+    right: 37px;
+}
+.file-top{
+margin-top: 14px!important;
+}
+.attach{
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 79%;
+    right: 69px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    /*box-shadow: 0 4px 25px 0 rgb(0 0 0 / 10%);*/
+}
+.icon{
+    font-size: 23px;
+}
+.image-upload > input
+{
+    /*display: none;*/
+}
+
+.image-upload img
+{
+    width: 80px;
+    cursor: pointer;
+}

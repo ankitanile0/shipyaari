@@ -1,0 +1,649 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<nav class="navbar navbar-expand-lg main-navbar sticky">
+   <div class="form-inline mr-auto">
+      <div class="sidebar-brand d-flex ">
+         <ul class="navbar-nav mr-3">
+            <li style="margin-top: 7px;">
+               <a data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-justify">
+                     <line x1="21" y1="10" x2="3" y2="10"></line>
+                     <line x1="21" y1="6" x2="3" y2="6"></line>
+                     <line x1="21" y1="14" x2="3" y2="14"></line>
+                     <line x1="21" y1="18" x2="3" y2="18"></line>
+                  </svg>
+               </a>
+            </li>
+            <!-- <li><a href=javascript: data-toggle="sidebar" class="nav-link nav-link-lg
+               collapse-btn"> <i class="fa fa-bars"></i></a></li> -->
+         </ul>
+         <div  class="">
+            <a  routerLink="/dashboard"> <img alt="image" src="assets/img/logo.png" class="header-logo" style="margin-top: 8px;
+               display: list-item" />
+            </a>
+         </div>
+         <img src="assets/img/wallet.png" class="ml-3 balance-icon" >
+         <p class="ml-3 blc-txt">Balance : {{cons_wallet}}</p>
+         <span class="dropdown dropdown-list-toggle yaari-point-text">
+            <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg bg-transparent" style="margin-left:-17px">
+            <img src="assets/img/points.png" class=" ml-3 yaari-icon">
+            </a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-center pullDown yaari-point">
+               <div class="dropdown-header">Yaari Points</div>
+               <div class="col-lg-12 dropdown-list-icons">
+                  <p class="text-dark yaari-box">Available Yaari Points: <b>{{yaariPonts}}</b></p>
+                  <div clss="row" >
+                     <div class="col">
+                        <div class="form-group">
+                           <label>Enter Points</label>
+                           <input type="text" [(ngModel)]="point" (keyup)="point_Calculator()" (keydown)="resetval()" class="form-control"  placeholder="Enter Points">
+                        </div>
+                        <small *ngIf="point > yaariPonts" class="text-danger">Insufficient Yaari Points!</small>
+                        <!-- <small *ngIf="msg == 3" class="text-danger">Points Out Of Range!</small> -->
+                     </div>
+                     <div class="col">
+                        <div  *ngIf="point != ''">
+                           <!--  <p>{{num1}} <span *ngIf="msg == 1">X</span> {{num2}} <span *ngIf="msg == 1">=</span> {{sum}}</p> -->
+                           <p style="margin-top: 10px">{{line}}</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="dropdown-footer text-center">
+                  <div class="row">
+                     <div class="col p-1"><button type="button" (click)="redeem_Points()" class="btn btn-primary btn-sm" style="width: 100%; padding: 5px"> Redeem</button> </div>
+                     <div class="col p-1"><button type="button" (click)="closeYaari()" class="btn btn-primary btn-sm" style="width: 100%; padding: 5px"> Close</button></div>
+                  </div>
+               </div>
+               <!--  <div class="modal-footer">
+                  </div> -->
+            </div>
+         </span>
+         <p class="ml-3 yaari-txt">Yaari Points : {{yaariPonts}}</p>
+         <!-- Change postion of Profile Bar {Line No:74} -->
+      </div>
+        <!--  <div>
+            <circle-progress
+              [percent]="percentcount"
+              [radius]="0.5"
+              [outerStrokeWidth]="0.1"
+              [innerStrokeWidth]="0.1"
+              [space] = ""
+              [outerStrokeColor]="'#54ca68 '"
+              [innerStrokeColor]="'black'"
+              [titleFontSize]= "0.3"
+              [unitsFontSize]= "0"
+              [showSubtitle] = "false"
+              [animation]="true"
+              [animationDuration]="10"
+              [startFromZero]="false"
+              [responsive]="true"
+              [imageHeight]="10"
+            ></circle-progress>
+         </div> -->
+       <!--   <div>
+            <circle-progress
+              [percent]="progress"
+              [radius]="100"
+              [outerStrokeWidth]="10"
+              [innerStrokeWidth]="10"
+              [space] = "-10"
+              [outerStrokeColor]="'#4882c2'"
+              [innerStrokeColor]="'#e7e8ea'"
+              [titleFontSize]= "24"
+              [unitsFontSize]= "24"
+              [showSubtitle] = "false"
+              [animation]="true"
+              [animationDuration]="300"
+              [startFromZero]="false"
+              [responsive]="true"
+            ></circle-progress>
+         </div> -->
+      <div class="profile-complete">
+      <a href="javascript:" (click)="go_to_profile()">
+         <span class="roboto-thin-text">Profile  </span><span class="fr db mb5 roboto-regular-text">{{percentcount}}%</span>
+         <div class="progress"><progressbar [animate]="false" [value]="percentcount" type="success"></progressbar></div>
+      </a>
+   </div>
+   </div>
+  
+   <div style=" margin-left: 22px; margin-top: 10px;">
+      <!-- <i class="fas fa-sign-out-alt"></i> -->
+      <!-- <button class="btn btn-warning btn-sm" (click)="move_to_old()">Old Version</button> -->
+   </div>
+   <ul class="navbar-nav navbar-right navbar-right">
+      <li class="responsive">
+         <a href="javascript:"  class="nav-link nav-link-lg back_none" (click)="move_to_old()">
+         <i class="material-icons"  data-toggle="tooltip" data-placement="bottom" title="Go to old version">repeat</i>
+         </a>
+      </li>
+      <li class="responsive">
+         <a href="javascript:"  class="nav-link nav-link-lg back_none" (click)="CheckAvalability(ChekAvail)">
+         <i class="material-icons"  data-toggle="tooltip" data-placement="bottom" title="Check Availability">assignment_turned_in</i>
+         </a>
+      </li>
+      <li class="dropdown dropdown-list-toggle responsive">
+         <a href="javascript:" tooltip="Tracking" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg back_none">
+         <i class="material-icons">map</i>
+         <span class="pulse"></span>
+         </a>
+         <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+            <div class="dropdown-header"> Tracking No / Shipyaari ID :</div>
+            <div class="col-lg-12 dropdown-list-icons">
+               <input type="text" [(ngModel)]="tracking_ID" onKeyPress='return event.charCode >= 48 && event.charCode <= 57' class="form-control">
+            </div>
+            <div class="dropdown-footer text-center">
+               <a href="javascript:" style="width: 75%" (click)="tracking_details(trackPin)" class="btn btn-primary">Track</a>
+            </div>
+         </div>
+      </li>
+      <li class="dropdown dropdown-list-toggle responsive">
+         <a href="javascript:" tooltip="Search Pincode" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg back_none">
+         <i class="material-icons">location_on</i>
+         </a>
+         <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+            <div class="dropdown-header"> Enter Pincode :</div>
+            <div class="col-lg-12 dropdown-list-icons">
+               <input type="text" [(ngModel)]="pin" onKeyPress='return event.charCode >= 48 && event.charCode <= 57' maxlength="6" minlength="6" class="form-control">
+            </div>
+            <div class="dropdown-footer text-center">
+               <a href="javascript:" (click)="checkpin(checkPin)" class="btn btn-primary">Check</a>
+            </div>
+         </div>
+      </li>
+      <li class="responsive">
+         <a href="javascript:" (click)="wallet_recharge(recharge)"  class="nav-link nav-link-lg back_none" >
+         <i class="material-icons" tooltip="Wallet Recharge">account_balance_wallet</i>
+         </a>
+      </li>
+      <li class="responsive">
+         <a href="javascript:" (click)="transaction_history(transaction)"  class="nav-link nav-link-lg message-toggle back_none" tooltip="Today's Transaction History">
+         <i class="material-icons">history</i>
+         </a>
+      </li>
+      <li class="responsive" style="
+         height: 40px;
+         ">
+         <a href="https://bit.ly/Shipyaari_mob_app"  class="nav-link nav-link-lg message-toggle back_none" tooltip="Download App">
+         <i style="margin-top: 4px;" data-feather="smartphone"></i>
+         </a>
+      </li>
+      <li class="dropdown dropdown-list-toggle responsive">
+         <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg bg-transparent ">
+            <!-- <i data-feather="user"></i> -->
+            <img alt="image" [src]="User_Image" onError="this.src='assets/img/prf.png'" style="    min-width: 35px;
+               min-height: 35px;
+               max-height: 35px;
+               max-width: 35px;" class="user-img-radious-style"> 
+            &nbsp;
+            <span class="d-sm-none d-lg-inline-block">{{Full_Name}} | {{Client_Id}}</span> 
+         </a>
+         <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown p-10" style="margin-right: 0px;">
+            <a href="javascript:void(0);" (click)="go_to_profile()" class="dropdown-item has-icon"><i class="far fa-user"></i>My Profile</a>
+            <a href="javascript:void(0);" (click)="go_to_passbook()" class="dropdown-item has-icon"><i class="fa fa-list" aria-hidden="true"></i>Activity/Payment Log</a>
+            <!--  <a routerLink="/login" class="dropdown-item has-icon "><i class="fas fa-sign-in-alt"></i> Login </a>
+               <a routerLink="/signup" class="dropdown-item has-icon "><i class="fas fa-user-plus"></i> Signup </a>
+               <a routerLink="/forget-pass" class="dropdown-item has-icon "><i class="fas fa-user-plus"></i>Forget-Password</a>   -->
+            <a href="javascript:void(0);" (click)="Logout()" class="dropdown-item has-icon text-danger pointer"> <i class="fas fa-sign-out-alt"></i>Logout</a>
+         </div>
+      </li>
+   </ul>
+</nav>
+<!-- Add Delivery Address modal -->
+<ng-template #ChekAvail>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Check Availability</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeAvail()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #f="ngForm" (ngSubmit)="check_submit(f,search)" novalidate>
+   <div class="modal-body p-2">
+      <div class="row p-2">
+         <div class="col-6">
+            <div class="form-group">
+               <label class="mb-0">Pickup Pincode <b class="text-danger">*</b></label>
+               <input type="text" class="form-control" [(ngModel)]="pickup_pincode" name="pickup_pincode" #Pickup_pincode="ngModel" placeholder="Pickup Pincode" maxlength="6" minlength="6" onKeyPress='return event.charCode >= 48 && event.charCode <= 57' required >
+               <small *ngIf="(pickup_pincode == null || pickup_pincode == '') && f.submitted" class="text-danger">Pincode required.</small> 
+               <small *ngIf="(!Pickup_pincode.valid && (pickup_pincode != '' && pickup_pincode != null)) && f.submitted" class="text-danger">Please enter valid Pincode.</small>
+            </div>
+         </div>
+         <div class="col-6">
+            <div class="form-group">
+               <label class="mb-0">Delivery Pincode <b class="text-danger">*</b></label>
+               <input type="text" class="form-control" [(ngModel)]="delivery_pincode" name="delivery_pincode" #Delivery_pincode="ngModel" placeholder="Delivery Pincode" maxlength="6" minlength="6" onKeyPress='return event.charCode >= 48 && event.charCode <= 57' required>
+               <small *ngIf="(delivery_pincode == null || delivery_pincode == '') && f.submitted" class="text-danger">Pincode required.</small> 
+               <small *ngIf="(!Delivery_pincode.valid && (delivery_pincode != '' && delivery_pincode != null)) && f.submitted" class="text-danger">Please enter valid Pincode.</small>
+            </div>
+         </div>
+         <div class="col-6">
+            <div class="form-group">
+               <label class="mb-0">Payment Mode <b class="text-danger">*</b></label>
+               <select class="form-control" [(ngModel)]="payment_mode" name="payment_mode" #Payment_mode="ngModel" required>
+               <option value=" " >Select Payment Mode</option>
+               <option value="cod" >COD</option>
+               <option value="online">Online</option>
+               </select>
+               <small *ngIf="(payment_mode == null || payment_mode == '') && f.submitted" class="text-danger">Select Payment Mode</small> 
+            </div>
+         </div>
+         <div class="col-6">
+            <div class="form-group">
+               <label class="mb-0">Select Weight (KG)<b class="text-danger">*</b></label>
+               <!--   <select class="form-control"
+                  #Selected_weight="ngModel"
+                     tooltip="weight"
+                     [(ngModel)]="selected_weight"
+                     name="selected_weight" required>
+                   <option value=" ">Select Weight</option>
+                   <ng-container *ngFor="let data of weight_List">  
+                   <option value="data.weight">{{data.weight}}</option>
+                   </ng-container>
+                  </select> -->
+               <ng-select [items]="weight_List"
+               bindLabel="weight"
+               bindValue="weight"
+               name="selected_weight"
+               #Selected_weight="ngModel"
+               tooltip="weight"
+               [(ngModel)]="selected_weight"
+               placeholder = "Select Weight"
+               name="selected_weight" required>
+               </ng-select>
+               <small *ngIf="(selected_weight == null || selected_weight == '') && f.submitted" class="text-danger">Select Weight</small>
+               <!--  <ng-select [items]="weight_List"
+                  bindLabel="weight"
+                  bindValue="weight"
+                  >
+                  </ng-select> -->
+            </div>
+         </div>
+         <div class="col-6">
+            <div class="form-group">
+               <label class="mb-0">Select Service </label>
+               <!--  <select class="form-control"
+                  name="serviceId"
+                  #ServiceId="ngModel"
+                  tooltip="Package"
+                  [(ngModel)]="serviceId" required>
+                  <option value=" ">Select Service</option>
+                  <ng-container *ngFor="let data of serviceList">  
+                  <option value="data.avn_service_id">{{data.service_name}}</option>
+                  </ng-container>
+                  </select> -->
+               <ng-select [items]="serviceList"
+               bindLabel="service_name"
+               bindValue="avn_service_id"
+               name="serviceId"
+               #ServiceId="ngModel"
+               tooltip="Package"
+               placeholder = "Select Service"
+               [(ngModel)]="serviceId" >
+               </ng-select>
+            </div>
+         </div>
+         <div class="col-6">
+            <div class="form-group">
+               <label class="mb-0">Invoice Value <b class="text-danger">*</b></label>
+               <input type="text" class="form-control" [(ngModel)]="invoice_value" name="invoice_value" #Invoice_value="ngModel" placeholder="Invoice Value" onKeyPress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46' pattern="(?<=^| )\d+(\.\d+)?(?=$| )" required>
+               <small *ngIf="(invoice_value == null || invoice_value == '') && f.submitted" class="text-danger">Enter Invoice Value</small>
+            </div>
+         </div>
+         <div class="col-4">
+            <div class="form-group">
+               <label class="mb-0">Length (CM) <b class="text-danger">*</b></label>
+               <input type="text" class="form-control" [(ngModel)]="length" name="length" #Length="ngModel" placeholder="Length"  onKeyPress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46' pattern="(?<=^| )\d+(\.\d+)?(?=$| )" required maxlength="3" minlength="1">
+               <small *ngIf="(length == null || length == '') && f.submitted" class="text-danger">length required.</small> 
+               <small *ngIf="(!Length.valid && (length != '' && length != null)) && f.submitted" class="text-danger">enter valid length.</small>
+            </div>
+         </div>
+         <div class="col-4">
+            <div class="form-group">
+               <label class="mb-0">Height (CM) <b class="text-danger">*</b></label>
+               <input type="text" class="form-control" [(ngModel)]="height" name="height" #Height="ngModel" placeholder="Height"  onKeyPress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46' pattern="(?<=^| )\d+(\.\d+)?(?=$| )" required maxlength="3" minlength="1">
+               <small *ngIf="(height == null || height == '') && f.submitted" class="text-danger">Height required.</small> 
+               <small *ngIf="(!Height.valid && (height != '' && height != null)) && f.submitted" class="text-danger">enter valid height.</small>
+            </div>
+         </div>
+         <div class="col-4">
+            <div class="form-group">
+               <label class="mb-0">Width (CM) <b class="text-danger">*</b></label>
+               <input type="text" class="form-control" [(ngModel)]="width" name="width" #Width="ngModel" placeholder="Width"  onKeyPress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46' pattern="(?<=^| )\d+(\.\d+)?(?=$| )" required maxlength="3" minlength="1">
+               <small *ngIf="(width == null || width == '') && f.submitted" class="text-danger">Pincode required.</small> 
+               <small *ngIf="(!Width.valid && (width != '' && width != null)) && f.submitted" class="text-danger">enter valid width.</small>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="submit" class="btn btn-primary btn-sm"> Submit</button>
+      <button type="button" (click)="closeAvail()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+</ng-template>
+<!-- Redeem Yaari Points modal -->
+<ng-template #search>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Availablility & Pricing</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_search()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class=" table-responsive">
+      <table  class="table  table-hover table-order" id="save-stage">
+         <thead>
+            <th>Sr.No</th>
+            <th>Partner Name</th>
+            <th>Service Name</th>
+            <th>Weight</th>
+            <th>Zone </th>
+            <th>Delivery Charge</th>
+            <th>COD</th>
+            <th>Insurance</th>
+            <th>Other</th>
+            <th>Sub Total</th>
+            <th style="width: 7%;">GST</th>
+            <th style="width: 10%;">Total</th>
+            <th style="width: 6%;">Km</th>
+            <th>EDD</th>
+         </thead>
+         <tbody >
+            <tr *ngFor ="let data of search_data; let i = index ">
+               <td>{{i+1}}</td>
+               <td>{{data.courier_name}}</td>
+               <td>{{data.service_name}}</td>
+               <td>{{data.compare_weight}}</td>
+               <td>{{data.zone}}</td>
+               <td>{{data.minimum_price}}</td>
+               <td>{{data.total_cod_amount}}</td>
+               <td>{{data.insurance_percentage}}</td>
+               <td>{{data.other_charge}}</td>
+               <td>{{data.subtotal}}</td>
+               <td>{{data.tax}}</td>
+               <td>{{data.total}}</td>
+               <td></td>
+               <td>{{data.estimate_date}}</td>
+            </tr>
+            <tr *ngIf="search_data == null || search_data == ''">
+               <td colspan="14" class="text-center">Opps! nothing to show here</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_search()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<!-- Redeem Yaari Points modal -->
+<ng-template #yaari>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Yaari Points</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeYaari()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <p class="text-dark">Available Yaari Points: <b>{{yaariPonts}}</b></p>
+      <div clss="row" >
+         <div class="col">
+            <div class="form-group">
+               <label>Enter Points</label>
+               <input type="number" [(ngModel)]="point" (keyup)="point_Calculator()" (keydown)="resetval()" class="form-control" placeholder="Enter Points">
+            </div>
+            <small *ngIf="msg == 2" class="text-danger">Insufficient Yaari Points!</small>
+            <small *ngIf="msg == 3" class="text-danger">Points Out Of Range!</small>
+         </div>
+         <div class="col">
+            <div  *ngIf="point != ''">
+               <!-- <p>{{num1}} <span *ngIf="msg == 1">X</span> {{num2}} <span *ngIf="msg == 1">=</span> {{sum}}</p> -->
+               <p>{{line}}</p>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="redeem_Points()" class="btn btn-primary btn-sm"> Redeem</button> 
+      <button type="button" (click)="closeYaari()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<!-- Check Pin modal -->
+<ng-template #checkPin>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Check Pincode</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePin()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <p  class=" m-1 text-center text-primary"> <b>For Pincode: {{pin}}</b> </p>
+      <table class="table  table-hover table-order" id="save-stage" style="width:100%;">
+         <thead>
+            <th>Sr.No</th>
+            <th>Partner Name</th>
+            <th>Pincode</th>
+            <th>Pickup</th>
+            <th>Delivery</th>
+            <th>COD</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+         </thead>
+         <tbody >
+            <tr *ngFor ="let data of pin_detail_list; let i = index ">
+               <td>{{i+1}}</td>
+               <td>{{data.company_name}}</td>
+               <td>{{data.pincode}}</td>
+               <td>{{data.pickup}}</td>
+               <td>{{data.delivery}}</td>
+               <td>{{data.cod}}</td>
+               <td>{{data.city}}</td>
+               <td>{{data.state}}</td>
+               <td>{{data.country}}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="closePin()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<!-- Tracking Data modal -->
+<ng-template #trackPin>
+   <div class="modal-header head-modal" style="background: #077bd4;">
+      <h5 class="modal-title" style="color: #fff;" id="exampleModalLabel">Tracking Details </h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_tracking_details()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div *ngIf="trackflag == 1">
+      <p class="text-center">Opps! nothing to show here</p>
+   </div>
+   <div *ngIf="trackflag != 1" class="modal-body">
+      <div class="row">
+         <div class="col-12">
+            <div class="row tracking-details">
+               <div class="col-4">
+                  <div class="p-2 m-2 ">
+                     <p class="tracking-title">Tracking Number : {{tracking_number}}</p>
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="p-2 m-2">
+                     <p class="tracking-title">Shipyaari Id : {{avn_shipping_id}}</p>
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="p-2 m-2 ">
+                     <p class="tracking-title">Tracking Status : {{status_name}}</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-12">
+            <div class="track">
+               <div class="step" [class.active]="(status_name != 'Cancelled')"> 
+                  <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order Created</span> 
+               </div>
+               <div class="step" [class.active]="(status_name != 'Cancelled' && (status_name =='Delivered' || status_name =='RTO Delivered' || status_name =='Reverse Delivered' || status_name =='In Transit' || status_name =='Out For Delivery'))"> 
+                  <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Intransit </span> 
+               </div>
+               <div class="step"  [class.active]="(status_name != 'Cancelled' && (status_name =='Delivered' || status_name =='RTO Delivered' || status_name =='Reverse Delivered' || status_name =='Out For Delivery'))"> 
+                  <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> Out For Delivery </span> 
+               </div>
+               <div class="step" [class.active]="(status_name != 'Cancelled' && (status_name =='Delivered' || status_name =='RTO Delivered' || status_name =='Reverse Delivered'))"> 
+                  <span class="icon"> <i class="fa fa-archive"></i> </span> <span class="text">Delivered</span> 
+               </div>
+            </div>
+         </div>
+      </div>
+      <hr class="m-0">
+      <div class="row">
+         <div class="col pl-2 pr-2 pt-2  m-2" >
+            <h6 class="ml-3 text-primary"><i class="fas fa-user ml-2 mb-1 icon" aria-hidden="true"></i>  Customer Details</h6>
+            <div class="row m-2 cust-title">
+               <div class="col-6">
+                  <div class="">
+                     <p>Name:  {{pickup_company_name}}</p>
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="">
+                     <p>Contact No:  {{pickup_contact_number}}</p>
+                  </div>
+               </div>
+               <div class="col-4"></div>
+            </div>
+         </div>
+      </div>
+      <hr class="m-0">
+      <div class="row">
+         <div class="col pl-2 pr-2 pt-2  m-2" >
+            <h6 class="ml-3 text-primary"><i class="fa fa-truck ml-2 mb-1 icon" aria-hidden="true"></i>  Shipment Details</h6>
+            <div class="row m-2 ship-title">
+               <div class="col">Consignment Date:</div>
+               <div class="col">{{consignment_date}}</div>
+               <div class="col">Service Type:</div>
+               <div class="col">{{service_name}}</div>
+            </div>
+            <div class="row m-2 ship-title">
+               <div class="col">Dimension:</div>
+               <div class="col">{{dimension}}</div>
+               <div class="col">Delivery Date:</div>
+               <div class="col">{{delivery_date}}</div>
+            </div>
+            <div class="row m-2 ship-title">
+               <div class="col">Package Weight:</div>
+               <div class="col">{{package_weight}}{{kgs}}</div>
+               <div class="col">No. of Packages:</div>
+               <div class="col">{{no_of_packages}}</div>
+            </div>
+            <div class="row m-2 ship-title">
+               <div class="col">Origin:</div>
+               <div class="col">{{pickup_address}}</div>
+               <div class="col">Destination:</div>
+               <div class="col">{{delivery_address}}</div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_tracking_details()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<!-- Tracking Data modal -->
+<ng-template #transaction>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Today's Transactions </h5>
+      <button type="button" (click)="transaction_passbook()" class="btn btn-primary btn-sm"> View Passbook</button>
+      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_transaction_history()">  -->
+      <!-- <span aria-hidden="true">&times;</span> 
+         </button> -->
+   </div>
+   <div class="modal-body" >
+      <div class=" table-responsive">
+      <table class="table table-hover table-order" id="save-stage" style="width:100%;">
+         <thead>
+            <th>Sr.No</th>
+            <th>Date</th>
+            <th>Credited</th>
+            <th>Debited</th>
+            <th>Balance</th>
+            <th>Wallet Amt</th>
+            <th>Remark</th>
+         </thead>
+         <tbody >
+            <tr *ngFor ="let data of transaction_history_List; let i = index ">
+               <td>{{i+1}}</td>
+               <td>{{data.last_date}}</td>
+               <td><i class="fa fa-inr mr-1" aria-hidden="true"></i> {{data.credited}}</td>
+               <td><i class="fa fa-inr mr-1" aria-hidden="true"></i> {{data.debited}}</td>
+               <td><i class="fa fa-inr mr-1" aria-hidden="true"></i> {{data.balance}}</td>
+               <td><i class="fa fa-inr mr-1" aria-hidden="true"></i> {{data.wallet_amt}}</td>
+               <td>{{data.remark}}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_transaction_history()" class="btn btn-primary btn-sm m-1"> Close</button>
+      <!-- <button type="button" (click)="transaction_passbook()" class="btn btn-primary btn-sm"> View Passbook</button> -->
+   </div>
+</ng-template>
+<!-- Tracking Data modal -->
+<ng-template #recharge>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Recharge Wallet </h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_wallet_recharge()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #r="ngForm" (ngSubmit)="submitRecharge()">
+   <div class="modal-body" >
+      <div class="form-group">
+         <label>Select Amount</label>
+         <ng-select [items]="amount_List"
+         bindLabel="amount"
+         bindValue="id"
+         name="amount1"
+         tooltip="Select Amount"
+         placeholder="Select Amount"
+         [(ngModel)]="amount1" required>
+         </ng-select>
+      </div>
+      <div class="form-group">
+         <div class="input-group mb-3">
+            <input type="text" class="form-control" [(ngModel)]="coupon" name="coupon" placeholder="Enter Coupon Here " tooltip="Enter Coupon">
+            <div class="input-group-append">
+               <button class="btn btn-primary btn-sm" (click)="validate_coupon()" type="button">Validate Coupon</button>
+            </div>
+         </div>
+      </div>
+      <div class=" ">
+         <p style="color: black; padding-top: 3px; font-size: 13px;"><b>Eligible COD amount : <i class="fa fa-inr"></i>  {{eligible_cod_amount}}</b></p>
+      </div>
+      <div class=" ">
+         <p style="color: black; padding-top: 3px; font-size: 13px;"><b>Wallet amount : <i class="fa fa-inr"></i>   {{wallet_amount}}</b></p>
+      </div>
+      <!-- <p style="color: black; padding-top: 3px; font-size: 13px;">Payment With : </p>
+         <div class="form-check form-check-inline mb-1">   
+            <input class="form-check-input radio_size" type="radio" name="inlineRadioOptions" [(ngModel)]="payradio" id="inlineRadio1" value="cheapest"   >
+            <label class="form-check-label" for="inlineRadio1">PayTm</label>
+         </div>
+         <div class="form-check form-check-inline mb-1"> 
+            <input class="form-check-input radio_size" type="radio" name="inlineRadioOptions" [(ngModel)]="payradio" id="inlineRadio2" value="bestservice" >
+            <label class="form-check-label" for="inlineRadio2">Razorpay</label>
+         </div> -->
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-primary btn-sm" (click)="paytm()"> Online</button>
+      <button *ngIf="eligible_cod_amount > 0" type="submit" class="btn btn-primary btn-sm" (click)="Adjust_cod_amt()"> Adjust COD</button>
+      <button *ngIf="wallet_amount > 0"  class="btn btn-primary btn-sm" (click)="trans_to_wallet()"> Transfer Wallet To Balance</button>
+      <button type="button" (click)="close_wallet_recharge()" class="btn btn-primary btn-sm m-1"> Close</button>
+   </div>
+   </form>
+</ng-template>

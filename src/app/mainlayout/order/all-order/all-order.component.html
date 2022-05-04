@@ -1,0 +1,168 @@
+<!-- <div [innerHTML]="Loader"></div> -->
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>All Orders</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> -->
+               <!--  <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+               <li class="breadcrumb-item active" aria-current="page">All Orders</li> -->
+             <!--   <div class="btn-group mb-3" role="group" aria-label="Basic example"> -->
+              <!-- <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_All_order()">All Order</button>
+                  <button type="button" class="btn btn-secondary rad_0" (click)="go_to_order()">Add Order</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_b2b()">B2B</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_add_bulk()">Add Bulk</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_channel()">Channel Order</button> -->
+              <!--  </div> -->
+            <!-- </ol> -->
+             <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_All_order()" class="active">All Order</a>
+               <a href="javascript:" (click)="go_to_order()">Add Order</a>
+               <a href="javascript:" (click)="go_to_b2b()" >B2B</a>
+               <a href="javascript:" (click)="go_to_add_bulk()" >Add Bulk</a>
+              <a href="javascript:" (click)="go_to_channel()">Channel Order</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="">
+               <div class="card-header">
+                  <h4>All Orders</h4>
+                  <div class="card-header-form" style="margin-bottom: 14px;">
+                     <div class="form-check form-check-inline">
+                       B2B &nbsp;<a href="javascript:" (click)="open_b2b(b2b)" data-toggle="modal" tooltip="B2B" data-target="#exampleModal"> <i class="fa fa-upload fa-lg blue"></i></a>  &nbsp;
+                       B2C &nbsp;<a href="javascript:" (click)="open_b2c(b2c)" data-toggle="modal" tooltip="B2C" data-target="#exampleModal"> <i class="fa fa-upload fa-lg blue"></i></a>  
+                     </div>
+                  </div>
+               </div>
+            </div>
+               <div class="card-body">
+                  <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'processing_orders')" id="process-tab2" data-toggle="tab" href="#process" role="tab" aria-controls="home" aria-selected="true" (click)="click_change('processing_orders')">
+                        Processing Orders&nbsp;<span class="badge badge-light">{{TotalProcessOrder}}</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'readytoship')"  id="ship-tab2" data-toggle="tab" href="#ship" role="tab" aria-controls="profile" aria-selected="false" (click)="click_change('readytoship')">
+                        Ready To Ship&nbsp;<span class="badge badge-light">{{TotalReadytoShip}}</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'readytopick')"  id="pick-tab2" data-toggle="tab" href="#pick" role="tab" aria-controls="contact" aria-selected="false" (click)="click_change('readytopick')">
+                        Ready To Pick&nbsp;<span class="badge badge-light">{{TotalReadyToPickOrder}}</span> 
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'transit')"  id="transit-tab2" data-toggle="tab" href="#transit" role="tab" aria-controls="contact" aria-selected="false" (click)="click_change('transit')">
+                        In Transit&nbsp;<span class="badge badge-light">{{TotalIntransitOrder}}</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'complete')"  id="complete-tab2" data-toggle="tab" href="#complete" role="tab" aria-controls="contact" aria-selected="false" (click)="click_change('complete')">
+                        Complete Order&nbsp;<span class="badge badge-light">{{TotalinCompleteOrder}}</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'cancelled')"  id="cancelled-tab2" data-toggle="tab" href="#cancelled" role="tab" aria-controls="contact" aria-selected="false" (click)="click_change('cancelled')">
+                        Cancelled Order&nbsp;<span class="badge badge-light">{{TotalCancelOrder}}</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link " [class.active]="(active_tab == 'allorder')"  id="allorder-tab2" data-toggle="tab" href="#allorder" role="tab" aria-controls="contact" aria-selected="false" (click)="click_change('allorder')">
+                        All Orders&nbsp;<span class="badge badge-light">{{TotalAllOrder}}</span>
+                        </a> 
+                     </li>
+                  </ul>
+                  <div class="tab-content tab-bordered" id="myTab3Content">
+                     <div class="tab-pane fade p-0 br-0" *ngIf="active_tab == 'processing_orders'" [class.show]="(active_tab == 'processing_orders')" [class.active]="(active_tab == 'processing_orders')" id="process" role="tabpanel" aria-labelledby="home-tab2">
+                        <!-- processing orders here  -->
+                        <app-in-process (process_count)="process_count($event)"></app-in-process>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" [class.show]="(active_tab == 'readytoship')" [class.active]="(active_tab == 'readytoship')" id="ship" role="tabpanel" aria-labelledby="profile-tab2">
+                        <!-- ready to ship -->
+                        <app-ready-ship (parent_count)="parent_count($event)"></app-ready-ship>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" *ngIf="active_tab == 'readytopick'" [class.show]="(active_tab == 'readytopick')" [class.active]="(active_tab == 'readytopick')" id="pick" role="tabpanel" aria-labelledby="contact-tab2">
+                        <!-- ready to pick -->
+                        <app-ready-pick (readypic_count)="readypic_count($event)"></app-ready-pick>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" *ngIf="active_tab == 'transit'" [class.show]="(active_tab == 'transit')" [class.active]="(active_tab == 'transit')" id="transit" role="tabpanel" aria-labelledby="invoice-tab2">
+                        <!-- In transit -->
+                       <app-in-transit (intransit_count)="intransit_count($event)"></app-in-transit>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" *ngIf="active_tab == 'complete'" [class.show]="(active_tab == 'complete')" [class.active]="(active_tab == 'complete')" id="complete" role="tabpanel" aria-labelledby="creadit-note-tab2">
+                        <!-- complete orders -->
+                        <app-complete (complete_count)="complete_count($event)"></app-complete>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" *ngIf="active_tab == 'cancelled'" [class.show]="(active_tab == 'cancelled')" [class.active]="(active_tab == 'cancelled')" id="cancelled" role="tabpanel" aria-labelledby="creadit-note-tab2">
+                        <!-- cancelled orders-->
+                        <app-cancelled (cancell_count)="cancell_count($event)"></app-cancelled>
+                     </div>
+                     <div class="tab-pane fade  p-0 br-0" *ngIf="active_tab == 'allorder'" [class.show]="(active_tab == 'allorder')" [class.active]="(active_tab == 'allorder')" id="allorder" role="tabpanel" aria-labelledby="creadit-note-tab2">
+                        <!-- all orders -->
+                        <app-allorder (All_order_count)="All_order_count($event)"></app-allorder>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+
+<ng-template #b2b>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Add B2B Bulk Consignment
+</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_b2b()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #f="ngForm" (ngSubmit)="submit(f)" autocomplete="off" enctype="multipart/form-data">
+   <div class="modal-body">
+    <a class="btn btn-primary btn-sm mb-2" href="javascript:" (click)="dowload_b2b()"> Download Sample File</a>
+   
+    <div class="form-group">
+     <input type="file" class="form-control" [(ngModel)]="fileb2b" name="fileb2b" #Fileb2b="ngModel" id="b2bexcel_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <small *ngIf="(fileb2b == null || fileb2b == '') && f.submitted" class="text-danger">Attach Files</small>
+    </div>
+   </div>
+   <div class="modal-footer">
+     <button type="submit" class="btn btn-primary btn-sm"> Upload</button>
+      <button type="button" (click)="close_b2b()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+   </ng-template>
+
+
+   <ng-template #b2c>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Add B2C Bulk Consignment
+</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_b2c()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #g="ngForm" (ngSubmit)="submit_b2c(g)" autocomplete="off" enctype="multipart/form-data">
+   <div class="modal-body">
+    <a class="btn btn-primary btn-sm mb-2" href="javascript:" (click)="dowload_b2c()" > Download Sample File</a>
+   
+    <div class="form-group">
+     <input type="file" class="form-control" [(ngModel)]="fileb2c" name="fileb2c" #Fileb2c="ngModel" id="b2cexcel_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <small *ngIf="(fileb2c == null || fileb2c == '') && g.submitted" class="text-danger">Attach Files</small>
+    </div>
+   </div>
+   <div class="modal-footer">
+     <button type="submit" class="btn btn-primary btn-sm"> Upload</button>
+      <button type="button" (click)="close_b2c()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+   </ng-template>
+
+
+
+  

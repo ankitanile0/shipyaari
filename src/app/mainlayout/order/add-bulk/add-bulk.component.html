@@ -1,0 +1,269 @@
+<div [innerHTML]="Loader"></div> 
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Add Bulk</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> -->
+               <!-- <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Add Bulk</li> -->
+             <!--    <div class="btn-group mb-3" role="group" aria-label="Basic example"> -->
+             <!--  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_All_order()">All Order</button>
+                  <button type="button" class="btn btn-secondary rad_0" (click)="go_to_order()">Add Order</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_b2b()">B2B</button>
+                  <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_add_bulk()">Add Bulk</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_channel()">Channel Order</button> -->
+              <!--  </div> -->
+            <!-- </ol> -->
+             <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_All_order()" >All Order</a>
+               <a href="javascript:" (click)="go_to_order()" >Add Order</a>
+               <a href="javascript:" (click)="go_to_b2b()" >B2B</a>
+               <a href="javascript:" (click)="go_to_add_bulk()" class="active">Add Bulk</a>
+              <a href="javascript:" (click)="go_to_channel()">Channel Order</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+         <alert></alert>
+         </div>
+       </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Bulk Shipment</h4>
+                  <div class="card-header-form">
+                     <div class="form-check form-check-inline">
+                        <a href="javascript:" (click)="uploadModal(upload)"  tooltip="Bulk upload"> <i class="fa fa-upload fa-lg blue"></i></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                     <li class="nav-item"> <a class="nav-link active" id="process-tab2" data-toggle="tab" href="#process" role="tab" aria-controls="home" aria-selected="true">Process </a> </li>
+                     <li class="nav-item"> <a class="nav-link" id="success-tab2" data-toggle="tab" href="#success" role="tab" aria-controls="profile" aria-selected="false">Success  </a> </li>
+                  </ul>
+                  <div class="tab-content tab-bordered" id="myTab3Content">
+                     <div class="tab-pane fade show active p-0 br-0" id="process" role="tabpanel" aria-labelledby="home-tab2">
+                        <!-- Process tab here -->
+                        <div class="col-lg-12 m-t-10 bluk">
+                           <div class="table-responsive">
+                              <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                                 <thead>
+                                    <tr >
+                                       <th width="5%">Sr. No.</th>
+                                       <th width="15%">Date</th>
+                                       <th width="20%" >Batch Name </th>
+                                       <th width="30%">Shipment </th>
+                                       <th width="20%">Status</th>
+                                       <th>Action </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr *ngFor="let data of ProcessList; let i = index;">
+                                       <td>{{i+1}}</td>
+                                       <td><i class="fa fa-calendar"></i>  {{data.date}}</td>
+                                       <td>{{data.batch_number}}</td>
+                                       <td>
+                                        <p style="font-size: 11px; text-align: left;" class="pb-1 mb-1 pt-1" >Total: {{data.no_of_shipment}}</p>
+                                         <progressbar *ngIf="data.processing >= 1" [max]="max" [value]="data.pacentage" type="primary">
+                                        </progressbar>
+                                        <progressbar *ngIf="data.success_cnt >= 1" [max]="max" [value]="data.pacentage" type="success">
+                                        </progressbar>
+                                        <progressbar *ngIf="data.error >= 1" [max]="max" [value]="data.pacentage" type="danger">
+                                        </progressbar>
+                                       <!--  <progressbar *ngIf="data.error >= 1" [max]="max" [value]="data.pacentage" type="warning">
+                                        </progressbar> -->
+
+                                        <p style="font-size: 11px;text-align: left;" class="pb-0 mb-0 pt-2" >Process({{data.processing}}) Sucess({{data.success_cnt}}) Error({{data.error}})</p>
+                                       </td>
+                                       <td> <span class="badge badge-secondary">{{data.bach_status | titlecase}}</span></td>
+                                       <td class="text-center blue">
+                                         
+                                          <a *ngIf="data.bach_status == 'pending'" href="javascript:" (click)="process_shipment(data.batch_number)" tooltip="Processing Orders"><i class="far fa-circle mr-1"></i></a>
+                                          <a href="javascript:" (click)="get_process_data()" tooltip="Refresh"><i class="fas fa-sync mr-1"></i></a> 
+                                          <a href="javascript:" (click)=" download_manifest(download,data.batch_number)" tooltip="Manifest/labels"><i class="fas fa-tags mr-1"></i></a> 
+                                          <a href="javascript:" (click)="send_to_client(data.batch_number)" tooltip="Send to Client"><i class="far fa-share-square"></i></a>
+                                       </td>
+                                    </tr>
+                                     <tr *ngIf="ProcessList == null || ProcessList.length == 0">
+                                    <td colspan="6">
+                                       <div class="col-lg-12 mt-5 mb-5 text-center">
+                                          <img src="assets/img/alert.png">
+                                          <p class="mb-0"><small>Upload Data</small></p>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" id="success" role="tabpanel" aria-labelledby="profile-tab2">
+                        <!-- Success tab here -->
+                        <div class="col-lg-12 m-t-10 bluk">
+                           <div class="table-responsive">
+                              <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                                 <thead>
+                                    <tr >
+                                       <th width="5%">Sr. No</th>
+                                       <th width="15%">Date</th>
+                                       <th width="20%" >Batch Name </th>
+                                       <th width="30%">Shipment </th>
+                                       <th width="20%">Status</th>
+                                       <th>Action </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr *ngFor="let data of SuccessList; let i = index;">
+                                       <td>{{i+1}}</td>
+                                       <td><i class="fa fa-calendar"></i>  {{data.date}}</td>
+                                       <td>{{data.batch_number}}</td>
+                                       <td>
+                                        <p style="font-size: 11px; text-align: left;" class="pb-1 mb-1 pt-1" >Total: {{data.no_of_shipment}}</p>
+                                        <progressbar *ngIf="data.processing >= 1" [max]="max" [value]="data.pacentage" type="primary">
+                                        </progressbar>
+                                        <progressbar *ngIf="data.success_cnt >= 1" [max]="max" [value]="data.pacentage" type="success">
+                                        </progressbar>
+                                        <progressbar *ngIf="data.error >= 1" [max]="max" [value]="data.pacentage" type="danger">
+                                        </progressbar>
+                                        <p style="font-size: 11px;text-align: left;" class="pb-0 mb-0 pt-2" >Process({{data.processing}}) Sucess({{data.success_cnt}}) Error({{data.error}})</p>
+                                       </td>
+                                       <td><span class="badge badge-secondary">{{data.bach_status}}</span></td>
+                                       <td class="text-center blue"> 
+                                          <a href="javascript:" (click)=" download_manifest(download,data.batch_number)" tooltip="Manifest/labels"><i class="fas fa-tags mr-1"></i></a> 
+                                          <a href="javascript:" (click)="send_to_client(data.batch_number)" tooltip="Send to Client"><i class="far fa-share-square"></i></a>
+                                       </td>
+                                    </tr>
+                                     <tr *ngIf="SuccessList == null || SuccessList.length == 0">
+                                    <td colspan="6">
+                                       <div class="col-lg-12 mt-5 mb-5 text-center">
+                                          <img src="assets/img/alert.png">
+                                          <p class="mb-0"><small>No data Found</small></p>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+
+
+<!-- upload modal -->
+<ng-template #upload>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Add Bulk Consignment</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeUploadModal()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #f="ngForm" (ngSubmit)="submit(f)" autocomplete="off" enctype="multipart/form-data">
+   <div class="modal-body">
+    <a class="btn btn-primary btn-sm mb-2" href="javascript:" (click)="download_sheet()"> Download Sample File</a>
+    <div class="form-group">
+      <label>Pickup Pincode <b class="text-danger">*</b></label>
+      <ng-select [items]="pickupList"
+        bindLabel="pickup_name"
+        bindValue="pickup_id"
+        name="pickupPin"
+        #PickupPin="ngModel"
+        tooltip="Pickup Pincode"
+        [(ngModel)]="pickupPin"
+        placeholder="Select Pickup Pincode">
+         <ng-template ng-option-tmp let-item="item">
+            <div style="font-size: 13px;"><span>{{item.pickup_name}}-{{item.pickup_address1}} ({{item.pickup_pincode}})</span></div>
+         </ng-template>
+      </ng-select>
+      <small *ngIf="(pickupPin == null || pickupPin == '') && f.submitted" class="text-danger">Select Pickup Pincode</small>
+    </div>
+    <div class="form-group">
+      <label>Upload File  <b class="text-danger">*</b></label>
+     <input type="file" class="form-control" [(ngModel)]="Files" name="Files" #files="ngModel" id="excel_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <small *ngIf="(Files == null || Files == '') && f.submitted" class="text-danger">Attach Files</small>
+    </div>
+   </div>
+   <div class="modal-footer">
+     <button type="submit" class="btn btn-primary btn-sm"> Upload</button>
+      <button type="button" (click)="closeUploadModal()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+</ng-template>
+
+
+
+
+<ng-template #download>
+   
+   <div class="modal-body">
+       <style type="text/css">
+  .browncolor{background: #b4c6e7 !important; color: white !important;}
+  .greencolor{background: green !important; color: white !important;}
+  .organgecolor{background: orange !important; color: white !important;}
+  .redcolor{background: red !important; color: white !important;}
+  strong{font-weight: 600 !important;}
+  div{font-size: 15px !important;}
+</style>
+<div class="" style="margin: 0;padding: 0;">
+  <section class="section"  >
+    <div class="row " >
+      <div class="col-lg-12" style="text-align: center;"><img src="https://shipyaari.com/announcement/shipyaari_logo.png" style="height: 5pc;">
+      </div>
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body" style="min-height: 200px;">
+            <div class="row">
+              <h5 style="text-align: center;" class="col-lg-12 text-dark">Download Shipping Label & Manifest</h5>
+           
+            </div>
+             
+
+              <table class="table table-striped no-footer" role="grid" aria-describedby="table-1_info" style="font-size: 13px;">
+                <thead>
+                  <th class="text-center">Couirer Name</th>
+                  <th class="text-center">Client Name</th>
+                  <th class="text-center">No .of Shiment</th>
+                  <th class="text-center">Manifest</th>
+                  <th class="text-center">Label</th>
+                  <th class="text-center">Order Data</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of Listdata">
+                    <td class="text-center">{{data.partner_name}}</td>
+                    <td class="text-center">{{data.client_name}}</td>
+                    <td class="text-center">{{data.shipments}}</td>
+                    <td class="text-center"><a href="javascript:" (click)="down_meni(data.manifest_bulk)" class="btn btn-outline-success btn-sm">Download</a></td>
+                    <td class="text-center"><a href="javascript:" (click)="down_label(data.label_bulk)" class="btn btn-outline-primary btn-sm">Download</a></td>
+                    <td class="text-center"><a href="javascript:" (click)="down_csv(data.csv_sheet)" class="btn btn-outline-danger btn-sm">Download</a></td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+</div>
+</div>
+
+<div class="row">
+  <div class="col">
+     <div class="text-center">2020 Copyright &copy;<div class="bullet"></div>  <a href="javascript:">Shipyaari</a> All Rights Reserved</div>
+  </div>
+</div>
+
+   <div class="modal-footer">
+    
+      <button type="button" (click)="close_download()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+  
+</ng-template>

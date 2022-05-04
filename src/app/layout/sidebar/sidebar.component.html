@@ -1,0 +1,74 @@
+
+<div class="main-sidebar sidebar-style-2" >
+    <aside id="sidebar-wrapper">
+       <ul class="sidebar-menu icon-feather-container">       
+          <li  class="dropdown" [class.sidemenu]="(url == 'ndr' || url == 'tracking' || url == 'rto' || url == 'dashboard')">
+             <a href="javascript:"  class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'ndr' || url == 'tracking' || url == 'rto' || url =='dashboard')" [routerLink]="['/dashboard']"><i data-feather="monitor"></i><span>Overview</span></a>
+            <!--  <ul class="dropdown-menu">
+                <li><a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a></li>
+                <li><a class="nav-link" [routerLink]="['/ndr']">NDR</a></li>
+                <li><a class="nav-link" [routerLink]="['/tracking']">Tracking</a></li>
+                <li><a class="nav-link" [routerLink]="['/rto']"> RTO</a></li>
+             </ul> -->
+          </li>           
+          <li class="dropdown" [class.sidemenu]="(url == 'template' || url == 'addressbook' || url == 'modules' )">
+             <a href="javascript:" class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'template' || url == 'addressbook' || url == 'modules' )" [routerLink]="['/template']"><i data-feather="zap"></i><span>Smart Shipyaari</span></a>
+             <!-- <ul class="dropdown-menu">
+                <li><a class="nav-link" [routerLink]="['/template']">Template</a></li>
+                <li><a class="nav-link" [routerLink]="['/addressbook']">Address Book</a></li>
+                <li><a class="nav-link" [routerLink]="['/modules']">Modules</a></li>
+                <li><a class="nav-link" href="https://documenter.getpostman.com/view/12163140/TVK5dMUb" target="_blank">API Documentation</a></li>
+             </ul> -->
+          </li>
+          
+          <li class="dropdown" [class.sidemenu]="(url == 'addorder' || url == 'b2border' || url == 'bulkorder' || url == 'allorder' || url == 'channel')">
+             <a href="javascript:" class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'addorder' || url == 'b2border' || url == 'bulkorder' || url == 'allorder' || url == 'channel')" [routerLink]="['/allorder']" ><i data-feather="package"></i><span>Orders</span></a>
+             <!-- <ul class="dropdown-menu">
+                <li><a class="nav-link" [routerLink]="['/addorder']">Add Order</a></li>
+                <li><a class="nav-link" [routerLink]="['/b2border']">B2B Shipment</a></li>
+                <li><a class="nav-link" [routerLink]="['/bulkorder']">Add Bulk</a></li>
+                <li><a class="nav-link" [routerLink]="['/allorder']">All Orders</a></li>
+                <li><a class="nav-link" [routerLink]="['/channel']">Channel Orders</a></li>
+             </ul> -->
+          </li>
+
+           <li class="dropdown" [class.sidemenu]="(url == 'trackingorders' || url == 'approverto' || url == 'approvepickup')">
+             <a href="javascript:" class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'trackingorders' || url == 'approverto' || url == 'approvepickup')"  [routerLink]="['/trackingorders']"><i data-feather="navigation"></i><span>Tracking</span></a>
+             <!-- <ul class="dropdown-menu">
+                <li><a class="nav-link" [routerLink]="['/trackingorders']">Tracking</a></li>
+                <li><a class="nav-link" [routerLink]="['/approverto']">Approve RTO</a></li>
+                <li><a class="nav-link" [routerLink]="['/approvepickup']">Approve Pickup</a></li>
+             </ul> -->
+          </li>
+            <li class="dropdown" [class.sidemenu]="(url == 'cod' || url == 'allinvoices' || url == 'reports')">
+             <a href="javascript:" class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'cod' || url == 'allinvoices' || url == 'reports')" [routerLink]="['/allinvoices']"><i class="material-icons blue">receipt</i><span>Billing</span></a>
+             <!-- <ul class="dropdown-menu">
+                <li><a class="nav-link" [routerLink]="['/cod']">COD</a></li>
+                <li><a class="nav-link" [routerLink]="['/allinvoices']">All Invoices</a></li>
+                <li><a class="nav-link" [routerLink]="['/reports']">Reports</a></li>
+             </ul> -->
+          </li>
+           <li  class="dropdown" [class.sidemenu]="(url == 'plans')">
+             <a href="javascript:" class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'plans')" [routerLink]="['/plans/']"><i data-feather="check-circle"></i><span>Plans</span></a>            
+          </li>         
+            <li class="dropdown" [class.sidemenu]="(url == 'labelsetting' || url == 'changepassword')">
+             <a href="javascript:" class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'labelsetting' || url == 'changepassword')" [routerLink]="['/labelsetting']"><i class="material-icons blue">settings</i><span>Settings</span></a>
+            <!--  <ul class="dropdown-menu">
+                <li><a class="nav-link" [routerLink]="['/labelsetting']">Label Setting</a></li>
+                <li><a class="nav-link" [routerLink]="['/changepassword']">Change Password</a></li>
+                <li><a class="nav-link" href="https://dev.shipyaari.com/angularapi/pincode_download" target="blank">Download Pincode</a></li>             
+             </ul> -->
+            </li>
+            <li  class="dropdown" [class.sidemenu]="(url == 'feedback')">
+             <a href="javascript:" class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'feedback')" [routerLink]="['/feedback/']"><i data-feather="clipboard"></i><span>Feedback</span></a>            
+          </li>
+           <li class="dropdown" [class.sidemenu]="(url == 'supportcenter' || url == 'agree')">
+             <a href="javascript:" class="menu-toggle nav-link has-dropdown" [class.Activside]="(url == 'supportcenter' || url == 'agree')" [routerLink]="['/agree']"><i class="material-icons blue">help_outline</i><span>Help</span></a>
+             <!-- <ul class="dropdown-menu">
+              <li><a class="nav-link" [routerLink]="['/supportcenter']">Support Ticket</a></li> 
+                 <li><a class="nav-link" [routerLink]="['/agree']">Agreement</a></li> 
+             </ul> -->
+          </li>        
+       </ul>
+    </aside>
+ </div>

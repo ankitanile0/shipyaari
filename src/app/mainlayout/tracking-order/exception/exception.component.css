@@ -1,0 +1,23 @@
+
+.count-top{
+	background-color: rgb(236 247 255);
+    border-radius: 4px;
+    width: 70%;
+    text-align: center;
+}
+@media only screen and (max-width: 1481px){
+	.count-top{
+		width: 100%;
+		margin-bottom: 5px;
+	}
+	}
+.md-title{
+border-bottom: 1px solid #f1f1f1;
+}
+.audio{
+	height: 25px;
+	width: 100%;
+}
+.font-15{
+	font-size: 15px;
+}

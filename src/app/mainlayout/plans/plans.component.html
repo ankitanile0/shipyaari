@@ -1,0 +1,247 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <h4>Plans</h4>
+            <!-- <ol class="breadcrumb p-0 m-b-0"> 
+               <li class="breadcrumb-item">Home</li>
+               <li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Plans</a></li>
+            </ol> -->
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Plan Details</h4>
+                  <div class="card-header-form mt-1">
+                     <div class="form-check form-check-inline">
+                        <button  class="btn btn-primary btn-lg mb-1  mr-1" tooltip="View plan Details" (click)="open_detail(details)" style="font-size: 13px; border-radius: 3px;">My Active Plans  <i class="fa fa-info"></i></button>
+                        <button *ngIf="filter_flag == 1"  class="btn btn-warning btn-sm mb-1" tooltip="View plan Details" (click)="reset_filter()" style="font-size: 13px; border-radius: 3px;">Reset Filter</button>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="row">
+                     
+                  </div>
+                  
+                  <div class="row">
+                     <div class="col-12 col-sm-12 col-md-3">
+                        <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
+                           <li class="nav-item mb-2" *ngFor="let data of active_pan_list">
+                              <a id="home-tab4" data-toggle="tab" href="#home4" role="tab" aria-controls="home" aria-selected="true"  [class]="data.id == active_plan ? 'nav-link active' : 'nav-link deactiv'" (click)="list_data(data.id, data.parent_id)" >{{data.group_title}}  <span *ngIf="data.id == active_plan" class="badge badge-success badge-sm"><small>Active</small></span></a>
+                           </li>
+                          
+                        </ul>
+                        <div *ngIf="desable_plan != ''">
+                        	 
+                           <div class="row">
+                              <div class="col">
+                                 <ul class="list-group p-2">
+                                    <li class="list-group-item">
+                                       <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" (click)="plan_type(1)">
+                                          <label class="form-check-label" for="exampleRadios1">
+                                          Monthly
+                                          </label>
+                                       </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                       <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                          <label class="form-check-label" for="exampleRadios2" (click)="plan_type(3)">
+                                          Semi-Annualy
+                                          </label>
+                                       </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                       <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" >
+                                          <label class="form-check-label" for="exampleRadios3" (click)="plan_type(4)">
+                                          Annual
+                                          </label>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                          </div>
+                       
+								<div class="row mt-2">
+									
+	                              <div class="col">
+                                <ul class="list-group p-2">
+                                    <li class="list-group-item">
+                                       <p class="text-dark mb-0">Subscription In Rs.  {{default_plan_rates.subscription_amount}} /-</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                      <p class="text-dark mb-0">Deposit In Rs.  {{default_plan_rates.subscription_deposit_amount}} /-</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                      <p class="text-dark mb-0">Wallet In Rs. {{default_plan_rates.wallet_amount}} /-</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col m-2">
+                                 <div class="form-group">
+                                 <label class="ml-1">Apply Coupon</label>
+                                 <input type="text" class="form-control" [(ngModel)]="coupone">
+                              </div>
+                              <div class="form-group">
+                                 <button *ngIf="desable_plan != ''" class="btn btn-primary btn-sm" (click)="activate_plan()">Activate</button>
+                                 <button class="btn btn-primary btn-sm ml-1" (click)="downloadPdf()">Download PDF</button>
+                              </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                           	<div class="col">
+                           		<p class="text-danger p-2">Note: By clicking on active button will consider as you were accepted our below Terms and conditions.</p>
+                           	</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-12 col-sm-12 col-md-9">
+                        <div class="tab-content no-padding" id="myTab2Content">
+                           <div class="tab-pane fade show active" id="home4" role="tabpanel" aria-labelledby="home-tab4">
+                              <div class="table-responsive " >
+                                 <table class="table  " id="save-stage" style="width:100%; ">
+                                    <thead class="text-center">
+                                       <tr>
+                                          <th style="width: 15%">Courier Company
+                                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style="width:350px; margin-top:47px;margin-right: -253px;">
+                                        <div class="font-13 mb-2">Select Courier partner</div>
+                                      
+                                            <div class="row">
+                                                <div class="col">
+                                                      <li *ngFor="let item of partnerList">
+                                                      <div *ngIf="item.user_id%2 == 0">
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changeSelection()" class="filter-check"><span class="ml-1 filter-span">{{item.company_name}}</span></div>
+                                                    </li>
+                                                </div>
+                                                <div class="col">
+                                                     <li *ngFor="let item of partnerList">
+                                                      <div *ngIf="item.user_id%2 != 0">
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changeSelection()" class="filter-check"><span class="ml-1 filter-span">{{item.company_name}}</span></div>
+                                                    </li>
+                                                </div>
+                                            </div>                    
+                                          
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button type="reset" class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                          </th>
+                                          <th>Service Name</th>
+                                          <th>Zone1 <small><br>(In Rs.)</small></th>
+                                          <th>Zone2 <small><br>(In Rs.)</small></th>
+                                          <th>Zone3 <small><br>(In Rs.)</small></th>
+                                          <th>Zone4 <small><br>(In Rs.)</small></th>
+                                          <th>Zone5 <small><br>(In Rs.)</small></th>
+                                          <th>COD <small><br>(In Rs.)</small></th>
+                                          <th>COD <small><br>(In %)</small></th>
+                                       </tr>
+                                    </thead>
+                                    <tbody style="font-size: 12px!important;" class="black">
+                                       <tr *ngFor ="let data of plan_list; let i = index">
+                                          <td>{{data.courier_name}}</td>
+                                          <td>{{data.service_name}}<br><span class="text-primary"><small>{{data.service_weight}}</small></span></td>
+                                          <td>{{data.zone1}}</td>
+                                          <td>{{data.zone2}}</td>
+                                          <td>{{data.zone3}}</td>
+                                          <td>{{data.zone4}}</td>
+                                          <td>{{data.zone5}}</td>
+                                          <td>{{data.cod_price}}</td>
+                                          <td>{{data.cod_percentage}}%</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                        	<!-- <p class="text-danger p-2">Note: By clicking on active button will consider as you were accepted our below Terms and conditions.</p> -->
+                        	<div class="col-4">
+                        		<!-- <div class="form-group">
+                        			<label>Apply Coupone</label>
+                        			<input type="text" class="form-control" [(ngModel)]="coupone">
+                        		</div>
+                        		<div class="form-group">
+                        			<button *ngIf="desable_plan != ''" class="btn btn-primary btn-sm" (click)="activate_plan()">Activate</button>
+                        			<button class="btn btn-primary btn-sm ml-1" (click)="downloadPdf()">Download PDF</button>
+                        		</div> -->
+                        	</div>
+                        </div>
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                  	<div class="col">
+                  		 <div class="card-body pt-0">
+		                  <!--   <p class="text-dark" style="font-size: 25px">Terms and Conditions</p> -->
+		                  <div class="text-dark" [innerHTML]="terms"></div>
+		                   <!--  <ul class="text-dark" style="font-size: 14px;">
+		                      <li>Above mentioned rate are all exclusive of 18% GST.</li>
+		                      <li>Chargeable weight would be volumetric or actual weight, whichever is higher (Air - LxBxH (cms)/ 5000 | Surface - LxBxH(cms)/ 4000).</li>
+		                      <li>The maximum ​liability for Forward shipping is Rs 5000 or Invoice value whichever is lower.</li>
+		                      <li>The maximum ​liability for Reverse shipping is Rs 2000 or 50% of the Invoice value whichever is lower.</li>
+		                      <li>No Claim would be entertained for Glassware, Fragile products, Concealed damages and improper packaging.</li>
+		                      <li>Manual ​label ​penalty is Rs 500 per shipment.</li>
+		                      <li>Billing ​disputes​ need to ​​be escalated within 5 days from​ the​ invoice date.</li>
+		                      <li>Any weight dispute needs to be raised within 5 days from the date of invoice or weight uploaded in the system with substantial proof of nature and final packing of the product.</li>
+		                      <li>Damage case shall be reported within 24-36 hours from the time of delivery, mentioning of damage on the pod is mandatory in case of return. If Package not damaged physically then product damage claims will not be passed.</li>
+		                      <li>Rate escalation takes place every year in the month of Janurary, depending upon situation, rates may get increased within a range of 7% to 20%.</li>
+		                      <li>Special rates approved on the basis of projection and commitments, if not fulfilled shall be rolled back to default plan or plan which suits better after mutual consideration.</li>
+		                    </ul> -->
+		                  </div>
+                  	</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6"></div>
+      </div>
+   </section>
+</div>
+<ng-template #details>
+   <div class="modal-header head-modal">
+      <ng-container *ngFor="let data of active_pan_list">
+         <h5 *ngIf="data.id == active_plan" class="modal-title" id="exampleModalLabel">{{data.group_title}}</h5>
+      </ng-container>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_details()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="table-responsive">
+         <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+            <tbody>
+               <ng-container *ngFor="let data of active_pan_list">
+                  <ng-container *ngIf="data.id == active_plan">
+                     <tr>
+                        <td>Plan</td>
+                        <td>{{data.group_title}}</td>
+                     </tr>
+                     <tr>
+                        <td>Purchase date</td>
+                        <td>{{data.modified}}</td>
+                     </tr>
+                  </ng-container>
+               </ng-container>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_details()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>

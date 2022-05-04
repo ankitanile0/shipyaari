@@ -1,0 +1,662 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Dashboard</h4> -->
+            <ol class="p-0 m-b-0">
+               <!-- <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Dashboard</a></li> -->
+               <!-- <li class="breadcrumb-item active" aria-current="page">Dashboard</li> -->
+              <!--  <div class="btn-group mb-3" role="group" aria-label="Basic example"> -->
+                 <!--  <button type="button" class="btn btn-secondary rad_0 dash_tab dash-active" (click)="go_to_home()">Dashboard</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_ndr()">NDR</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_tracking()">Tracking</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_rto()">RTO</button> -->
+             <!--   </div> -->
+            </ol>
+
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_home()" class="active">Dashboard</a>
+               <a href="javascript:" (click)="go_to_ndr()">NDR</a>
+               <a href="javascript:" (click)="go_to_tracking()">Tracking</a>
+               <a href="javascript:" (click)="go_to_rto()">RTO</a>
+            </div>
+
+         </div>
+         <!-- <div class="align-right">
+            <input type="text"
+            placeholder="Datepicker"
+            class="form-control"
+            bsDatepicker>
+            </div> -->
+         <div class=" align-right">
+            <form [formGroup]="form">
+               <div class="">
+                  <input type="text"
+                  class="form-control-sm date-box date-input" 
+                  formControlName="Drange" 
+                  (onHidden)="showdash()"
+                  placeholder="Select Date Range"  
+                  #daterangepicker="bsDaterangepicker"
+                  bsDaterangepicker 
+                  [bsConfig]="{ dateInputFormat: 'MMMM D YYYY', showWeekNumbers: false, containerClass:'theme-dark-blue', ranges: ranges  }">
+               </div>
+            </form>
+         </div>
+      </div>
+
+      <div class=" top-container">
+         <div style="padding: 1px;">
+         <h4 class="top-container-txt">Today's Update</h4>
+         </div>
+      <div class="row">
+         <div class="col-2 card_box">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50 single-icon">
+                          <a href="javascript:void(0)" (click)="downloadTodaysOrderData('Not Picked')"><i  style="font-size: 24px !important;"
+                           class="fa fa-truck"></i></a>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{Not_picked}}</h3>
+                        <div style="width: 61px;" class="text-muted">Not Picked
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-2 card_box">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                       <a href="javascript:void(0)" (click)="downloadTodaysOrderData('In Transit')"> <i  style="font-size: 24px !important;"
+                           class="fas fa-exchange-alt"></i></a>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{In_Transit}}</h3>
+                        <div class="text-muted breck">In Transit
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-2 card_box">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                       <a href="javascript:void(0)" (click)="downloadTodaysOrderData('OFD')"> <i  style="font-size: 24px !important;"
+                           class="fas fa-running"></i></a>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{Ofd}}</h3>
+                        <div class="text-muted">OFD
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+          <div class="col-2 card_box">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                       <a href="javascript:void(0)" (click)="downloadTodaysOrderData('Exception')"> <i  style="font-size: 24px !important;"
+
+                           class="fa fa-hand-paper-o"></i></a>
+                           <!-- <i class="fa fa-hand-paper-o" aria-hidden="true"></i> -->
+
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{Exception}}</h3>
+                        <div class="text-muted">Exception
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-2 card_box">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                      <a href="javascript:void(0)" (click)="downloadTodaysOrderData('Delivered')">  <i  style="font-size: 24px !important;"
+                           class="fa fa-shopping-cart"></i></a>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{Deliverd}}</h3>
+                        <div class="text-muted">Delivered
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-2 card_box ">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                       <a href="javascript:void(0)" (click)="downloadTodaysOrderData('RTO')"> <i  style="font-size: 24px !important;"
+                           class="fa fa-cog"></i></a>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{Rto}}</h3>
+                        <div class="text-muted">RTO
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+      <div class="row">
+         <div class="col-lg-3 plr-10">
+            <div class=" top-container">
+         <div style="padding: 1px;">
+         <h4 class="top-container-txt">{{DATERANGE}}</h4>
+         </div>
+      <!--       Date: -->
+            <div class="col-sm-12 p-0" > 
+               <!-- style="    margin-top: 34px;" -->
+               <div class="card card-left">
+
+                  <div class="card-body pt-2">
+
+                     <!-- <div class="float-right d-inline-block px-2 py-1 rounded-lg font-size-sm font-w600 text-danger bg-danger-light">
+                        <i class="fa fa-caret-down mr-1"></i>
+                        2.2%
+                        </div> -->
+                     <h3 class="mb-1 counter font-26 color_black">{{Orders}}</h3>
+                     <div class="text-muted"> Order
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-12 p-0">
+               <div class="card card-left">
+                  <div class="card-body pt-2">
+                     <div class="float-right font-size-sm font-w600">
+                        
+                        
+                        </div>
+                     <h3 class="mb-1 counter font-26 color_black"><i class="fa fa-inr mr-1" aria-hidden="true"></i>{{Revenue}}</h3>
+                     <div class="text-muted"> Revenue
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-12 p-0">
+               <div class="card card-left">
+
+                  <div class="card-body pt-2">
+
+                     <!-- <div class="float-right d-inline-block px-2 py-1 rounded-lg font-size-sm font-w600 text-danger bg-danger-light">
+                        <i class="fa fa-caret-down mr-1"></i>
+                        2.2%
+                        </div> -->
+                     <h3 class="mb-1 counter font-26 color_black"><i class="fa fa-inr mr-1" aria-hidden="true"></i>{{Applicable_Charges}}</h3>
+                     <div class="text-muted"> Shipping Charges
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+         <div class="col-lg-9 plr-10"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()"
+      (scrolledUp)="onScrollUp()"
+         >
+            <div class="card card_orderre border-bottom graph-r ">
+               <div class="card-header  dash-bottom" >
+                  <h4>Order Revenue And Shipment Graph</h4>
+               </div>
+               <div *ngIf="chart_flag == 1" class="card-body pt-0 order-Revenue-graph">
+                  <!-- order and revenue graph -->
+              <br><p class="mb-1">Showing Data Between: {{DATERANGE}}</p>
+                  <app-graph1 
+                  [Order_Revenue_Cnt]="Order_Revenue_Cnt" 
+                  [Order_Revenue_Revenue]="Order_Revenue_Revenue" 
+                  [Order_Revenue_Init_Date]="Order_Revenue_Init_Date">
+                  </app-graph1>
+               </div>
+            </div>
+         </div>
+      </div>
+      <ng-container>
+      <div class="row">
+         <div class="col-lg-8 plr-10">
+            <div class="card box_div graph-r">
+               <div class="card-header ">
+                  <h4>Delivery And RTO Ratio Graph</h4>
+               </div>
+               <div class="text-center" *ngIf="chart_flag2 != 1">
+                  <img src="assets/img/2001.gif">
+               </div>
+               <div *ngIf="chart_flag2 == 1"  class="card-body">
+                  <br><p class="mb-1">Showing Data Between: {{DATERANGE}}</p>
+                  <app-graph2
+                  [Ratio_Graph_Initdate_Ratio] = "Ratio_Graph_Initdate_Ratio"
+                  [Ratio_Graph_Dl_Ratio] = "Ratio_Graph_Dl_Ratio"
+                  [Ratio_Graph_Rto_Ratio] = "Ratio_Graph_Rto_Ratio"  
+                  ></app-graph2>
+                  <!-- <div id="chart" class="chartsh"></div> -->
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4 plr-10">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Ratio</h4>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive" style="height: 366px;">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th class="ratio-padding ratio">Ratio </th>
+                              <th class="ratio-padding">Range</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let data of Table_ratio; let i = index ">
+                              <td class="ratio-padding">{{data.ratio}}</td>
+                              <td class="ratio-padding">{{data.range_val}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll1()"
+      (scrolledUp)="onScrollUp()"
+      >
+         <div class="col-md-6 plr-10">
+            <div class="card">
+               <div class="card-header">
+                  <h4>COD</h4>
+               </div>
+               <p class="mb-1" style="margin-left:20px; color: black">Showing Data Between: {{DATERANGE}}</p>
+               <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class="mb-0 size12">COD Shipped</p>
+                        <h5 class="cod_padd font-13">{{Cod_Shipped == null? '0': Cod_Shipped}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12">COD Delivered</p>
+                        <h5 class="cod_padd font-13">{{Cod_Deliverd == null? '0': Cod_Deliverd}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12">COD Remitted</p>
+                        <h5 class="cod_padd font-13">{{Cod_Remitted == null? '0': Cod_Remitted}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12">Upcoming COD</p>
+                        <h5 class="cod_padd font-13">{{Upcoming_Cod == ' | '? '0': Upcoming_Cod}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12">COD Not Due</p>
+                        <h5 class="cod_padd font-13">{{Cod_Not_Due == null? '0': Cod_Not_Due}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12">COD RTO</p>
+                        <h5 class="cod_padd font-13">{{Cod_Rto == null? '0': Cod_Rto}}</h5>
+                     </div>
+                  </div>
+                  
+               </div>
+            </div>
+         </div>
+
+         <div class="col-md-6 plr-10">
+            <div class="card">
+               <div class="card-header">
+                  <h4>NDR</h4>
+               </div>
+               <p class="mb-1" style="margin-left:20px; color: black">Showing Data Between: {{DATERANGE}}</p>
+               <div class="row">
+                  
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12"> Total NDR</p>
+                        <h5 class="cod_padd font-13">{{Total_Ndr == null? '0': Total_Ndr}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12"> Shipyaari Actioned</p>
+                        <h5 class="cod_padd font-13">{{Total_Syp_Action == null? '0': Total_Syp_Action}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12"> Seller Actioned</p>
+                        <h5 class="cod_padd font-13">{{Total_Seller_Action == null? '0': Total_Seller_Action}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12"> NDR Pending</p>
+                        <h5 class="cod_padd font-13">{{Total_Ndr_Pending == null? '0': Total_Ndr_Pending}}</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12"> NDR To Delivery Ratio</p>
+                        <h5 class="cod_padd font-13">{{Total_Dl_Ratio == null? '0': Total_Dl_Ratio}}%</h5>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4  dash1">
+                     <div class="total">
+                        <p class=" mb-0 size12"> Action To Success Ratio</p>
+                        <h5 class="cod_padd font-13">{{Total_Succ_Ratio == null? '0': Total_Succ_Ratio}}%</h5>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </ng-container>
+      <div class="row">
+         <div class="col-lg-6 plr-10">
+            <div class="card graph-r pie-chart">
+               <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
+                  <li class="nav-item">
+                     <a class="nav-link active ml-1" id="home-tab2" data-toggle="tab" href="#home2" role="tab" aria-controls="home" aria-selected="false">Tracking Pie Chart</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile" aria-selected="false">Exception Pie Chart</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact" aria-selected="true">RTO Pie Chart</a>
+                  </li>
+               </ul>
+               <div class="tab-content tab-bordered" id="myTab3Content">
+                     <div class="text-center" *ngIf="chart_flag2 != 1">
+                  <img src="assets/img/2001.gif">
+               </div>
+                  <div *ngIf="chart_flag2 == 1" class="tab-pane fade active show p-0 pb-1" id="home2" role="tabpanel" aria-labelledby="home-tab2" style="border: none">
+                      <small style="margin-left: 10px; color: black">Showing Data Between: {{DATERANGE}}</small>
+                     <!-- <div id="chart_pia" style="width: 100%; height: 330px;"></div> -->
+                     <app-pichart1
+                     [Tracking_Pie_Chart]="Tracking_Pie_Chart"
+                     [Service_Wise_Label]="Service_Wise_Label"
+                     [Service_Wise_Count]="Service_Wise_Count"
+                     ></app-pichart1>
+                     <!-- <div class="d-flex" style="display: flex; justify-content: space-around;">
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 6%
+                              </dt>
+                              <dd class="text-muted mb-0">Tracking: Statuswise</dd>
+                           </dl>
+                        </div>
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 2%
+                              </dt>
+                              <dd class="text-muted mb-0">Exception: Reasonwise</dd>
+                           </dl>
+                        </div>
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 7%
+                              </dt>
+                              <dd class="text-muted mb-0">RTO: Statuswise</dd>
+                           </dl>
+                        </div>
+                        </div> -->
+                  </div>
+                  <div *ngIf="chart_flag2 == 1" class="tab-pane fade p-0 pb-1" id="profile2" role="tabpanel" aria-labelledby="profile-tab2" style="border: none">
+                     <small style="margin-left: 10px; color: black">Showing Data Between: {{DATERANGE}}</small>
+                     <!-- <div id="chart_pia2" style="width: 100%; height: 330px;"></div> -->
+                     <app-pichart2
+                     [Exception_Wise_Series] = "Exception_Wise_Series"
+                     [Exception_Wise_Label] = "Exception_Wise_Label"
+                     ></app-pichart2>
+                     <!-- <div class="d-flex" style="display: flex; justify-content: space-around;">
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 3%
+                              </dt>
+                              <dd class="text-muted mb-0">Tracking: Statuswise</dd>
+                           </dl>
+                        </div>
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 2%
+                              </dt>
+                              <dd class="text-muted mb-0">Exception: Reasonwise</dd>
+                           </dl>
+                        </div>
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 2.5%
+                              </dt>
+                              <dd class="text-muted mb-0">RTO: Statuswise</dd>
+                           </dl>
+                        </div>
+                        </div> -->
+                  </div>
+                  <div *ngIf="chart_flag2 == 1" class="tab-pane fade p-0 pb-1" id="contact2" role="tabpanel" aria-labelledby="contact-tab2" style="border: none">
+                      <small style="margin-left: 10px; color: black">Showing Data Between: {{DATERANGE}}</small>
+                     <!-- <div id="chart_pia3" style="width: 100%; height: 330px;"></div> -->
+                     <app-pichart3
+                     [Rto_Wise_series] = "Rto_Wise_series"
+                     [Rto_Wise_Label] = "Rto_Wise_Label"
+                     ></app-pichart3>
+                     <!-- <div class="d-flex" style="display: flex; justify-content: space-around;">
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 2%
+                              </dt>
+                              <dd class="text-muted mb-0">Tracking: Statuswise</dd>
+                           </dl>
+                        </div>
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 5%
+                              </dt>
+                              <dd class="text-muted mb-0">Exception: Reasonwise</dd>
+                           </dl>
+                        </div>
+                        <div class="">
+                           <dl class="mb-0">
+                              <dt class="font-size-h3 font-w700">
+                                 <i class="fa fa-arrow-up font-size-lg text-success"></i> 2.5%
+                              </dt>
+                              <dd class="text-muted mb-0">RTO: Statuswise</dd>
+                           </dl>
+                        </div>
+                        </div> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6 resp-plr-0" style="    padding-left: 14px;
+            padding-right: 16px;">
+            <div class="row">
+               <div class="col-lg-6 col-md-6 col-sm-12 plr-10">
+                  <div class="card">
+                     <div class="card-body text-center color-blue">
+                        <h5><i class="fa fa-truck"></i></h5>
+                        <h3 class="mb-1 red">{{Create_To_Pick == null ? '0':Create_To_Pick}}</h3>
+                        <p class="mb-1">Order Creation To Pickup Hours</p>
+                        <!-- <span class="mb-0 text-muted"><span class="text-danger"><i class="fa fa-caret-down  mr-1"></i> 0.89%</span> Last week</span> -->
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 plr-10">
+                  <div class="card">
+                     <div class="card-body text-center color-org" >
+                        <h5><i class="fa fa-shopping-cart"></i></h5>
+                        <h3 class="mb-1 green">{{Pick_To_Ofd == null ? '0':Pick_To_Ofd}}</h3>
+                        <p class="mb-1">Pickup To Out For Delivery Days</p>
+                        <!-- <span class="mb-0 text-muted"><span class="text-danger"><i class="fa fa-caret-down  mr-1"></i> 0.89%</span> Last week</span> -->
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 plr-10">
+                  <div class="card">
+                     <div class="card-body text-center color-red">
+                        <h5><i class="fa fa-truck"></i></h5>
+                        <h3 class="mb-1 blue">{{Pick_To_Dl == null ? '0':Pick_To_Dl}}</h3>
+                        <p class="mb-1">Pickup To Delivery Days
+                        </p>
+                        <!-- <span class="mb-0 text-muted"><span class="text-danger"><i class="fa fa-caret-down  mr-1"></i> 0.89%</span> Last week</span> -->
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 plr-10">
+                  <div class="card">
+                     <div class="card-body text-center color-green">
+                        <h5><i class="fa fa-cog "></i></h5>
+                        <h3 class="mb-1 red">{{Ex_To_Rto == null ? '0':Ex_To_Rto}}</h3>
+                        <p class="mb-1">Exception To RTO Days
+                        </p>
+                        <!-- <span class="mb-0 text-muted"><span class="text-danger"><i class="fa fa-caret-down  mr-1"></i> 0.89%</span> Last week</span> -->
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 plr-10">
+                  <div class="card">
+                     <div class="card-body text-center color-blue">
+                        <h5><i class="fa fa-shopping-cart"></i></h5>
+                        <h3 class="mb-1 green">{{Pick_To_Rto == null ? '0':Pick_To_Rto}}</h3>
+                        <p class="mb-1">Pickup To RTO Days</p>
+                        <!-- <span class="mb-0 text-muted"><span class="text-danger"><i class="fa fa-caret-down  mr-1"></i> 0.89%</span> Last week</span> -->
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 plr-10">
+                  <div class="card">
+                     <div class="card-body text-center color-org">
+                        <h5><i class="fa fa-truck"></i></h5>
+                        <h3 class="mb-1 blue">{{Ex_To_Dl == null ? '0':Ex_To_Dl}}</h3>
+                        <p class="mb-1">Exception To Delivered Days</p>
+                        <!-- <span class="mb-0 text-muted"><span class="text-danger"><i class="fa fa-caret-down  mr-1"></i> 0.89%</span> Last week</span> -->
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-6 plr-10">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Zone Wise Ratio</h4>
+               </div>
+               <div class="card-body wise-ratio">
+                  <div class="table-responsive ">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Zone </th>
+                              <th>Order Count </th>
+                              <th>Revenue </th>
+                              <th>Delivery Ratio</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let data of Table_zone; let i = index " >
+                              <td>{{data.zone_name}}</td>
+                              <td>{{data.cnt}}</td>
+                              <td>{{data.revenu}}  </td>
+                              <td>{{data.dl_ration}} </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6 plr-10">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Service Wise Ratio</h4>
+               </div>
+               <div class="card-body wise-ratio">
+                  <div class="table-responsive ">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Service  </th>
+                              <th>Order Count  </th>
+                              <th>Revenue    </th>
+                              <th>Delivery Ratio</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_service; let i=index ">
+                              <td>{{data.service_name}}</td>
+                              <td>{{data.cnt}}</td>
+                              <td>{{data.revenu}}  </td>
+                              <td>{{data.dl_ration}} </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+
+
+<ng-template #template>
+  <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">NDR Followup</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_paymodal()" > 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+    
+        
+     
+   </div>
+   <div class="modal-footer">
+      <!-- <button type="button"  class="btn btn-primary btn-sm" (click)="upload_file()" > Upload</button> -->
+      <button type="button" (click)="close_paymodal()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>

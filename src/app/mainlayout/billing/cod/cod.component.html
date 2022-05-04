@@ -1,0 +1,294 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>COD</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> -->
+               <!-- <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+               <li class="breadcrumb-item active" aria-current="page">COD</li> -->
+              <!--  <button type="button" class="btn btn-secondary rad_0 "  (click)="go_to_all_inv()">All Invoices</button>
+               <button type="button" class="btn btn-secondary rad_0 dash_tab" (click)="go_to_cod()">COD</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_reports()">Reports</button> -->
+            <!-- </ol> -->
+             <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_all_inv()" >All Invoices</a>
+               <a href="javascript:" (click)="go_to_cod()" class="active">COD</a>
+               <a href="javascript:" (click)="go_to_reports()">Reports</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex justify-content-between">
+                     <div class="col p-0">
+                        <!-- <p class="mb-0 " style="font-size: 12px;">Next COD {{date}} </p> -->
+                        <h6 class="mb-0 font-12 cod-first">Next COD {{date}}</h6>
+                         <span class="font-weight-bold mb-0 font-15">₹ {{upcoming_cycle}} </span> 
+                        <!-- <span class="font-weight-bold mb-0 font-20"><p style="font-size: 12px;"> </p></span>  -->
+                     </div>
+                     <i class="fas fa-money card-icon col_theme font-16 cod-icon1"></i> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex justify-content-between">
+                     <div class="col p-0">
+                        <h6 class="mb-0 font-12">Shipments Picked Up</h6>
+                        <span class="font-weight-bold mb-0 font-15">{{shipment_pikup_count}} </span> 
+                     </div>
+                     <i class="fas fa-dolly card-icon col_theme font-16" style="color: #077bd4"></i> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex justify-content-between">
+                     <div class="col p-0">
+                        <h6 class="mb-0 font-12">Shipments Delivered</h6>
+                        <span class="font-weight-bold mb-0 font-15">{{shipment_delivered_count}}</span> 
+                     </div>
+                     <i class=" fas fa-luggage-cart card-icon col_theme font-16"></i> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex justify-content-between">
+                     <div class="col p-0">
+                        <h6 class="mb-0 font-12">Paid Amount</h6>
+                        <span class="font-weight-bold mb-0 font-15">{{paid_amount_count}}</span> 
+                     </div>
+                     <i class="fas fa-money-check card-icon col_theme font-16"></i> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex justify-content-between">
+                     <div class="col p-0">
+                        <h6 class="mb-0 font-12">Shipments In Transit</h6>
+                        <span class="font-weight-bold mb-0 font-15">{{shipment_in_trasnit_count}}</span> 
+                     </div>
+                     <i class="fas fa-shipping-fast card-icon col_theme font-16"></i> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex justify-content-between">
+                     <div class="col p-0">
+                        <h6 class="mb-0 font-12">Shipments In RTO</h6>
+                        <span class="font-weight-bold mb-0 font-15"> {{shipment_rto_count}} </span> 
+                     </div>
+                     <i class="fas fa-shipping-fast card-icon col_theme font-16"></i> 
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body p-0">
+               <div class="card-header p-0 mb-0">
+                  <h4 class="ml-2">COD Details</h4>
+                  <div class="card-header-form"  style="margin-bottom: 14px;">
+                     <div class="form-check form-check-inline">
+                       <button class="btn btn-primary mr-1 mt-1" (click)="open_report(download)">COD Report</button>
+                    </div>
+                  </div>
+               </div>
+            </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%; font-size: 13px;">
+                        <thead>
+                           <tr>
+                              <th style="width: 5%;">Sr No</th>
+                              <th style="width: 9%;">Report Date</th>
+                              <th >Report Ref No</th>
+                              <th style="width: 7%;">COD Amount</th>
+                              <th style="width: 7%;">Addon Charges</th>
+                              <th style="width: 7%;">Settlement Amount</th>
+                              <th style="width: 7%;">Outstanding Amount</th>
+                              <th style="width: 7%;">Hold Amount</th>
+                              <th style="width: 8%;">Recovery Amount</th>
+                              <th style="width: 7%;">Cod Recharge</th>
+                              <th style="width: 6%;">Net Paid</th>
+                              <th >Payment Ref No</th>
+                              <th style="width: 4%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let data of codData; let i = index">
+                              <td>{{i+1}}</td>
+                              <td>{{data.date_of_report}}</td>
+                              <td>{{data.Report_Ref_No}}</td>
+                              <td>{{data.COD_Amount}}</td>
+                              <td>{{data.Addon_Charges}}</td>
+                              <td>{{data.Settlement_Amount}}</td>
+                              <td>{{data.Outstanding_Amount}}</td>
+                              <td>{{data.Hold_Amount}}</td>
+                              <td><span *ngIf="data.Recovery_Amount == 0.00" >{{data.Recovery_Amount}}</span>
+                                 <a *ngIf="data.Recovery_Amount != 0" href="javascript:" (click)="showRecoveryShipment(refno, data.Report_Ref_No)">{{data.Recovery_Amount}}</a>
+                              </td>
+                              <td>
+                                 <a href="javascript:" (click)="check_all_transaction(trans, data.Report_Ref_No)">{{data.cod_recharge}}</a>
+                              </td>
+                              <td>{{data.Net_Paid}}</td>
+                              <td>{{data.Payment_Ref_No}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" (click)="downloaddata(data.Report_Ref_No)" tooltip="View Type"><i class="fa fa-download text-primary mr-2"></i></a>
+                              </td>
+                           </tr>
+                           <tr *ngIf="codData == null || codData.length == 0">
+                              <td colspan="13">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>Opps! nothing to show here</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+<ng-template #refno>
+   <div class="modal-header head-modal productmodel">
+      <h5 class="modal-title" id="exampleModalLabel">Shipment Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_ref()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="card-body p-1">
+         <div class="table-responsive">
+            <table class="table table-striped table-hover" id="save-stage" style="font-size: small;">
+               <thead class="text-center">
+                  <tr>
+                     <th style="width: 8%;"> Shipyaari ID </th>
+                     <th style="width: 15%;">Tracking Number </th>
+                     <th style="width: 7%;"> Status </th>
+                     <th style="width: 10%;"> Invoice Value </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let pdata of productDtails; let i = index;">
+                     <td>{{pdata.consignment_id}}</td>
+                     <td>{{pdata.tracking_number}}</td>
+                     <td>{{pdata.status_name}}</td>
+                     <td>{{pdata.invoice_value}}</td>
+                  </tr>
+                  <tr *ngIf="productDtails == null || productDtails ==''">
+                     <td colspan="4">
+                        <div class="col-lg-12 mt-5 mb-5 text-center">
+                           <img src="assets/img/alert.png">
+                           <p class="mb-0"><small>No data Found</small></p>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_ref()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<ng-template #trans>
+   <div class="modal-header head-modal trnsactionmodeal">
+      <h5 class="modal-title" id="exampleModalLabel">History</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_ref()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="card-body p-1">
+         <div class="table-responsive">
+            <table class="table table-striped table-hover" id="save-stage" style="font-size: small;">
+               <thead class="text-center">
+                  <tr>
+                     <th style="width: 10%;"> Date</th>
+                     <th style="width: 10%;"> COD Amount</th>
+                     <th style="width: 20%;"> Recover COD Amount</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let tdata of all_transaction_data; let i = index;">
+                     <td>{{tdata.added_date}}</td>
+                     <td>{{tdata.cod_amount}}</td>
+                     <td>{{tdata.recover_cod_amt}}</td>
+                  </tr>
+                  <tr *ngIf="all_transaction_data == null || all_transaction_data ==''">
+                     <td colspan="3">
+                        <div class="col-lg-12 mt-5 mb-5 text-center">
+                           <img src="assets/img/alert.png">
+                           <p class="mb-0"><small>No data Found</small></p>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_transaction()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<ng-template #download>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">COD Report</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_report()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col">
+            <div class="form-group">
+               <label>Select date</label>
+               <input type="text"placeholder="From Date To Date" class="form-control" [(ngModel)]="Date" name="dateRange" bsDaterangepicker #DateRange="ngModel"         
+               [bsConfig]="{showWeekNumbers: false, containerClass:'theme-dark-blue'}">
+            </div>
+         </div>
+      </div>
+      <div class="form-group">
+         <label>Download Report  </label> 
+         <a href="javascript:" class="btn btn-primary btn-sm ml-2" (click)="datewise()"><i class="fa fa-download"></i> Download report</a>
+      </div>
+      <div class="form-group mb-2">
+         <button type="button" class="btn btn-primary btn-sm mr-2 mb-1" id="days" value="currentmonth" (click)="report_current_month()">Current Month Report</button>
+         <button type="button" class="btn btn-primary btn-sm mr-2 mb-1" id="days" value="last30days" (click)="report_last_30()">Last 30 Days</button>
+         <button type="button" class="btn btn-primary btn-sm mb-1" id="days" value="last60days" (click)="report_last_60()" >Last 60 Days</button>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_report()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>

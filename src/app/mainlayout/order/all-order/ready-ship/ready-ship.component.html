@@ -1,0 +1,677 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="col-lg-12 m-t-10">
+    <div class="row">
+        <div class="col-lg-6 wd-lg-2">
+            <div class="form-group mb-2 align-left">
+                <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="trackingID" placeholder="Order ID" aria-label="" >
+                <div class="input-group-append">
+                    <button class="btn btn-primary btn-sm w-40" (click)="filter()" type="button"><i class="fa fa-search"></i></button>
+                </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="col-lg-6 wd-lg-4" >
+            <div class="form-group mb-2 text-right" >
+                <div class="input-group">
+                     <button *ngIf="listCheck.length != 0" class="btn btn-primary btn-sm mb-1 mr-2" tooltip="download bulk label" (click)="downoad_lbl()">Label</button>
+                     <button  *ngIf="listCheck.length != 0"  class="btn btn-primary btn-sm mb-1 mr-2" (click)="openShip(ship)" >Ship Now</button> 
+                     <!-- *ngIf="listCheck.length != 0" -->
+                     <button class="btn btn-primary btn-sm mb-1 mr-2" (click)="OpenManifest(manifest)">Manifest</button>
+                     <button class="btn btn-primary btn-sm mb-1 mr-2" (click)="openManiLabel(manifestlabel)">Manifest/Labels</button>
+                    <button *ngIf="filterFlag == 1" class="btn btn-warning btn-sm mb-1 " (click)="reset_filter()">Reset Filter</button>
+                </div>
+            </div>
+        </div>
+<!-- <button *ngIf="filterFlag == 1" class="btn btn-warning btn-sm mb-1 ml-2" (click)="reset_filter()">Reset Filter</button> -->
+        <div class="col-lg-12 col-md-12">
+            
+            <div class="table-responsive m-t-5 ">
+                <div class="search-results" infiniteScroll [infiniteScrollDistance]="1"
+                           [infiniteScrollThrottle]="1000" (scrolled)="onScroll()">
+                <table class="table  table-hover table-order" id="save-stage">
+                    <thead>
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>
+                                <div class="form-check">
+                                    <div class="custom-control custom-checkbox">
+                                     <input type="checkbox" id="checkbox" [(ngModel)]="checkVal" (change)="checkAllCheckBox($event)">
+                                    </div>
+                                </div>
+                            </th>
+                            <th>
+                                Shipyaari ID / Order ID
+                                <div dropdown  class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a data-toggle="dropdown" dropdownToggle aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu #exampleModal class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <div class="font-13 mb-2">Search by Shipyaari ID / Order ID</div>
+                                        <div>
+                                            <input type="text" [(ngModel)]="trackingID" class="form-control">
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button   (click)="clear_filters()" class="btn btn-primary pull-right btn-sm">Clear</button>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>Product Details </th>
+                            <th>Pickup Details 
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <div class="font-13 mb-2">Search by Mobile Number</div>
+                                        <div>
+                                            <input type="text" [(ngModel)]="pic_mobile" class="form-control"></div>
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button (click)="clear_filters()"  class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>Delivery Details
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <div class="font-13 mb-2">Search by Mobile Number</div>
+                                        <div>
+                                            <input type="text" [(ngModel)]="del_mobile" class="form-control"></div>
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button (click)="clear_filters()"  class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>     
+                            </th>
+                            <th>Invoice Details
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                       <a href="javascript:" *ngFor="let data of dataPaymode" (click)="payFilter(data.name)" class="dropdown-item">{{data.name}}</a>
+                                    </ul>
+                                </div>
+                            </th>
+                            <th>
+                                AWB Details
+                                 <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style="width:350px;">
+                                        <div class="font-13 mb-2">Select Courier partner</div>
+                                        <div class="form-group">
+                                            <input type="text" placeholder="Tracking Number" [(ngModel)]="track_no" class="form-control">   
+                                        </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                      <li *ngFor="let item of partnerList, let i = index">
+                                                      <div *ngIf="i%2 == 0">
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changeSelection()"><span style="font-size: 13px" class="ml-2">{{item.company_name}}</span></div>
+                                                    </li>
+                                                </div>
+                                                <div class="col">
+                                                     <li *ngFor="let item of partnerList, let i = index">
+                                                      <div *ngIf="i%2 != 0">
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changeSelection()"><span style="font-size: 13px" class="ml-2">{{item.company_name}}</span></div>
+                                                    </li>
+                                                </div>
+                                            </div>                    
+                                          
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button type="reset"  (click)="clear_filters()" class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>Date 
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <div class="font-13 mb-2" style="margin-right:-51px">Select Date Range</div>
+                                        <div >
+                                            <input type="text" placeholder="From Date To Date" class="form-control"
+                                                bsDaterangepicker   
+                                                [bsConfig]="{showWeekNumbers: false, containerClass:'theme-dark-blue'}"
+                                                [(ngModel)]='dRange'>   
+                                          </div>
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button type="reset"   (click)="clear_filters()" class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>                            
+                            <th > Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  *ngFor ="let data of Table_ReadytoShip_tab; let i = index ">
+                             <td class="">
+                                 {{i+1}}
+                            </td>
+                            <td>
+                                <div class="form-check">
+                                    <div class="custom-control custom-checkbox">
+                                      <input  type="checkbox" name="" id="" [(ngModel)]="data.checked" (change)="changeTableSelection()">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                               <a href="javascript:" (click)="detailsmodal(details, data.client_consignment_id)">
+                                    <p class="text-primary mb-0"><b>{{data.avn_shipping_id}}</b></p>
+                                </a>
+                                <p class="text-success mb-0">{{data.client_order_id}}</p>
+                              
+                            </td>
+                            <td>
+                                <p class="text-primary mb-0" tooltip="{{data.package_content_desc}}"><i class="fas fa-cube"></i> &nbsp;{{(data.package_content_desc.length>27) ? (data.package_content_desc | slice:0:27)+'...':(data.package_content_desc)}}</p>
+                                <p class=" mb-0"><i class="fas fa-bezier-curve"></i> &nbsp;{{data.package_weight}}({{data.dimensions}})</p>
+                             
+                            </td>
+                            <td> 
+                               <p class="text-dark mb-0"> <i class="far fa-user"></i> &nbsp; {{data.pickup_company_name | titlecase}}</p>
+                               <p class="text-primary mb-0"><i class="fas fa-map-marker-alt"></i>&nbsp; {{data.pickup_city}}</p>
+                               <p style="color:#763568;" class="mb-0"><i class="fas fa-mobile-alt"></i>&nbsp; {{data.pickup_contact_number}}</p>
+                            </td>
+                            <td>
+                                <p class="text-dark mb-0" tooltip="{{data.customer_name | titlecase}}"> <i class="far fa-user"></i> &nbsp;{{(data.customer_name.length>20) ? (data.customer_name | titlecase | slice:0:20 )+'...':(data.customer_name | titlecase)}}
+                                </p>
+                                <p class="text-primary mb-0"><i class="fas fa-map-marker-alt"></i>&nbsp; {{data.delivery_city}}</p>
+                                <p style="color:#763568;" class="mb-0"><i class="fas fa-mobile-alt"></i>&nbsp; {{data.customer_contact_no}}</p>
+                            </td>
+                            <td>
+                                <p class="text-dark mb-0"><i class="fas fa-rupee-sign"></i>&nbsp; {{data.total_invoice_value}}</p>  
+                                <p class="text-dark mb-0"><i class="far fa-credit-card"></i>&nbsp; {{data.payment_mode}}</p>
+                                </td>
+                                <td>
+                                 <p class="text-dark mb-0"> <b> &nbsp;{{data.couier_name}}</b></p>
+                                 <a href="javascript:" *ngIf="data.tracking_number != ''" (click)="go_to_tracking(data.tracking_number)"><p class="text-danger mb-0"><i class="fa fa-road"></i> &nbsp;{{data.tracking_number}}</p></a>
+                                 <p *ngIf="data.pickup_track_number != undefined" class="text-primary mb-0"><i class="fa fa-truck"></i> &nbsp;{{data.pickup_track_number}}</p>
+                            </td>
+                            <td>
+                                <p class="text-success mb-0"><i class="fa fa-calendar"></i> &nbsp; {{data.date_value}}</p>
+                                <p class="text-primary mb-0"><i class="fa fa-clock"></i> &nbsp; {{data.time_value}}</p>
+                                <!-- <p class="text-success mb-2"><i class="fa fa-clock"></i> &nbsp; 20:20:20</p> -->
+                            </td>
+                            <!-- <td> 303.12345698700</td> -->
+                            <td>  
+                                <p class="text-primary mb-2">
+                                  <!--  <a routerLink="/addorder"><i tooltip="Reverse" class="fas fa-redo text-info mr-2"></i></a>  -->
+                                   <a href="javascript:" (click)="go_to_reverse(data.client_consignment_id)"><i tooltip="Reverse" class="fas fa-redo text-info mr-1"></i></a>
+                                   <a href="javascript:" (click)="goto_duplicate(data.client_consignment_id)"><i tooltip="Duplicate" class="far fa-clone text-primary  mr-1"></i></a> 
+                                    <a href="javascript:" (click)="Show_label(data.client_consignment_id, data.partner_id, data.no_of_packages, data.payment_mode, data.client_order_id )"><i tooltip="Shipping Label" class="fab fa-wpforms text-warning mr-1"></i> </a>
+                                   <a *ngIf="data.status_name != 'Cancelled'" href="javascript:" (click)="cancel_order(data.client_consignment_id)"><i tooltip="Remove" class="fas fa-ban text-danger"></i></a>
+                                </p>  
+                            </td>
+                        </tr>
+                        <tr *ngIf="Table_ReadytoShip_tab == null || Table_ReadytoShip_tab.length == 0">
+                            <td colspan="19">
+                                <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>Opps! nothing to show here</small></p>
+                                </div>
+                           </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <!-- <div class="row mb-3">
+                <div class="col-sm-12 col-md-5 align-right"></div>
+                    <div class="col-sm-12 col-md-7 align-right">
+                        <div class="dataTables_paginate paging_simple_numbers align-right" id="table-1_paginate">
+                            <ul class="align-right pagination">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </ul>
+                        </div>
+                    </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+ 
+
+
+
+
+ <ng-template #details>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Shipyaari ID Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_modal()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div id="accordion1" class=" col-lg-6 col-md-6 col-sm-12">
+                            <div class="accordion" >
+                                <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-1" aria-expanded="true">
+                                    <h4>Client Details</h4> </div>
+                                <div class="accordion-body collapse show" id="panel-body-1" data-parent="#accordion1">
+                                    <div class="table-responsive h-200">
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th>AVN Shipping ID</th>
+                                                    <td  >{{datalist.avn_shipping_id}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Client name</th>
+                                                    <td>{{datalist.pickup_company_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <td>{{datalist.client_order_id}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <td>{{datalist.pickup_company_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <td>{{datalist.email}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Contact</th>
+                                                    <td>{{datalist.pickup_contact_number}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Landmark</th>
+                                                    <td>{{datalist.pickup_landmark}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Address 1</th>
+                                                    <td>{{datalist.pickup_addr}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Address 2</th>
+                                                    <td>{{datalist.pickup_addr2}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>City</th>
+                                                    <td>{{datalist.pickup_city}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>State</th>
+                                                    <td>{{datalist.pickup_state}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <td>{{datalist.pickup_country}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Pincode</th>
+                                                    <td>{{datalist.pickup_pincode}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="accordion2" class=" col-lg-6 col-md-6 col-sm-12">
+                            <div class="accordion">
+                                <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-2" aria-expanded="true">
+                                    <h4>Delivery Details</h4> </div>
+                                <div class="accordion-body collapse show" id="panel-body-2" data-parent="#accordion2">
+                                    <div class="table-responsive h-200">
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Recipient Name</th>
+                                                    <td>{{datalist.customer_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Recipient Email</th>
+                                                    <td> {{datalist.customer_email}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Recipient Contact Number</th>
+                                                    <td>{{datalist.customer_contact_no}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Recipient Contact Number 2</th>
+                                                    <td> {{datalist.customer_contact_no_updated}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Landmark</th>
+                                                    <td>{{datalist.delivery_landmark}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Address 1</th>
+                                                    <td>{{datalist.delivery_addr}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Address 2</th>
+                                                    <td> {{datalist.delivery_addr2}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery City</th>
+                                                    <td>{{datalist.delivery_city}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery State</th>
+                                                    <td>{{datalist.delivery_state}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Country</th>
+                                                    <td>{{datalist.delivery_country}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Pincode</th>
+                                                    <td>{{datalist.delivery_pincode}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="accordion3" class=" col-lg-6 col-md-6 col-sm-12">
+                            <div class="accordion">
+                                <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-3">
+                                    <h4>Package & Shipping Details</h4> </div>
+                                <div class="accordion-body collapse" id="panel-body-3" data-parent="#accordion3">
+                                    <div class="table-responsive h-200">
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Shipping Date</th>
+                                                    <td>{{datalist.ship_date}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Number of Packages</th>
+                                                    <td>{{datalist.no_of_packages}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Are packages Identical?</th>
+                                                    <td>{{datalist.package_type}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Package Contents</th>
+                                                    <td>{{datalist.package_contents}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Package Content Description</th>
+                                                    <td>{{datalist.package_content_desc}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Invoice Value</th>
+                                                    <td>{{datalist.total_invoice_value}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>AVN Package</th>
+                                                    <td>{{datalist.serv_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Payment Mode</th>
+                                                    <td>{{datalist.payment_mode}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Packages</th>
+                                                    <td>
+                                                        <tr>
+                                                            <th>Package Weight</th>
+                                                            <td>{{datalist.package_weight}}</td>
+                                                        </tr>
+                                                         <tr>
+                                                            <th>Package Height</th>
+                                                            <td>{{datalist.package_height}}</td>
+                                                        </tr>
+                                                         <tr>
+                                                            <th>Package Length</th>
+                                                            <td>{{datalist.package_length}}</td>
+                                                        </tr>
+                                                         <tr>
+                                                            <th>Package width</th>
+                                                            <td>{{datalist.package_width}}</td>
+                                                        </tr>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                           <thead>
+                                               <th>Product Name</th>
+                                               <th>SKU</th>
+                                               <th>QTY</th>
+                                               <th>Price</th>
+                                           </thead> 
+                                           <tbody>
+                                               <tr *ngFor="let data of prodlist">
+                                                   <td>{{data.pro_name}}</td>
+                                                   <td>{{data.sku}}</td>
+                                                   <td>{{data.quantity}}</td>
+                                                   <td>{{data.price}}</td>
+                                               </tr>
+                                           </tbody>        
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="accordion4" class=" col-lg-6 col-md-6 col-sm-12">
+                            <div class="accordion">
+                                <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-4">
+                                    <h4>Consignment Charge Details</h4> </div>
+                                <div class="accordion-body collapse" id="panel-body-4" data-parent="#accordion4">
+                                    <div class="table-responsive h-200">
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="width: 50%;">Total Invoice Amount/COD</th>
+                                                    <td>{{datalist.total_invoice_value}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Invoice/COD Status</th>
+                                                    <td>{{datalist.invoice_cod_status}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Carrier Name</th>
+                                                    <td>{{datalist.partner_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Zone</th>
+                                                    <td>{{datalist.zone_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Zone Charge</th>
+                                                    <td>{{datalist.client_zone_price}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Consignment charge</th>
+                                                    <td>{{datalist.delivery_charges}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Fuel charge 0%</th>
+                                                    <td>{{datalist.fuel_percentage}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total COD charge</th>
+                                                    <td>{{datalist.total_cod_amount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Advance Fees (0%) OR (0)/-</th>
+                                                    <td>{{datalist.advance_fees}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Insurance</th>
+                                                    <td>{{datalist.total_insurance}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Additional Charges</th>
+                                                    <td>{{datalist.additional_charge}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Tax charge {{datalist.tax_charges}}</th>
+                                                    <td>{{datalist.calculated_tax_charges}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Duty {{datalist.duty_percentage}}%</th>
+                                                    <td>{{datalist.duty_amount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Coupon Type (NA)</th>
+                                                    <td>NA</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Amount</th>
+                                                    <td>{{datalist.applicable_charges}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Client Consignment Charge Status
+</th>
+                                                    <td>{{datalist.client_consignment_charge_status}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_modal()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </ng-template>
+
+
+
+
+    <ng-template #manifest>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Download Manifest and Label</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeManifest()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+    <form #f="ngForm" (ngSubmit)="submitManifest(f)" autocomplete="off">
+    <div class="modal-body">
+       <div class="row">
+          <div class="col">
+             <div class="form-group">
+                <label>Select date</label>
+                <input type="text"placeholder="From Date To Date" class="form-control" [(ngModel)]="dateRange" name="dateRange" bsDaterangepicker #DateRange="ngModel"         
+                   [bsConfig]="{showWeekNumbers: false, containerClass:'theme-dark-blue'}">
+                   <small *ngIf="!DateRange.valid && f.submitted" class="text-danger">Date required.</small>
+             </div>
+             <div class="form-group">
+                <label>Select Courier</label>
+                <ng-select
+                    [items]="partnerList"
+                    [searchable]="true"
+                    bindValue="user_id"
+                    bindLabel="company_name"
+                    placeholder="Select Courier"
+                    [(ngModel)]="courPartner" name="courPartner" #CourPartner="ngModel" required>
+                  </ng-select>
+                  <small *ngIf="!CourPartner.valid && f.submitted" class="text-danger">Courier required.</small>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="modal-footer">
+       <button type="submit"  class="btn btn-primary btn-sm"> Submit</button>
+       <button type="button" (click)="closeManifest()" class="btn btn-primary btn-sm"> Close</button>
+    </div>
+</form>
+   </ng-template>
+
+
+    <ng-template #ship>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Manage Ship Now</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeopenShip()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label>Select</label>
+                        <select class="form-control" placeholder="select" [ngModel]="selectData" id="common" (change)="get_common_Id()" >
+                            <option value="0" selected>Create New Batch</option>
+                            <option value="yesterday">Move to yesterday's Batch</option>
+                            <option value="today">Move to today's Batch</option>
+                        </select>
+                    </div>
+                    <div *ngIf="dataflag == 1" class="row">
+                        <div class="col">
+                            <small *ngIf="commnlist != null" class="text-dark">Select the manifest id & time at which you want to add.</small>
+                            <small *ngIf="commnlist == null" class="text-danger">Data Not available</small>
+                            <!-- <div *ngFor="let item of commnlist" class="m-1">
+                                <div class="form-group">
+                                <input  [(ngModel)]="selectedValue" type="radio"  [value]="item.comman_id"> <b> &nbsp; &nbsp;{{ item.comman_id }}</b><br>
+                                <small class="text-success ml-5" >({{item.datetime}})</small>
+                                </div>
+                            </div> -->
+                            <ng-container *ngIf="commnlist != null">
+                                <div class="m-2">
+                                  <ng-select
+                                    [items]="commnlist"
+                                    [searchable]="true"
+                                    bindValue="comman_id"
+                                    bindLabel="comman_id"
+                                    placeholder="Select Batch"
+                                    [(ngModel)]="selectedValue" name="courPartner" #CourPartner="ngModel" required>
+                                    <ng-template ng-option-tmp let-item="item">
+                                      <div style="font-size: 13px;"><span>{{item.comman_id}}  (<small class="text-success">{{item.datetime}}</small>)</span></div>
+                                    </ng-template>
+                                </ng-select>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </div>
+            </div>
+   <div class="modal-footer">
+    <button type="button" (click)="ship_now()" class="btn btn-primary btn-sm"> Ship Now</button>
+      <button type="button" (click)="closeopenShip()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </ng-template>
+
+    <ng-template #manifestlabel>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Manage Ship Now</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeManiLabel()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+           <div class="row">
+            <div class="col">
+            <div class="modal-body">
+                 <a href="javascript:"  class="btn btn-primary btn-sm ml-3" (click)="downloadSheet()" >Download Sample Sheet</a>
+                 <div class="form-group">
+                <label>Upload Sheet</label>
+                <input type="file" class="form-control" id="sheet" [ngModel]="excel_sheet" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                </div>
+            </div>
+        </div>
+            </div>
+   <div class="modal-footer">
+      <button type="button"  class="btn btn-primary btn-sm" (click)="submit_Sheet_manifest()"> Manifest</button>  
+       <button type="button"  class="btn btn-primary btn-sm" (click)="submit_Sheet_label()"> Label</button>  
+      <button type="button" (click)="closeManiLabel()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </ng-template>

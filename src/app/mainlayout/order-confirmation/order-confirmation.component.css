@@ -1,0 +1,17 @@
+.list_table
+{
+	    padding-top: 3px!important;
+    padding-bottom: 3px!important;
+}
+
+.tab_width_30
+{
+	width: 30%;
+	font-weight: bold;
+}
+
+.tab_width_20
+{
+	width: 20%;
+	font-weight: bold;
+}

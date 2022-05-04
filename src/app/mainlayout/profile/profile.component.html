@@ -1,0 +1,101 @@
+<div class="main-content">
+    <section class="section">
+        <div class="d-flex space-between align-items-center m-b-15">
+            <div class="crumb">
+                <h4>Profile</h4>
+                <!-- <ol class="breadcrumb p-0 m-b-0"> 
+                    <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                </ol>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <!-- part one here -->
+                <app-about-comp></app-about-comp>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <div class="card">
+                    <div class="card-header mt-2">
+                        <h4>Profile Account</h4> </div>
+                    <div class="card-body mt-2">
+                        <ul class="nav nav-tabs" id="myTab2" role="tablist" style="font-size: 13px">
+                            <li class="nav-item order-nav profile-tab"> <a class="nav-link active prof commu" id="kyc-tab2" data-toggle="tab" href="#kyc" role="tab" aria-controls="home" aria-selected="true">
+                        KYC Details
+                     <span *ngIf="usercount.kycinfoper > 50 && usercount.kycinfoper < 99" class="dot dot-yellow"></span>
+                     <span *ngIf="usercount.kycinfoper < 50 && usercount.kycinfoper > 0" class="dot dot-red"></span>  </a></li>
+                            <li class="nav-item order-nav profile-tab"> <a class="nav-link prof commu" id="bank-tab2" data-toggle="tab" href="#bank" role="tab" aria-controls="profile" aria-selected="false">
+                        Bank Details
+                        <span *ngIf="usercount.bankinfoper > 50 && usercount.bankinfoper < 99" class="dot dot-yellow"></span>
+                     <span *ngIf="usercount.bankinfoper < 50 && usercount.bankinfoper > 0" class="dot dot-red"></span> 
+                     </a> </li>
+                            <li class="nav-item order-nav profile-tab"> <a class="nav-link prof  commu" id="comm-tab2" data-toggle="tab" href="#comm" role="tab" aria-controls="contact" aria-selected="false">
+                        Communication
+                         <!-- <span *ngIf="usercount.commuper > 50 && usercount.commuper < 99" class="dot dot-yellow"></span>
+                     <span *ngIf="usercount.commuper < 50 && usercount.commuper > 0" class="dot dot-red"></span> --> 
+                     </a> </li>
+                            <li class="nav-item order-nav profile-tab"> <a class="nav-link prof commu" id="marketing-tab2" data-toggle="tab" href="#maketing" role="tab" aria-controls="contact" aria-selected="false" style="height: 32px;">
+                        Marketing
+                          <span *ngIf="usercount.markper > 50 && usercount.markper < 99" class="dot dot-yellow"></span>
+                     <span *ngIf="usercount.markper < 50 && usercount.markper > 0" class="dot dot-red"></span> 
+                     </a> 
+                <!--  </li>
+                            <li class="nav-item order-nav profile-tab"> <a class="nav-link prof" id="sms-tab2" data-toggle="tab" href="#sms" role="tab" aria-controls="contact" aria-selected="false">
+                        SMS Template<span class="dot dot-red"></span> 
+                     </a> </li> -->
+                            <li class="nav-item order-nav profile-tab"> <a class="nav-link prof commu" id="subscription-tab2" data-toggle="tab" href="#subscription" role="tab" aria-controls="contact" aria-selected="false">
+                        Subscription
+                         <!-- <span *ngIf="usercount.subscriptiontotal > 50 && usercount.subscriptiontotal < 99" class="dot dot-yellow"></span>
+                     <span *ngIf="usercount.subscriptiontotal < 50 && usercount.subscriptiontotal > 0" class="dot dot-red"></span>   -->
+                     </a> </li>
+                            <li class="nav-item order-nav profile-tab"> <a class="nav-link prof commu" id="reward-tab2" data-toggle="tab" href="#reward" role="tab" aria-controls="contact" aria-selected="false">
+                        Reward
+                        <!--  <span *ngIf="usercount.referraltotal > 50 && usercount.referraltotal < 99" class="dot dot-yellow"></span>
+                     <span *ngIf="usercount.referraltotal < 50 && usercount.referraltotal > 0" class="dot dot-red"></span>   -->
+                     </a> </li>
+                            <li class="nav-item order-nav profile-tab"> <a class="nav-link prof commu" id="coupon-tab2" data-toggle="tab" href="#coupon" role="tab" aria-controls="contact" aria-selected="false">
+                        Coupons
+                         <!--  <span *ngIf="usercount.coupontotal > 50 && usercount.coupontotal < 99" class="dot dot-yellow"></span>
+                     <span *ngIf="usercount.coupontotal < 50 && usercount.coupontotal > 0" class="dot dot-red"></span>  -->
+                     </a> </li>
+                        </ul>
+                        <div class="tab-content tab-bordered" id="myTab3Content">
+                            <div class="tab-pane fade show active" id="kyc" role="tabpanel" aria-labelledby="home-tab2">
+                                <!-- kyc orders here  -->
+                                <app-kyc></app-kyc>
+                            </div>
+                            <div class="tab-pane fade" id="bank" role="tabpanel" aria-labelledby="profile-tab2">
+                                <!-- bank to ship -->
+                                <app-bank></app-bank>
+                            </div>
+                            <div class="tab-pane fade" id="comm" role="tabpanel" aria-labelledby="contact-tab2">
+                                <!-- communication to pick -->
+                                <app-communication></app-communication>
+                            </div>
+                            <div class="tab-pane fade" id="maketing" role="tabpanel" aria-labelledby="invoice-tab2">
+                                <!-- marketing tab here -->
+                                <app-marketing></app-marketing>
+                            </div>
+                            <!-- <div class="tab-pane fade" id="sms" role="tabpanel" aria-labelledby="creadit-note-tab2"> -->
+                                <!-- SMS Template -->
+                                <!-- <app-sms-temp></app-sms-temp> -->
+                            <!-- </div> -->
+                            <div class="tab-pane fade" id="subscription" role="tabpanel" aria-labelledby="creadit-note-tab2">
+                                <!-- Subscription -->
+                                <app-subscription></app-subscription>
+                            </div>
+                            <div class="tab-pane fade" id="reward" role="tabpanel" aria-labelledby="creadit-note-tab2">
+                                <!--  reward -->
+                                <app-reward></app-reward>
+                            </div>
+                            <div class="tab-pane fade" id="coupon" role="tabpanel" aria-labelledby="creadit-note-tab2">
+                                <!--  coupone -->
+                                <app-coupon></app-coupon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,83 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="col-lg-12 m-t-10">
+   <div class="row">
+      <div class="col-lg-6 wd-lg-2">
+          <div class="form-group mb-2 align-left">
+           <!--  <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="trackingID" placeholder="Tracking Id" aria-label="" style="width: auto;" >
+            <div class="input-group-append">
+                <button class="btn btn-primary btn-sm w-40"  type="button"><i class="fa fa-search"></i></button>
+            </div>
+            </div> -->
+            </div>
+      </div>
+      <div class="col-lg-6 wd-lg-4" style="float: right;">
+         <div class="form-group mb-2 align-right" >
+             <div class="input-group align-right">
+               <!-- <button  class="btn btn-primary btn-sm mb-1 mr-2" tooltip="download bulk label" >Billing Report</button> -->
+               <!-- <button  *ngIf="listCheck.length != 0"  class="btn btn-primary btn-sm mb-1 mr-2" (click)="openShip(ship)" >Ship Now</button>  -->
+            <!-- *ngIf="listCheck.length != 0" -->
+           
+               <!-- <button *ngIf="filterFlag == 1" class="btn btn-warning btn-sm mb-1 " (click)="reset_filter()">Reset Filter</button> -->
+               </div>
+         </div>
+      </div>
+      <!-- <button *ngIf="filterFlag == 1" class="btn btn-warning btn-sm mb-1 ml-2" (click)="reset_filter()">Reset Filter</button> -->
+      <div class="col-lg-12 col-md-12">
+         <div class="table-responsive h-500 m-t-5">
+            <table class="table  table-hover table-order" id="save-stage" style="width:100%;">
+               <thead>
+                  <tr>
+                     <th>Sr No.</th>
+                     <th>Referral Code</th>
+                     <th>Date</th>
+                     <th>Invoice No.</th>
+                     <th>Transaction Amount</th>   	
+                     <th>Credit Amount</th>
+                     <th>Receipt</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr  *ngFor ="let data of list | paginate: { itemsPerPage: 20, currentPage: p }; let i = index ">
+                     <td>{{i+1}}</td>
+                     <td>{{data.referral_code}}</td>
+					 <td>{{data.created}}</td>
+					 <td>
+					<span *ngIf="userID == data.user_id">  Credit Note#{{data.invoice_user_id}}</span>
+					<span *ngIf="userID != data.user_id"> Credit Note#{{data.invoice_referral_user_id}}</span>
+					 </td>
+					 <td>{{data.wallet_recharge}}</td>
+					 <td>
+					<span *ngIf="userID == data.user_id"> {{data.creadit_amt}}</span>
+					<span *ngIf="userID != data.user_id"> {{data.creadit_amt_referral}}</span>
+					</td>
+					 <td>
+					 	<span *ngIf="userID == data.user_id"> <a href="javascript:" (click)="download_receipt(data.invoice_user_id,'invoice_user_id')">Receipt</a></span>
+					    <span *ngIf="userID != data.user_id"> <a href="javascript:" (click)="download_receipt(data.invoice_referral_user_id,'invoice_user_id')">Receipt</a></span>
+					 </td>	
+                  </tr>
+                  <tr *ngIf="list == null || list.length == 0">
+                     <td colspan="19">
+                        <div class="col-lg-12 mt-5 mb-5 text-center">
+                           <img src="assets/img/alert.png">
+                           <p class="mb-0"><small>No data Found</small></p>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="row mb-3">
+            <div class="col-sm-12 col-md-5 align-right"></div>
+             <div class="col-sm-12 col-md-7 align-right">
+               <div class="dataTables_paginate paging_simple_numbers align-right" id="table-1_paginate">
+                   <ul class="align-right pagination">
+                       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                   </ul>
+               </div>
+               </div>
+         </div>
+      </div>
+   </div>
+</div>

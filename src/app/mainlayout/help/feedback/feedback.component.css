@@ -1,0 +1,21 @@
+.emoji li{
+    margin-right: 10px;
+    display: inline-block;
+}
+.emoji img{
+    height: 35px;
+    width: 35px;;
+    display: block;
+    margin: 0 auto;
+}
+.emoji span{
+    padding-top: 4px;
+    display: inline-block;
+}
+.emoji-title{
+    font-size: 15px;
+    line-height: 1.2;
+   
+    font-weight: 600;
+    text-align: center;
+}

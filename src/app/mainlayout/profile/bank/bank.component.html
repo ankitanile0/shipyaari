@@ -1,0 +1,72 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<!-- <alert></alert> -->
+<div class="mt-2">
+   <form id=bankdetails_form  #f="ngForm" (submit)="submit(f)" novalidate > 
+   <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="Account_Holder_Name" name="Account_Holder_Name" #Name="ngModel"
+         tooltip="Account holder Name *" placeholder="Account holder Name" required>
+         <small *ngIf="(Account_Holder_Name == null || Account_Holder_Name == '') && f.submitted" class="text-danger">Name required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="Bank_Name" name="Bank_Name" #BankName="ngModel"
+         tooltip="Bank Name *" placeholder="Bank Name" required>
+         <small *ngIf="(Bank_Name == null || Bank_Name == '') && f.submitted" class="text-danger">Bank Name required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;"
+         [(ngModel)]="Bank_Branch_Name" name="Bank_Branch_Name" #BramchName="ngModel"
+         tooltip="Branch Name *" placeholder="Branch Name" required>
+         <small *ngIf="(Bank_Branch_Name == null || Bank_Branch_Name == '') && f.submitted" class="text-danger">Branch Name required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <select class="form-control" style="width: 100%;" 
+         [(ngModel)]="Account_Type" name="Account_Type" #Type="ngModel" 
+         tooltip="Account Type *" placeholder="Account Type" required>
+         <option value=" ">Select Account Type</option>
+         <option value="Saving">Saving</option>
+         <option value="Current">Current</option>
+         </select>
+         <small *ngIf="(Account_Type == null || Account_Type == '') && f.submitted" class="text-danger">Please Select Acc Type.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="Ifsc_Code" name="Ifsc_Code" #IFSC="ngModel"
+         tooltip="IFSC Number *" placeholder="IFSC Number" required >
+         <small *ngIf="(Ifsc_Code == null || Ifsc_Code == '') && f.submitted" class="text-danger">IFSC required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;"
+         [(ngModel)]="Account_Number" name="Account_Number" #ACCNumber="ngModel"   onKeyPress='return event.charCode >= 48 && event.charCode <= 57'
+         tooltip="Account Number *" placeholder="Account Number" required>
+         <small *ngIf="(Account_Number == null || Account_Number == '') && f.submitted" class="text-danger">Account No. required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="Cheque_Number" name="Cheque_Number" #Cheque="ngModel" minlength="6" maxlength="6" onKeyPress='return event.charCode >= 48 && event.charCode <= 57'
+         tooltip="Cheque Number *" placeholder="Cheque Number" required>
+         <small *ngIf="(Cheque_Number == null || Cheque_Number == '') && f.submitted" class="text-danger">Cheque required.</small>
+         <small *ngIf="(!Cheque.valid && (Cheque_Number != '' && Cheque_Number != null)) && f.submitted" class="text-danger">Please enter valid Cheque no.</small>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12 ">
+         <label>
+           
+            <img src="assets/img/upload.png" style="width: 35px" tooltip="Upload Cheque File">
+            <input type="file" id="cheque" #chequefile="ngModel" accept="image/png, image/gif, image/jpeg"
+            data-original-title="Upload Cheque No." [(ngModel)]="Cheque_File" name="Cheque_File" (change)="upload($event)" class="custom-file-input" required>
+         </label>
+         <small *ngIf="(Cheque_File == null || Cheque_File == '') && f.submitted" class="text-danger">Image required.</small>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-12 ">
+         <img *ngIf="url1 != null" [src]="url1" class="thumbnail" style="height: 35px;" >
+         <img *ngIf="url1 == null" [src]="Cheque_File" onError="this.src='assets/img/sample.jpg'" class="thumbnail" style="height: 35px;" >
+      </div>
+   </div>
+   <div class="">
+      <button  type="submit" class="btn btn-primary btn-sm">Update Bank Details</button>
+   </div>
+   </form>
+</div>

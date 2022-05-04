@@ -1,0 +1,61 @@
+<div [innerHTML]="Loader"></div>
+
+<app-toastr></app-toastr>
+<div class="main-content">
+	<section class="section">
+		<div class="d-flex space-between align-items-center m-b-15">
+			<div class="crumb">
+				<!-- <h4>Report</h4> -->
+				<!-- <ol class="breadcrumb p-0 m-b-0"> -->
+					<!-- <li class="breadcrumb-item">Billing</li>				
+					<li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Report</a></li> -->
+					<!-- <button type="button" class="btn btn-secondary rad_0 "  (click)="go_to_all_inv()">All Invoices</button>
+					<button type="button" class="btn btn-secondary rad_0 " (click)="go_to_cod()">COD</button>
+                  <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_reports()">Reports</button> -->              
+				<!-- </ol> -->
+			<div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_all_inv()" >All Invoices</a>
+               <a href="javascript:" (click)="go_to_cod()">COD</a>
+               <a href="javascript:" (click)="go_to_reports()" class="active">Reports</a>
+            </div>
+			</div>
+		</div>				
+		<div class="row">			
+			<div class="col-lg-4">
+				<div class="card">
+					<div class="card-body"> 					
+							<form #f="ngForm" (submit)="downloadReport(f)" autocomplete="off">
+						  <div class="form-group">
+						    <label for="formGroupExampleInput">Select Report Type</label>
+							  	<select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="reporttype" #Reporttype="ngModel" name="reporttype">
+							     	<option value="">Select Reporty Type</option>	
+                                    <option value="1">Shipment Status Report</option>
+                                    <option value="2">COD Report</option>
+                                    <!-- <option value="4">OFD Attempt report</option> -->
+                                    <option value="5">RTO OFD Report</option>
+                                    <option value="6">RTO Physical Receivied Report</option>
+                                   	<option value="7">RTO Reconciliation Report</option>
+                                    <option value="8">Not Picked Report</option>
+                                    <option value="9">Physical Picked Report</option>
+                                    <option value="10">Pickup Reconciliation Report</option>
+							    </select>
+							    <small *ngIf="!Reporttype.valid && f.submitted" class="text-danger">Please Select report type.</small>
+						  </div>						 
+						   <div class="form-group">
+			                <label>Select date</label>
+			                <input type="text"placeholder="From Date To Date" class="form-control" [(ngModel)]="date" #Date="ngModel"  name="date" bsDaterangepicker #DateRange="ngModel"         
+			                   [bsConfig]="{showWeekNumbers: false, containerClass:'theme-dark-blue'}" placement="bottom" >
+			                    <small *ngIf="!Date.valid && f.submitted" class="text-danger">Please Select Date Range.</small>
+			             </div>
+   
+						   <button type="submit" class="btn btn-primary btn-sm mb-2">Download Report</button>
+						</form>
+						        
+						
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8"></div>
+		</div>
+	</section>
+</div>

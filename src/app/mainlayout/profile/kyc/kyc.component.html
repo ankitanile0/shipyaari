@@ -1,0 +1,189 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<!-- <alert></alert> -->
+
+<form id=kyc_form  #f="ngForm" (ngSubmit)="submit(f)" novalidate autocomplete="off" enctype="multipart/form-data" > 
+<div class="section-title">Basic Information</div>
+<div class="">
+   <div class="row" style="height: 50px;">
+      <div class="col-lg-3 col-md-3 col-sm-12 ">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="profile_Name" #Profile_Name="ngModel" name="profile_Name" 
+         tooltip="Full Name" placeholder="Enter Full Name" required>
+         <small *ngIf="(profile_Name == null || profile_Name == '') && f.submitted" class="text-danger">Full Name Required.</small>
+      </div>
+   </div>
+</div>
+<div class="">
+   <div class="section-title">Register Address</div>
+   <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;"  
+         [(ngModel)]="Address1" name="Address1" #ADDRESS="ngModel" 
+         tooltip="Address1 *" placeholder="Address 1" required>
+         <small *ngIf="(Address1 == null || Address1 == '') && f.submitted" class="text-danger">Address required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="Address2" name="Address2"  #ADDRESS2="ngModel"  
+         tooltip="Address2 *" placeholder="Address 2" required>
+         <small *ngIf="(Address2 == null || Address2 == '') && f.submitted" class="text-danger">Address required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;"  
+         [(ngModel)]="landmark" name="landmark"  #Landmark="ngModel" 
+         tooltip="Landmark *" placeholder="Landmark" required>
+         <small *ngIf="(landmark == null || landmark == '') && f.submitted" class="text-danger">Landmark required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;"
+         [(ngModel)]="pincode" name="pincode"  #Pincode="ngModel" pattern="^[1-9][0-9]{5}$" onKeyPress="if(this.value.length==6)return false;" onKeyPress='return event.charCode >= 48 && event.charCode <= 57'
+         tooltip="Pincode *" placeholder="Pincode" required>
+         <small *ngIf="(pincode == null || pincode == '') && f.submitted" class="text-danger">Pincode required.</small>
+         <small *ngIf="(!Pincode.valid && (pincode != '' && pincode != null)) && f.submitted" class="text-danger">Please enter valid Pincode.</small>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="city" name="city"  #City="ngModel"  
+         tooltip="City *" placeholder="City" required>
+         <small *ngIf="(city == null || city == '') && f.submitted" class="text-danger">City Required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+         <select class="form-control" style="width: 100%;" 
+         [(ngModel)]="state" name="state"  #State="ngModel" 
+         tooltip="State *" placeholder="State" required>
+          <option value=" ">Select State</option>
+         <option value="1">Andaman and Nicobar Islands</option>
+         <option value="2">Andhra Pradesh</option>
+         <option value="3">Arunachal Pradesh</option>
+         <option value="4">Assam</option>
+         <option value="5">Bihar</option>
+         <option value="6">Chandigarh</option>
+         <option value="7">Chhattisgarh</option>
+         <option value="8">Dadra and Nagar Haveli</option>
+         <option value="9">Daman and Diu</option>
+         <option value="10" >Delhi</option>
+         <option value="11" >Goa</option>
+         <option value="12" >Gujarat</option>
+         <option value="13" >Haryana</option>
+         <option value="14" >Himachal Pradesh</option>
+         <option value="15" >Jammu and Kashmir</option>
+         <option value="16" >Jharkhand</option>
+         <option value="17" >Karnataka</option>
+         <option value="18" >Kerala</option>
+         <option value="19" >Lakshadweep</option>
+         <option value="20" >Madhya Pradesh</option>
+         <option value="21" >Maharashtra</option>
+         <option value="22" >Manipur</option>
+         <option value="23" >Meghalaya</option>
+         <option value="24" >Mizoram</option>
+         <option value="25" >Nagaland</option>
+         <option value="26" >Orissa</option>
+         <option value="27" >Pondicherry</option>
+         <option value="28" >Punjab</option>
+         <option value="29" >Rajasthan</option>
+         <option value="30" >Sikkim</option>
+         <option value="31" >Tamil Nadu</option>
+         <option value="32" >Tripura</option>
+         <option value="33" >Uttaranchal</option>
+         <option value="34" >Uttar Pradesh</option>
+         <option value="35" >West Bengal</option>
+         <option value="36" >TELANGANA</option>
+         <option value="37" >UTTARAKHAND</option>
+         </select>
+         <small *ngIf="(state == null || state == '') && f.submitted" class="text-danger">State Required.</small>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 ">
+         <select class="form-control" style="width: 100%;" 
+         [(ngModel)]="country" name="country" #Country="ngModel" 
+         tooltip="Country *" placeholder="Country" required>
+         <option value=" ">Select Country</option>
+         <option value="1">India</option>
+         </select>
+         <small *ngIf="(country == null || country == '') && f.submitted" class="text-danger">Country Required.</small>
+      </div>
+   </div>
+
+
+
+
+
+<div class="section-title">GST Number</div>
+   <div class="row" style="height: 50px;">
+      <div class="col-lg-3 col-md-3 col-sm-12">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="gst_no" name="gst_no" #Gst_No="ngModel" 
+         tooltip="GST No. *" placeholder="GST No." required>
+         <small *ngIf="(gst_no == null || gst_no == '') && f.submitted" class="text-danger">GST Certifcate No Required.</small>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12"> 
+         <label> 
+            <img src="assets/img/upload.png" style="width: 35px" tooltip="Upload GST File">
+            <input type="file" [(ngModel)]="gst_file" id="gst" #GSt="ngModel" name="gst_file" (change)="upload1($event)" class="custom-file-input"
+            accept="image/png, image/gif, image/jpeg"  required >
+            </label>
+         </div>
+         <div class="col-lg-3 col-md-3 col-sm-12 ">
+            <a href="javascript:" target="blank" (click)="openFile()">
+            <img *ngIf="url1 != null" [src]="url1" class="thumbnail" style="height: 35px;" id="gst_number">
+            <img *ngIf="url1 == null" [src]="gst_file" onError="this.src='assets/img/sample.jpg'" class="thumbnail" style="height: 35px;" >
+            </a>
+         </div>
+      </div>
+</div>
+           
+         
+
+   
+
+<div class="section-title">Pan Card</div>
+<div class="">
+   <div class="row" style="height: 50px;">
+      <div class="col-lg-3 col-md-3 col-sm-12 ">
+         <input type="text" class="form-control" style="width: 100%;" 
+         [(ngModel)]="pancard_no" #Pancard="ngModel" name="pancard_no" 
+         tooltip="Pan Card No. *" placeholder="Pan Card No." required>
+         <small *ngIf="(pancard_no == null || pancard_no == '') && f.submitted" class="text-danger">Pan Required.</small>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12"> 
+         <label>
+         <img src="assets/img/upload.png" style="width: 35px" tooltip="Upload Pan Card File">
+         <input type="file" id="pan"  [(ngModel)]="pan_number_file" #Pan="ngModel" (change)="upload2($event)" class="custom-file-input" name="pan_number_file"
+          accept="image/png, image/gif, image/jpeg" required>
+         </label>  
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+         <a href="javascript:" target="blank" (click)="openFile()">
+         <img *ngIf="url2 != null" [src]="url2" class="thumbnail" style="height: 35px;" >
+         <img *ngIf="url2 == null" [src]="pan_number_file" onError="this.src='assets/img/sample.jpg'" class="thumbnail" style="height: 35px;" >
+         </a>
+      </div>
+   </div>
+</div>
+<div class="section-title">Address Proof</div>
+<div class="">
+   <div class="row" style="height: 50px;">
+      <!-- <div class="col-lg-3 col-md-3 col-sm-12 "> -->
+        <!--  <input type="text" class="form-control" style="width: 100%;" [(ngModel)]="aadhaar_card_or_electric_bill" name="aadhaar_card_or_electric_bill" #Addar="ngModel" tooltip="Aadhaar Card / Electricity Bill" placeholder="Aadhaar Card / Electricity Bill" tooltip="Adreess proof "  required> -->        
+      <div class="col-lg-3 col-md-3 col-sm-12" style="    height: 50px;">
+         <input type="text" class="form-control" style="width: 100%;" [(ngModel)]="aadhaar_card_or_electric_bill" name="aadhaar_card_or_electric_bill" #Addar="ngModel" tooltip="Aadhaar Card / Electricity Bill" placeholder="Aadhaar Card / Electricity Bill" required> 
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12 "> 
+         <label>
+         <img src="assets/img/upload.png" style="width: 35px"  tooltip="Address Proof File">
+         <input type="file" [(ngModel)]="address_proof_file" id="address" (change)="upload3($event)" class="custom-file-input" #Addhar="ngModel" name="address_proof_file"
+         accept="image/png, image/gif, image/jpeg" required>
+         </label>  
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 ">
+         <img *ngIf="url3 != null" [src]="url3" class="thumbnail" style="height: 35px;" >
+         <img *ngIf="url3 == null" [src]="address_proof_file" onError="this.src='assets/img/sample.jpg'" class="thumbnail" style="height: 35px;" >
+      </div>
+   </div>
+</div>
+
+   <button type="submit" class="btn btn-primary btn-sm m-2">Update Details</button>
+   
+</form>

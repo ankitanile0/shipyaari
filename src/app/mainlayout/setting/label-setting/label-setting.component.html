@@ -1,0 +1,187 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+	<section class="section">
+		<div class="d-flex space-between align-items-center m-b-15">
+			<div class="crumb">
+				<!-- <h4>Label Setting</h4> -->
+				<!-- <ol class="breadcrumb p-0 m-b-0"> -->
+					<!-- <li class="breadcrumb-item">Setting</li>				
+					<li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Label Setting</a></li>  -->
+         <!--  <button type="button" class="btn btn-secondary rad_0 dash_tab" (click)="go_to_label_setting()">Label Setting</button>
+          <button type="button" class="btn btn-secondary rad_0 " (click)="go_to_change_pass()">Change password</button>  -->     
+				<!-- </ol> -->
+        <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_label_setting()" class="active">Label Setting</a>
+               <a href="javascript:" (click)="go_to_change_pass()">Change password</a>
+               <a href="https://dev.shipyaari.com/angularapi/pincode_download" target="blank" >Download Pincodes</a>
+            </div>
+			</div>
+		</div>
+		<!--first row-->		
+		<div class="row">			
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">   
+              			
+              					<h6 class="mt-1">Select Options From Label You Want To Show</h6>
+                  		
+                  		<div class="col-12">
+                  			<div class="row">
+                  				<div class="col-2">
+                  					<div class="form-check-inline">
+									 	<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value=""  [(ngModel)]="pickup_address" >
+									 	<label class="form-check-label" for="inlineCheckbox1"> Pickup Address</label>
+									</div>
+                  				</div>
+                  				<div class="col-2">
+                  					<div class="form-check-inline">
+									 	<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="" [(ngModel)]="pickup_contact" >
+									 	<label class="form-check-label" for="inlineCheckbox1"> Pickup Phone number</label>
+									</div>
+                  				</div>
+                  				<div class="col-2">
+                  					<div class="form-check-inline">
+									 	<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="" [(ngModel)]="gst_no" >
+									 	<label class="form-check-label" for="inlineCheckbox1"> GST No</label>
+									</div>
+                  				</div>
+                  				<div class="col-2">
+                  					<div class="form-check-inline">
+									 	<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="" [(ngModel)]="resturn_addres" >
+									 	<label class="form-check-label" for="inlineCheckbox1"> Return Address</label>
+									</div>
+                  				</div>
+                  				<div class="col-2">
+                  					<div class="form-check-inline">
+									 	<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="" [(ngModel)]="return_contact" >
+									 	<label class="form-check-label" for="inlineCheckbox1"> Return Phone Number</label>
+									</div>
+                  				</div>
+                  				<div class="col-2">
+                  					<div class="text-right">
+                  						<button type="submit" class="btn btn-primary btn-sm" (click)="saveLabel()">Save</button>
+                  					</div>
+                  				</div>
+                  			</div>
+                  	 		
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--first row done-->
+		<!---Second row start--->
+			<div class="row">			
+			<div class="col-lg-12">
+				<div class="row">	
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label1 (Default Label) 
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)" [checked]="lbl1" (click)="change_label(1)"></h6>
+                                          <img src="assets/img/1.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label2  
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)" [checked]="lbl2" (click)="change_label(2)"></h6>
+                                   <img src="assets/img/2.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label3 (Per Page 2)
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)" [checked]="lbl3" (click)="change_label(3)"></h6>
+                                   <img src="assets/img/3.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label4 (Thermal label A5 Size)
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)" [checked]="lbl4" (click)="change_label(4)"></h6>
+                                   <img src="assets/img/4.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label5 (Thermal label A4 Size)
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)"[checked]="lbl5" (click)="change_label(5)" ></h6>
+                                   <img src="assets/img/4.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label6 (Thermal label A4 Size)
+
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)" [checked]="lbl6" (click)="change_label(6)" ></h6>
+                                   <img src="assets/img/6.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label7 (Without copy)
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)" [checked]="lbl7" (click)="change_label(7)" ></h6>
+                                   <img src="assets/img/2.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label8 (Without Shipping Address)
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)" [checked]="lbl8" (click)="change_label(8)" ></h6>
+                                   <img src="assets/img/2.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                        <div class="card">
+                            <div class="card-body cod-ht">
+                                <div class="card-order">
+                                    <h6 class="p-10" style="font-weight:bold">Label9 A6 (Per Page 1)
+                                        <input class="ml-3 mt-3" type="radio" name="label" onclick="changelabel(1)" [checked]="lbl9" (click)="change_label(9)" ></h6>
+                                   <img src="assets/img/label9.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                 </div>
+
+               
+             </div>
+             </div>
+         </div>
+				
+		
+		<!--second row end--->
+	</section>
+</div>

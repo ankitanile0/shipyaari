@@ -1,0 +1,220 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Shipyaari Support Chat</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0">
+               <li class="breadcrumb-item">Home</li>
+               <li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Shipyaari Support Chat</a></li>
+            </ol> -->
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_support()" class="active">Support Ticket</a>
+               <a href="javascript:" (click)="go_to_agreement()">Agreements</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card" style="height: auto;">
+               <div class="card-body pt-0 pb-2">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>Case details | Ticket ID &nbsp; #{{tkt_id}}</h4>
+                     <div class="card-header-form">
+                        <div class="form-check form-check-inline mr-0">
+                           <button class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="back()">Back</button>
+                           <button *ngIf="button_flag != 1" class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="close_ticket(tkt_id)">Close Ticket</button>  
+                              <button *ngIf="button_flag == 1" class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="reopen_ticket_data(tkt_id)">Reopen Ticket</button> 
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row m-2">
+                     <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Subject</div>
+                                 <div class="text-dark">{{contact_type}}: &nbsp;{{subject}}</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                      <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Ticket ID</div>
+                                 <div class="text-dark">#{{tkt_id}}</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                      <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Created</div>
+                                 <div class="text-dark">{{created | date:'short'}}</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                      <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Support type</div>
+                                 <div class="text-dark">{{support_type}}</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                      <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Opened by</div>
+                                 <div class="text-dark">{{email}}</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                      <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Status</div>
+                                 <div *ngIf="status == '0'" class="text-primary">Pending</div>
+                                 <div *ngIf="status == '1'" class="text-warning">In Process</div>
+                                 <div *ngIf="status == '2'" class="text-success">Resolved</div>
+                                 <div *ngIf="status == '3'" class="text-danger">Hold</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                      <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Priority</div>
+                                 <div class="text-dark">{{priority | titlecase}}</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                      <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Category type</div>
+                                 <div class="text-dark">{{issue_type}}</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                      <div class="col-12 col-sm-6 col-lg-4">
+                        <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                           <li class="media">
+                              <div class="media-body">
+                                 <div class="mt-0 text-dark font-weight-bold" style="font-size: 15px">Issue Type</div>
+                                 <div class="text-dark">{{issue_desc}}</div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+           <div class="row">
+         <div class="col-lg-12">
+            <div class="card pb-2" style="height: auto;">
+               <div class="card-body pt-0">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>Correspondence</h4>
+                     <div *ngIf="button_flag != 1" class="card-header-form">
+                        <div class="form-check form-check-inline mr-0">
+                           <button *ngIf="open_flag == 0" (click)="reply()" class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                              border-radius: 4px;"> <i class="fa fa-reply"></i> Reply</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div *ngIf="open_flag == 1" class="row m-2" style="border-bottom: 1px solid grey">
+                     <form #f="ngForm" (ngSubmit)="onSubmit(f)" enctype="multipart/form-data" method="POST">
+                     <div class="col">
+                        <div class="row">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Add Cc</label>
+                                 <input type="text" class="form-control" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="cc" name="cc" #Cc = "ngModel" >
+                           <small *ngIf="!Cc.valid && f.submitted" class="text-danger">Enter Proper Email.</small>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group">
+                              <label>Add Reply</label>
+                              <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="html" name="html" #Html = "ngModel" required></angular-editor>
+                              <small *ngIf="(html == null || html == '') && f.submitted" class="text-danger">Description Required.</small> <small *ngIf="(!Html.valid && (html != '' && html != null)) && f.submitted" class="text-danger">Description Requred.</small>
+
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-4">
+                              <label class="text-dark ">Attachments </label> &nbsp;&nbsp; <a href="javacript:" (click)="show()"><i class="fa fa-paperclip fa-lg text-primary" aria-hidden="true" tooltip="Click to add Attachments"></i></a><br>
+                               <ng-container *ngIf="attachflag == 1">
+                            <input type="file" class="form-control" id="file1" [(ngModel)]="file1" name="file1" placeholder="Upload File" style="border: none;" >
+                            
+                            <input  type="file" class="form-control" id="file2" name="file2" placeholder="Upload File" style="border: none;">
+                             <input  type="file" class="form-control" id="file3" name="file3" placeholder="Upload File" style="border: none;">
+                             </ng-container>
+                           </div>
+                           <div class="col-4">
+                              <div class="w20 sec_div bg-red mt-0">
+                           <div class="float-left">
+                              <h3 class="pt-0" style="font-weight: 500; float: left;font-size: 20px;height: 48px;">Web</h3>
+                           </div>
+                           <div class="card-options">
+                              <label class="custom-control custom-radio" style="top:9px">
+                              <input type="radio" class="custom-control-input ser_type" name="category_type" value="sales_support" id="radio_1" checked> <span class="custom-control-label" ></span>
+                              </label>
+                           </div>
+                           <p class="category_desc pb-0 mb-0" style="font-weight: 500;">Via E-mail And Support Center</p>
+                        </div>
+                           </div>
+                           <div class="col-4">
+                              <button type="submit" class="btn btn-primary btn-sm mr-1"> <i class="fa fa-reply"></i> Reply</button>
+                              <button type="button" class="btn btn-primary btn-sm" (click)="close()" >Close</button>
+                           </div>
+                        </div>
+                     </div>
+                     </form>
+                     <hr>
+                  </div>
+                  <div class="row m-2"  *ngFor="let data of chatdata">
+                  	  <div class="card-body shadow-bottom right_shadow" style="border-color: 1px solid gray;">
+	                    <div >
+	                    	<img *ngIf="data.type != 0" src="https://seller.shipyaari.com/client/themes/assets/images/brand/logo2.png" style="width: 100px; " >
+	                    	<img *ngIf="data.type == 0" [src]="userImage" style="width: 100px;">
+	                    </div>
+	                    <div>
+	                    	<p class="mb-0" *ngIf="data.type != 0" style="font-size: 13px;"><b>Shipyaari Support Team</b></p>
+							<p  class="mb-0" *ngIf="data.type == 0" style="font-size: 13px;"><b>{{comp_name}}</b></p>	
+	                    </div>
+	                    <div>
+	                    	<p  class="mb-0" style="font-size: 13px;">{{data.created}}</p>
+	                    </div> 
+	                    <div [innerHTML]="data.message"></div>
+	                  </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>

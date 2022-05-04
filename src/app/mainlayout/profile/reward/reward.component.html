@@ -1,0 +1,43 @@
+<div class="row align-items-center subs mt-2">
+    <div class="col-lg-3 col-md-3 col-sm-12 mb-1">
+        <p class="mb-0 font-bold font-14">Reward Amount -</p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 mb-1">
+        <p class="mb-0 reward text-danger"> {{Creadit_Amt}} </p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 mb-1">
+        <p class="mb-0 font-bold font-14">Subscription Discount -</p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 mb-1">
+        <p class="mb-0 reward text-danger"> {{Subscription_Amt}} </p>
+    </div>
+</div>
+
+<div class="section-title mt-2">Reward History</div>
+<div class="table-responsive">
+    <table class="table table-striped table-hover" id="save-stage" style="width:100%; font-size: 12px;">
+        <thead class="text-center">
+            <tr>
+                <th>SrNo</th>
+                <th>Coupon / Referral Code</th>
+                <th>Credit Note</th>
+                <th>Reward Amount</th>
+                <th>Subscription Discount</th>
+                <th>Increase Validity</th>
+                <th>Description</th>
+                <th> Actions</th>
+            </tr>
+        </thead>
+        <tbody style="text-align: left;">
+            <tr *ngFor ="let data of reward_table; let i = index " >
+                <td> {{i+1}} </td>
+                <td> {{data.coupon_name}} </td>
+                <td> Credit Note#{{data.invoice_user_id}} </td>
+                <td> Rs. {{data.creadit_amt}} </td>
+                <td> {{data.deposit_discount}} % </td>
+                <td> {{data.increase_days}} Days</td>
+                <td > Rs {{data.creadit_amt}} has been credited on wallet recharge of Rs. {{data.wallet_recharge}} </td>
+                <td> <span *ngIf="data.status == 1" class="badge badge-primary">Success</span> </td>
+        </tbody>
+    </table>
+</div>

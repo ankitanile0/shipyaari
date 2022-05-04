@@ -1,0 +1,237 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+<section class="section">
+<div class="d-flex space-between align-items-center m-b-15">
+   <div class="crumb">
+      <!-- <h4>Shipyaari Support Chat</h4> -->
+      <!-- <ol class="breadcrumb p-0 m-b-0"> 
+         <li class="breadcrumb-item">Home</li>
+         <li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Shipyaari Support Chat</a></li>
+      </ol>-->
+      <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_support()" class="active">Support Ticket</a>
+               <a href="javascript:" (click)="go_to_agreement()">Agreements</a>
+            </div>
+   </div>
+</div>
+<div class="row">
+<div class="col-lg-4">
+   <div class="card" style="height: 565px;">
+      <div class="card-body pt-0 pb-2">
+         <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+            <h4>Case details | Ticket ID #{{tkt_id}}</h4>
+            <div class="card-header-form">
+              <!--  <div class="form-check form-check-inline mr-0">
+                    <button *ngIf="button_flag != 1" class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                      border-radius: 4px;" (click)="close_ticket(tkt_id)">Close Ticket</button>  
+                      <button *ngIf="button_flag == 1" class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                      border-radius: 4px;" (click)="reopen_ticket_data(tkt_id)">Reopen Ticket</button> 
+               </div> -->
+            </div>
+         </div>
+         <div class="row m-2">
+            <div class="col-12">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Subject</div>
+                        <div class="text-dark">{{contact_type}}: &nbsp;{{subject}}</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-12 ">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Ticket ID</div>
+                        <div class="text-dark">#{{tkt_id}}</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-12">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Created</div>
+                        <div class="text-dark">{{created | date:'short'}}</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-12">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Support type</div>
+                        <div class="text-dark">{{support_type}}</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-12">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Opened by</div>
+                        <div class="text-dark">{{email}}</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-12 ">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Status</div>
+                        <div *ngIf="status == '0'" class="text-primary">Pending</div>
+                        <div *ngIf="status == '1'" class="text-warning">In Process</div>
+                        <div *ngIf="status == '2'" class="text-success">Resolved</div>
+                        <div *ngIf="status == '3'" class="text-danger">Hold</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-12 ">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Priority</div>
+                        <div class="text-dark">{{priority | titlecase}}</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-12 ">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Category type</div>
+                        <div class="text-dark">{{issue_type}}</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="col-12 ">
+               <ul class="list-unstyled list-unstyled-border user-list" id="message-list">
+                  <li class="media">
+                     <div class="media-body">
+                        <div class="mt-0 text-dark font-weight-bold" style="font-size: 14px">Issue Type</div>
+                        <div class="text-dark">{{issue_desc}}</div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="col-lg-8">
+   <div class="card" style="height: 565px;">
+      <div class="card-header mt-0 pl-3 pb-1 pr-3" >
+            <h4>Shipyaari Chat Support</h4>
+            <div class="card-header-form">
+               <div class="form-check form-check-inline mr-0">
+                   <button class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="back()">Back</button>
+                    <button *ngIf="button_flag != 1" class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                      border-radius: 4px;" (click)="close_ticket(tkt_id)">Close Ticket</button>  
+                      <button *ngIf="button_flag == 1" class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                      border-radius: 4px;" (click)="reopen_ticket_data(tkt_id)">Reopen Ticket</button> 
+               </div>
+            </div>
+         </div>
+    
+     <div class="card-body">
+      <div class="chat-box" id="mychatbox">
+         <div class="card-body chat-content" tabindex="2" style="overflow: scroll; outline: none;">
+            <ng-container *ngFor="let data of chatdata;">
+            <div *ngIf="data.type != 0" class="chat-item chat-left mb-1" >
+               <div class="chat-details ml-3">
+                  <div class="chat-text">
+                    <small class="text-right">{{comp_name}}</small><br>
+                    {{data.message}} <a  *ngIf="data.attachment1 != null && data.attachment1 != '' " href="javascript:" target="blank" (click)="download(data.attachment1)"><i class="fa fa-download text-warning ml-1" aria-hidden="true"></i></a>  </div>
+                  <div class="chat-time">{{data.created | date:'short'}}</div>
+               </div>
+            </div>
+            <div *ngIf="data.type == 0" class="chat-item chat-right mb-1">
+               <div class="chat-details mr-3">
+                  <div class="chat-text" style="background-color: #077bd4;">
+                    <small class="text-right">{{comp_name}}</small><br>
+                    {{data.message}} <a  *ngIf="data.attachment1 != null && data.attachment1 != '' " href="javascript:" target="blank" (click)="download(data.attachment1)"><i class="fa fa-download text-warning ml-1" aria-hidden="true"></i></a>  </div>
+                  <div class="chat-time">{{data.created | date:'short'}}</div>
+               </div>
+            </div>
+        </ng-container>
+           
+         </div>
+          <div *ngIf="button_flag != 1" class="card-footer chat-form">
+               <form id="chat-form" #f="ngForm" (ngSubmit)="onSubmit(f)" enctype="multipart/form-data" method="POST">
+                  <div class="d-flex">
+                  <input type="text" class="form-control file" name="chat_reply" [(ngModel)]="chat_reply" placeholder="Type a message">
+                  <div class="image-upload">
+                        <label for="file-input">
+                            <a _ngcontent-iyr-c18="" id="previewImg" class="attach"><i _ngcontent-iyr-c18="" class="fa fa-paperclip icon"></i></a>
+                            <!--  <img id="previewImg" src="assets/img/pin.png" style="width: 100px; height: 100px;" /> -->
+                        </label>
+
+                   <input id="file-input" type="file" onchange="previewFile(this);" style="display: none;" />
+                </div>
+                  
+                  <button class="btn btn-primary">
+                  <i class="far fa-paper-plane"></i>
+                  </button>
+               </div>
+               </form>
+            </div>
+      </div>
+      </div>
+
+   </div>
+</div>
+<!-- <div class="row">
+   <div class="col-lg-12">
+      <div class="card pb-2" style="height: auto;">
+         <div class="card-body pt-0">
+            <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+               <h4>Correspondence</h4>
+            
+            </div>
+            <div class="row m-2"  *ngFor="let data of chatdata">
+            	  <div class="card-body shadow-bottom right_shadow" style="border-color: 1px solid gray;">
+               <div >
+               	<img *ngIf="data.type != 0" src="https://seller.shipyaari.com/client/themes/assets/images/brand/logo2.png" style="width: 100px; " >
+               	<img *ngIf="data.type == 0" [src]="userImage" style="width: 100px;">
+               </div>
+               <div>
+               	<p class="mb-0" *ngIf="data.type != 0" style="font-size: 13px;"><b>Shipyaari Support Team</b></p>
+   <p  class="mb-0" *ngIf="data.type == 0" style="font-size: 13px;"><b>{{comp_name}}</b></p>	
+               </div>
+               <div>
+               	<p  class="mb-0" style="font-size: 13px;">{{data.created}}</p>
+               </div> 
+               <div [innerHTML]="data.message"></div>
+             </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
+   </section>
+   </div> --><script>
+        function previewFile(input){
+            var file = $("input[type=file]").get(0).files[0];
+
+            if(file){
+              var reader = new FileReader();
+
+              reader.onload = function(){
+                  $("#previewImg").attr("src", reader.result);
+              }
+
+              reader.readAsDataURL(file);
+            }
+        }
+    </script>

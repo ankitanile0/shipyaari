@@ -1,0 +1,273 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <h4>Feedback</h4>
+            <!-- <ol class="breadcrumb p-0 m-b-0"> 
+                <li class="breadcrumb-item">Help</li>
+                  <li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Shipyaari Feedback</a></li> 
+            </ol>-->
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-12">
+            <div class="card">
+               <div class="card-body mt-3">
+                  <form #up="ngForm" (submit)="savefeedback(up)" autocomplete="off">
+                     <div class="row">
+                        <div class="col">
+                           <div class="d-flex justify-content-center">
+                                <div class="hover-image">
+
+                                 <p class="emoji-title">How Was Your Experience?</p>
+
+                                 <ul class="pagination nps_courier_rating emoji">
+                                    <li data-rating="1">
+                                       <a *ngIf="emo1 == 0" href="javascript:void(0);" class="courier"  tooltip="Terrible"
+                                          (click)="ratingData(1)">
+                                          <img src="./assets/img/1-grey-icon.png"
+                                             data-colored="./assets/img/1.icon.png"
+                                             data-non_colored="./assets/img/1-grey-icon.png" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>TERRIBLE </span> -->
+                                       </a>
+                                       <a *ngIf="emo1 != 0" href="javascript:void(0);" class="courier"   tooltip="Terrible">
+                                          <img src="./assets/img/1.icon.png"
+                                             data-colored="./assets/img/1.icon.png"
+                                             data-non_colored="./assets/img/1-grey-icon.png" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>TERRIBLE </span> -->
+                                       </a>
+                                      
+                                    </li>
+                                    &nbsp;
+                                    <li data-rating="2">
+                                       <a *ngIf="emo2 == 0" href="javascript:void(0);" class="courier"  tooltip="Bad"
+                                          (click)="ratingData(2)">
+                                          <img src="./assets/img/2-grey-icon.png" 
+                                             data-colored="./assets/img/2.icon.png"
+                                             data-non_colored="./assets/img/2-grey-icon.png" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>BAD </span> -->
+                                       </a>
+                                       <a *ngIf="emo2 != 0" href="javascript:void(0);" class="courier"  tooltip="Bad">
+                                          <img src="./assets/img/2.icon.png"
+                                             data-colored="./assets/img/2.icon.png"
+                                             data-non_colored="./assets/img/2-grey-icon.png" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>BAD </span> -->
+                                       </a>
+                                      
+                                    </li>
+                                    &nbsp;
+                                    <li data-rating="3">
+                                       <a *ngIf="emo3 == 0" href="javascript:void(0);" class="courier" tooltip="Okay"
+                                          (click)="ratingData(3)">
+                                          <img src="./assets/img/3-grey-icon.png"
+                                             data-colored="./assets/img/3.icon.png"
+                                             data-non_colored="./assets/img/3-grey-icon.png" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>OKAY </span> -->
+                                       </a>
+                                       <a *ngIf="emo3 != 0" href="javascript:void(0);" class="courier"  tooltip="Okay">
+                                          <img src="./assets/img/3.icon.png" 
+                                             data-colored="./assets/img/3.icon.png"
+                                             data-non_colored="./assets/img/3-grey-icon.png" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>OKAY </span> -->
+                                       </a>
+                                       
+                                     </li>
+                                    &nbsp;
+                                    <li data-rating="4">
+                                       <a *ngIf="emo4 == 0" href="javascript:void(0);" class="courier" tooltip="Good"
+                                          (click)="ratingData(4)">
+                                          <img src="./assets/img/4-grey-icon.png"
+                                             data-colored="./assets/img/4.icon.png"
+                                             data-non_colored="./assets/img/4-grey-icon.png" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>GOOD </span> -->
+                                       </a>
+                                       <a *ngIf="emo4 != 0" href="javascript:void(0);" class="courier" tooltip="Good">
+                                          <img src="./assets/img/4.icon.png" 
+                                             data-colored="./assets/img/4.icon.png"
+                                             data-non_colored="./assets/img/4-grey-icon.png" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>GOOD </span> -->
+                                       </a>
+                                      
+                                    </li>
+                                    &nbsp;
+                                    <li data-rating="5">
+                                       <a *ngIf="emo5 == 0" href="javascript:void(0);" class="courier"  tooltip="Excellent"
+                                          (click)="ratingData(5)">
+                                          <img src="./assets/img/5-grey-icon.jpeg" 
+                                             data-colored="./assets/img/5.icon.png"
+                                             data-non_colored="./assets/img/5-grey-icon.jpeg" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>EXCELLENT </span> -->
+                                       </a>
+                                       <a *ngIf="emo5 != 0" href="javascript:void(0);" class="courier"  tooltip="Excellent">
+                                          <img src="./assets/img/5.icon.png"
+                                             data-colored="./assets/img/5.icon.png"
+                                             data-non_colored="./assets/img/5-grey-icon.jpeg" href="javascript:void(0);"
+                                             class="hover-image">
+                                          <!-- <span>EXCELLENT </span> -->
+                                       </a>
+                                     
+                                    </li>
+                                 </ul>                              
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col">
+                           <!-- <ng-container *ngFor="let item of starList; let i=index ">
+                           <a (click)="setStar(i)"> <i class="fa fa-2x ngb-rating" [ngClass]="{'fa-star-o':item,'fa-star':!item}"></i> </a>
+                           </ng-container> -->
+                        </div>
+                        <div class="col">
+                           <!-- <p class="text-dark" style="font-size: 18px;">Rating {{rating1}}  </p> -->
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="formGroupExampleInput2">Full Name</label>
+                              <input type="text" class="form-control" placeholder="Please enter full name"
+                                 [(ngModel)]="full_name" #Full_name="ngModel" name="full_name" required readonly>
+                              <small *ngIf="(full_name == null || full_name == '') && up.submitted"
+                                 class="text-danger">Full Name required.</small>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="formGroupExampleInput2">Email Id</label>
+                              <input type="text" class="form-control" placeholder="Please enter email"
+                                 [(ngModel)]="user_email" #User_email="ngModel" name="user_email" required readonly>
+                              <small *ngIf="(user_email == null || user_email == '') && up.submitted"
+                                 class="text-danger">Email id required.</small>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-6">
+                           <div class="form-group">
+                              <label for="formGroupExampleInput2">Select Module <b class="text-danger">*</b></label>
+                              <ng-select [items]="modules" bindLabel="name" bindValue="name" tooltip="Select Module"
+                                 (change)="selectedModule()" #t="ngModel" [(ngModel)]="modulename" name="modulename"
+                                 placeholder="Select Module">
+                              </ng-select>
+                           </div>
+                        </div>
+                        <div *ngIf="sub_module != ''" class="col-6">
+                           <div class="form-group">
+                              <label for="formGroupExampleInput2">Select Sub Module Name</label>
+                              <ng-select [items]="sub_module" bindLabel="name" bindValue="name"
+                                 tooltip="Select Submodule" #Submodule_name="ngModel" [(ngModel)]="submodulename"
+                                 name="submodulename" placeholder="Select Sub Module">
+                              </ng-select>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Comments <b class="text-danger" >*</b></label>
+                              <textarea class="form-control" rows="3" [(ngModel)]="comments" #Comments="ngModel"
+                                 name="comments"></textarea>
+                              <!-- <small *ngIf="(comments == null || comments == '') && up.submitted" class="text-danger">Comment required.</small> -->
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row mt-3">
+                        <div class="col text-center">
+                           <button type="submit" class="btn btn-primary btn-sm mb-2">Save Feedback</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="d-flex space-between align-items-center m-b-15">
+      </div>
+      <div class="row">
+         <div class="col-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4> Shipyaari Feedback List</h4>
+               </div>
+               <div class="card-body mt-3">
+                  <div class="table-responsive">
+                     <table class="table table-striped table-hover" id="save-stage">
+                        <thead>
+                           <tr>
+                              <th>Sr No</th>
+                              <th>Rating</th>
+                              <th>Comment</th>
+                              <th>Module Name</th>
+                              <th>Feedback Date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of feedbacklistvalue; let i = index">
+                              <td class="text-center">{{i+1}}</td>
+                              <td class="text-center">
+                                 <span *ngIf="data.rating == 1" class=" text-danger">
+                                   <!--  <i class="fa fa-star" aria-hidden="true"></i> -->
+                                   Terrible
+                                 </span>
+                                 <span *ngIf="data.rating == 2" class=" text-warning">
+                                    <!-- <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i> -->
+                                    Bad
+                                 </span>
+                                 <span *ngIf="data.rating == 3" class=" text-dark">
+                                    <!-- <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i> -->
+                                    Okay
+                                 </span>
+                                 <span *ngIf="data.rating == 4" class=" text-primary">
+                                    <!-- <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i> -->
+                                    Good
+                                 </span>
+                                 <span *ngIf="data.rating == 5" class=" text-success">
+                                    <!-- <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i> -->
+                                    Excellent
+                                 </span>
+                              </td>
+                              <td class="text-center">{{data.comment | titlecase}}</td>
+                              <td class="text-center">{{data.module_name | titlecase}}
+                                 <span *ngIf="data.sub_module_name != ''">({{data.sub_module_name}})</span>
+                              </td>
+                              <td class="text-center">{{data.feedback_date}}</td>
+                           </tr>
+                           <tr *ngIf="feedbacklistvalue == null || feedbacklistvalue.length == 0">
+                              <td colspan="10">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>

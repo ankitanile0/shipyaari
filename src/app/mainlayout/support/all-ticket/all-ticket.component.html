@@ -1,0 +1,120 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>All Ticket</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> 
+               <li class="breadcrumb-item">Home</li>
+               <li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">All Ticket</a></li>
+            </ol>-->
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_support()" class="active">Support Ticket</a>
+               <a href="javascript:" (click)="go_to_agreement()">Agreements</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card" >
+               <div class="card-body pt-0">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>All Ticket</h4>
+                     <div class="card-header-form">
+                        <div class="form-check form-check-inline mr-0">
+                        <!--  <button class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="back()">Back</button>
+                           <button class="btn btn-primary btn-sm mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="go_to_create()">Create ticket</button> -->
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-3">
+                        <select class="form-control" (change)="filter('priority')" [(ngModel)]="priority">
+                            <option value=null>Filter By Priority</option>
+                            <option value="high" >High</option>
+                             <option value="medium" >Medium</option>
+                            <option value="low">Low</option>
+                        </select> 
+                     </div>
+                     <div class="col-3">
+                         <select class="form-control" (change)="filter('supporty_type')" [(ngModel)]="supporty_type">
+                            <option value=null>Filter By Support Type</option>
+                            <option value="sales_support" >Sales Support</option>
+                             <option value="account_support" >Account Support</option>
+                            <option value="operation_support">Operation Support</option>
+                            <option value="technical_support">Technical Support</option>
+                        </select> 
+                     </div>
+                     <div class="col-3">
+                        <select class="form-control" (change)="filter('priority')" [(ngModel)]="status">
+                            <option value=null>Filter By Status</option>
+                            <option value="pending" >Pending</option>
+                             <option value="1" >Processing</option>
+                            <option value="2">Resolve</option>
+                        </select>
+                     </div>
+                      <div class="col-3">
+                         <button *ngIf="filter_flag == 1" class="btn btn-warning btn-sm ml-1 mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="reset_filter()" >Reset Filter</button>
+                         <button class="btn btn-primary btn-sm ml-1 mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="back()">Back</button>
+                           <button class="btn btn-primary btn-sm mr-1" style="height: 28px;
+                              border-radius: 4px;" (click)="go_to_create()">Create Ticket</button>
+                     </div>
+                  </div>
+                  <div class="table-responsive m-t-5">
+                     <table class="table  table-hover table-order" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Sr. No</th>
+                              <th>Created</th>
+                              <th>Subject</th>
+                              <th>Priority</th>
+                              <th>Ticket ID</th>
+                              <th>Type</th>
+                              <th>Status</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr  *ngFor ="let data of ticketList ; let i = index ">
+                              <td>{{i+1}}</td>
+                           	<td>
+                           		<span class="d-flex"><p class="text-success mb-0"><i class="fa fa-calendar" aria-hidden="true"></i> {{data.date}}</p>&nbsp;&nbsp; <p class="text-primary mb-0"><i class="far fa-clock"></i> {{data.time}}</p></span>
+                           	</td>
+                              <td>
+                                <span *ngIf="data.contact_type == 'chat'"> <a href="javacript:" (click)="go_to_chat_ticket(data.id)">{{data.contact_type | titlecase}} : {{data.subject | titlecase}}</a></span>
+                                <span *ngIf="data.contact_type != 'chat'"> <a href="javacript:" (click)="go_to_mail_ticket(data.id)" >{{data.contact_type | titlecase}} : {{data.subject | titlecase}}</a></span>
+                              </td>
+                              <td>{{data.priority | titlecase}}</td> 
+                             <td>#{{data.id}}</td> 
+                             <td>#{{data.support_type}}</td>
+                              <td>
+                                 <span *ngIf="data.status == 0" class="text-primary">Pending</span>
+                                 <span *ngIf="data.status == 1" class="text-warning">In Process</span>
+                                 <span *ngIf="data.status == 2" class="text-success">Resolved</span>
+                                 <span *ngIf="data.status == 3" class="text-danger">Hold</span>
+                              </td>
+                            
+                           </tr>
+                           <tr *ngIf="ticketList == null || ticketList.length == 0">
+                              <td colspan="7">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>Opps! nothing to show here</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         
+      </div>
+
+   </section>
+</div>

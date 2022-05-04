@@ -1,0 +1,494 @@
+@font-face {
+    font-family: 'Product Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local("Open Sans"), local("OpenSans"),
+    url('https://fonts.gstatic.com/s/productsans/v7/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2') format("woff2");
+    }
+    /*
+* See: https://fonts.google.com/license/googlerestricted
+*/
+/* cyrillic */
+
+
+body, html, * {
+  font-family: Product Sans;
+  overflow: hidden;
+}
+
+body {
+     
+      overflow: hidden;
+      height: 100%;
+    
+      background-repeat: no-repeat;
+      background-size: cover;
+
+    }
+    *:focus{
+      outline: none;
+    }
+    .login_btn:focus{
+      outline: none !important;
+      color: #204d74;
+    }
+    .right_data{
+      padding: 20px;
+  /* background: linear-gradient(45deg, #0e0850, #102be8e0); */
+  /*background: linear-gradient(45deg, #00cfff, #9733b7);*/
+  width: 100%;
+  height: 550px;
+  /* height: 100%; */
+       background-color: #2283d6;
+         border-radius: 10px;
+
+
+  /*background: url(https://sellon.kraftly.com/srcdn/kr-shipmultichannel/register-img/black-bg.png);*/
+  background-repeat: no-repeat;
+  background-size: cover;
+    }
+    .login_detail{
+          background-color: #fff;
+
+      width: 100%;
+      height: 550px;
+      padding: 20px 29px;
+      border-radius: 10px;
+
+    }
+    .p-0{
+      padding: 0
+    }
+    .wrapper{
+          margin: 32px 20px;
+
+    }
+    .mt-0{
+      margin-top: 0;
+
+    }
+    .log_h3{
+     color: #2283d6!important;
+      font-size: 25px;
+      font-weight: 600;
+      margin-bottom: 0;
+      margin-top: 10px;
+
+    }
+    .log_h3 span{
+      color: #fff;
+font-weight: 300;
+    }
+    .d-flex{
+      display: flex;
+    }
+    .account{
+      padding: 8px 14px;
+      display: flex;
+      justify-content: space-between;
+      box-shadow: 0px 2px 15px rgba(0,0,0,.075);
+
+      align-items: center;
+      text-align: center;
+      border-radius: 50px;
+      background-color: white;
+      width: 50px;
+      height: 50px;
+    }
+    .mr-5{
+      margin-right: 12px;
+    }
+    .ml-5{
+      margin-left: 4px;
+    }
+    .justify-space{
+      justify-content: center;
+    }
+    .account span{
+      color: #0039b7;
+font-weight: 500;
+    }
+    .or_acc:after{
+      content: "";
+      width: 45%;
+  height: 1px;
+  background-color: rgb(0 0 0 / 36%);
+  position: absolute;
+  right: 0;
+  top: 10px;
+    }
+    .or_acc{
+      margin: 20px 0;
+position: relative;
+text-align: center;
+
+    }
+    .or_acc:before{
+      content: "";
+      width: 45%;
+      left: 0;
+      top: 10px;
+  height: 1px;
+  background-color: rgb(0 0 0 / 36%);
+  position: absolute;
+    }
+    .email input{
+     font-size: 14px;
+    padding: 8px 15px;
+    height: 38px;
+
+    }
+    .mt12{
+      margin-top: 19px;
+
+    }
+    .w100{
+      width: 100%;
+    }
+    .login_btn {
+     background-color: #517bf1;
+  /* border-radius: 50px; */
+  color: white;
+  margin-top: 14px;
+  font-weight: 500;
+  width: 100%;
+
+    }
+    /*.login_btn:hover{
+      color: black;
+      border: 1px solid #5801dc;
+      background-color: white;
+    }*/
+    .bottom{
+      position: absolute;
+border: 0;
+bottom: 17px;
+color: #0039b7;
+    }
+    label{
+          font-weight: 600;
+    color: #34395e;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+
+    }
+    input{
+      color: #a3a5a8;
+
+    }
+    ::placeholder{
+      color: #a3a5a8;
+
+    }
+    .bottom a{
+
+  color: #0039b7;
+  font-weight: 600;
+
+    }
+    @media (max-width: 767px) {
+      .wrapper {
+  margin: 58px 34px;
+}
+.right_data{
+display: none;
+}
+    }
+    /*  slider*/
+    .relative {
+  position: relative;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  font-family: "Open Sans";
+  height: 300px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 300px;
+  background-color: #777;
+  background-image: url("https://yt.ajnergaard.co.uk/wp-content/uploads/2014/02/sliders-01.png");
+  background-position: center center;
+  background-repeat: none;
+  background-size: 100%;
+  background-size: cover;
+}
+
+.carousel .item .carousel-caption .mediumText {
+  line-height: 1;
+  font-size: 18px !important;
+  padding-top: 0;
+}
+
+.carousel .item .carousel-caption .bigText {
+  line-height: 1;
+  font-size: 40px !important;
+  position: relative;
+  padding-top: 5%;
+  padding-bottom: 0;
+  margin-bottom: -25px;
+}
+.carousel .item .carousel-caption .bigText.bigger {
+  font-size: 60px !important;
+  margin-bottom: 35px;
+}
+
+.carousel .item .carousel-caption .bigText p {
+  color: #ffffff;
+}
+
+.carousel .item .carousel-caption .bigText p:nth-of-type(1) {
+margin-top: 10px;
+}
+
+.carousel .item .carousel-caption .bigText p:nth-of-type(2) {
+  color: #858585;
+}
+
+.carousel .item .carousel-caption .bigText p:nth-of-type(3) {
+  color: #f00;
+}
+
+.carousel .item .carousel-caption .bigText a.btn {
+  font-size: 20px;
+  float: right;
+}
+
+.carousel .item .carousel-caption blockquote {
+  border-left: none;
+  font-size: 40px;
+  top: 50%;
+  margin: 8% 0 0 0;
+}
+
+.carousel .item .carousel-caption blockquote footer {
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+body{
+  overflow-y: scroll !important;
+}
+.login_btn{
+      width: 110px;
+
+}
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+ body{
+  overflow-y: scroll !important;
+}
+  .carousel {
+      height: 300px;
+  }
+  .carousel .item {
+      height: 300px;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .carousel {
+      height: 400px;
+  }
+  .carousel .item {
+      height: 400px;
+  }
+  .carousel .item .carousel-caption .mediumText {
+      line-height: 1;
+      font-size: 22px !important;
+      padding-top: 5%;
+  }
+  .carousel .item .carousel-caption .bigText {
+      line-height: 1;
+      font-size: 60px !important;
+      position: relative;
+      padding-top: 0;
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+  }
+  .carousel .item .carousel-caption .bigText.bigger {
+      font-size: 100px !important;
+      margin-bottom: -5%;
+  }
+  .carousel .item .carousel-caption .bigText a.btn {
+      float: none;
+      position: absolute;
+      bottom: -40px;
+      right: -25px;
+      font-size: 30px;
+  }
+  .carousel .item .carousel-caption .row > .bigText.tripleBorder {
+      border-right: 5px solid #f00;
+  }
+  .carousel .item .carousel-caption .row > .bigText.tripleBorder:before {
+      border-right: 5px solid #fff;
+      position: absolute;
+      content: "";
+      top: 0;
+      right: 17px;
+      bottom: 0;
+      left: 0;
+  }
+  .carousel .item .carousel-caption .row > .bigText.tripleBorder:after {
+      border-right: 5px solid #aeaeae;
+      position: absolute;
+      content: "";
+      top: 0;
+      right: 6px;
+      bottom: 0;
+      left: 0;
+  }
+  .carousel .item .carousel-caption blockquote {
+      font-size: 60px;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .carousel .item .carousel-caption .mediumText {
+      font-size: 25px !important;
+      padding-top: 2%;
+  }
+  .carousel .item .carousel-caption .bigText.bigger {
+      font-size: 100px !important;
+      margin-bottom: 35px;
+  }
+  .carousel .item .carousel-caption .bigText a.btn {
+      bottom: 30px;
+      right: 10px;
+      font-size: 30px;
+  }
+  .carousel .item .carousel-caption blockquote {
+      font-size: 60px;
+  }
+}
+.carousel .item{
+background-color: transparent;
+}
+
+log_h3.carousel-control.left {
+  background-image: -webkit-linear-gradient(left,rgb(255 255 255 / 2%) 0,rgba(0,0,0,.0001) 100%);
+}
+.carousel-control.right{
+  background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgb(0 0 0 / 3%) 100%);
+}
+.carousel{
+  
+}
+
+.log_h3:after{
+    content: "";
+  width: 10%;
+  height: 2px;
+  
+  position: absolute;
+  /* right: 30px; */
+  /* top: 0; */
+  margin-top: 15px;
+  margin-left: 12px;
+    }
+    .pass_new{
+          background-color: rgb(0 0 0 / 5%);
+  box-shadow: none;
+    }
+    .item{
+          justify-content: center;
+  display: flex;
+  align-items: center;
+    }
+    .text_div{
+      color: white;
+  letter-spacing: 1px;
+      font-size: 18px;
+      text-align: justify;  
+
+    }
+    .carousel .item{
+      display: flex;
+      color: white;
+  letter-spacing: 1px;
+  font-weight: 400;
+    }
+    .carousel-inner .container{
+          width: 602px;
+
+    }
+.login-register-wrapper {
+    background: #ffffff78;
+    padding: 20px 25px;
+    border: none;
+    margin: 65px 0;
+    box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 0%), 0px 8px 10px 1px rgb(112 109 109 / 5%), 0px 3px 14px 2px rgb(125 125 125 / 3%);
+}
+
+.login-btn{
+ height: 30px;
+ width: 100%;
+}
+
+.back_image{
+  background-color: #2283d6;
+  padding: 5px;
+  border-radius: 10px;
+}
+.pass_val{
+  position: absolute;
+  right: 12px;
+  top: 31px;
+}
+.fir_pass{
+  display: flex;   
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.signu_c{
+  color: #b7babc;
+}
+.log{
+  width: 100%;margin-top: 100px;
+}
+.sign_here{
+  color: white font-we;
+}
+.change_pass_btn{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  width: 30%;
+}
+.side-image{
+  width: 100%;margin-top: 100px;
+}
+{
+
+}
+.login_detail_for[_ngcontent-igl-c1] {
+    background-color: #fff;
+    width: 100%;
+    height: 300px;
+    padding: 20px 29px;
+    border-radius: 10px;
+}
+.mt-10{
+  margin-top: 10px;
+}
+.forget-logo{
+   background: cornflowerblue;
+    border-radius: 4px;
+}
+

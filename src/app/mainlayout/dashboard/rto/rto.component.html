@@ -1,0 +1,313 @@
+<div [innerHTML]="Loader"></div>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>RTO</h4> -->
+            <ol class="breadcrumb p-0 m-b-0">
+              <!--  <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Dashboard</a></li>
+               <li class="breadcrumb-item active" aria-current="page">RTO</li> -->
+              <!--   <div class="btn-group mb-3" role="group" aria-label="Basic example"> -->
+                 <!--  <button type="button" class="btn btn-secondary rad_0" (click)="go_to_home()">Dashboard</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_ndr()">NDR</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_tracking()">Tracking</button>
+                  <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_rto()">RTO</button> -->
+               <!-- </div> -->
+            </ol>
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_home()" >Dashboard</a>
+               <a href="javascript:" (click)="go_to_ndr()">NDR</a>
+               <a href="javascript:" (click)="go_to_tracking()" >Tracking</a>
+               <a href="javascript:" (click)="go_to_rto()" class="active">RTO</a>
+            </div>
+         </div>
+         <form [formGroup]="form">
+               <div class="">
+                  <input type="text"
+                  class="form-control-sm date-box date-input" 
+                  formControlName="Drange" 
+                  (onHidden)="showdash()"
+                  placeholder="Select date range"
+                  [(ngModel)]="DATERANGE"  
+                  #daterangepicker="bsDaterangepicker"
+                  bsDaterangepicker 
+                  [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY', showWeekNumbers: false, containerClass:'theme-dark-blue', ranges: ranges  }">
+               </div>
+            </form>
+      </div>
+      <!-- graph Ratio -->
+      <div class="row">
+         <div class="col-lg-10 col-md-12">
+            <div class="row">
+               <div class="col-sm-12 col-md-4 col-lg-4 card_box">
+                  <div class="card card-bottom">
+                     <div class="card-body card-top">
+                        <div class="d-flex">
+                           <div class="w30">
+                              <a href="javascript:" (click)="download_sheet('RTO Initiated')"> 
+                                 <i  style="font-size: 24px !important;" class="fas fa-cart-arrow-down"></i></a>
+
+                             <!--  <img src="assets/img/return_initiate.png" alt="" style="width: 50px;"> -->
+                           </div>
+                           <div class="col text-right">
+                              <h3 class="mb-1 counter font-24">{{Rto_Init}}</h3>
+                              <div class="text-muted">RTO Initiated
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-12 col-md-4 col-lg-4 card_box">
+                  <div class="card card-bottom">
+                     <div class="card-body card-top">
+                        <div class="d-flex">
+                           <div class="w30">
+                               <a href="javascript:" (click)="download_sheet('RTO In Transit')"> 
+                                 <i  style="font-size: 24px !important;" class="fas fa-truck"></i></a>
+                              <!-- <img src="assets/img/return_transit (1).png" alt="" style="width: 50px;"> -->
+                           </div>
+                           <div class="col text-right">
+                              <h3 class="mb-1 counter font-24">{{Rto_It}}</h3>
+                              <div class="text-muted">RTO In Transit<br>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-12 col-md-4 col-lg-4 card_box">
+                  <div class="card card-bottom">
+                     <div class="card-body card-top">
+                        <div class="d-flex">
+                           <div class="w30">
+                             
+                              <a href="javascript:" (click)="download_sheet('RTO Exception')">  <i  style="font-size: 24px !important;" class="fas fa-info-circle"></i></a>
+                             <!--  <img src="assets/img/recurring-exception.png" alt="" style="width: 50px;"> -->
+                           </div>
+                           <div class="col text-right">
+                              <h3 class="mb-1 counter font-24">{{Rto_Ex}}</h3>
+                              <div class="text-muted">RTO Exception
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-12 col-md-4 col-lg-4 card_box">
+                  <div class="card card-bottom">
+                     <div class="card-body card-top">
+                        <div class="d-flex">
+                           <div class="w30">
+                            <a href="javascript:" (click)="download_sheet('RTO Delivered')">  <i  style="font-size: 24px !important;" class="fas fa-shopping-cart"></i></a>
+                             <!--  <img src="assets/img/rto-delivered.png" alt="" style="width: 50px;"> -->
+                           </div>
+                           <div class="col text-right">
+                              <h3 class="mb-1 counter font-24">{{Rto_Dl}}</h3>
+                              <div class="text-muted">RTO Delivered
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-12 col-md-4 col-lg-4 card_box">
+                  <div class="card card-bottom">
+                     <div class="card-body card-top">
+                        <div class="d-flex">
+                           <div class="w30">
+                             <i class="fa fa-undo" style="font-size: 24px !important;"></i>
+                             <!--  <img src="assets/img/tro-avg.png" alt="" style="width: 50px;"> -->
+                           </div>
+                           <div class="col text-right">
+                              <h3 class="mb-1 counter font-24">{{Avg_Rto_Day}}</h3>
+                              <div class="text-muted">Avg RTO Transit Days
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-12 col-md-4 col-lg-4 card_box">
+                  <div class="card card-bottom">
+                     <div class="card-body card-top">
+                        <div class="d-flex">
+                           <div class="w30">
+                              <i  style="font-size: 24px !important;"
+                           class="fas fa-signal"></i> 
+                            <!--   <img src="assets/img/icons8-total-sales-64.png" alt="" style="width: 50px;"> -->
+                           </div>
+                           <div class="col text-right">
+                              <h3 class="mb-1 counter font-24">{{Revenu}}</h3>
+                              <div class="text-muted">Rev. Of RTO, % Of Total Rev. 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-2">
+            <div class="card total-ndr">
+               <div class="dash1">
+                  <div class="total color-green mt-3 mb-2">
+                     <h5 class="icon_new">
+                        <i  style="font-size: 30px !important;"
+                           class="fa fa-cubes"></i> 
+                       <!--  <img src="assets/img/doller.png" alt=""> -->
+                     </h5>
+                     <p class=" mb-0 "> Total NDR</p>
+                     <h2 class="mb-2">{{Tot_Rto}}</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="bg-w card">
+               <div class="card-header box_shadow_none">
+                  <h4>RTO Graph</h4>
+               </div>
+               <div *ngIf="chart_flag == 1" style="width: 100%;" class="card-body">
+                  <div id="chart">
+                     <apx-chart
+                     [series]="chartOptions.series"
+                     [chart]="chartOptions.chart"
+                     [xaxis]="chartOptions.xaxis"
+                     [dataLabels]="chartOptions.dataLabels"
+                     [grid]="chartOptions.grid"
+                     [stroke]="chartOptions.stroke"
+                     [title]="chartOptions.title"
+                     ></apx-chart>
+                  </div>
+               </div>
+               <!-- <app-rto-chart1></app-rto-chart1> -->
+            </div>
+         </div>
+         
+      </div>
+      <!-- end graph Ratio -->
+      <!-- Courier co -->
+      <div class="row">
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Reasonwise Split</h4>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover text-center" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Reasonwise Split 
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>Order Count 
+                                 <span class="arrow12">
+                                 </span> 
+                              </th>
+                              <th >Revenue 
+                                 <span class="arrow12">
+                                 </span> 
+                              </th>
+                              <th >% Of Total 
+                                 <span class="arrow12">
+                                 </span> 
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_Reasonwise_Split; let i=index" class="text-center">
+                              <td style="text-align: center;">{{data.shipment_remarks}}</td>
+                              <td style="text-align: center;">{{data.cnt}}</td>
+                              <td style="text-align: center;">{{data.total_revenu}}</td>
+                              <td style="text-align: center;">{{data.rto_pentage}}</td>
+                           </tr>
+                           <tr *ngIf="Table_Reasonwise_Split == null || Table_Reasonwise_Split.length == 0">
+                              <td colspan="4">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Top 20 RTO Pincode</h4>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Top 20 RTO Pincode 
+                              </th>
+                              <th >City
+                              </th>
+                              <th >Count 
+                              </th>
+                              <th>Revenue
+                              </th>
+                              <th>% Of Total RTO
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_Top_20_RTO_Pincode; let i=index ">
+                              <td>
+                               <ng-container *ngFor="let item of data.pindata; let j = index"> 
+                                    <span> {{item}}</span><span *ngIf="data_limit != 1 && data_limit != 5">,</span> 
+                               </ng-container>
+                               <span *ngIf="data_limit > 5"><small>
+                                 <a href="javascript:" [popover]="popTemplate" [outsideClick]="true">
+                                    View more
+                                 </a>
+                              </small>
+                               </span>
+                                <ng-template #popTemplate style="width: 500px;">
+                                    <div>
+                                    <table>
+                                       <thead>
+                                          <th>Pincodes</th>
+                                       </thead>
+                                       <tbody>
+                                          <span *ngFor="let pins of data.pincodes;">
+                                          <td>{{pins}}</td>
+                                          </span>
+                                       </tbody>
+                                    </table>
+                                 </div></ng-template>
+                               <!-- {{data.pindata}} -->
+                              </td>
+                              <td>{{data.delivery_city}}</td>
+                              <td>{{data.cnt}}</td>
+                              <td>{{data.revenu}}</td>
+                              <td>{{data.avg_ratio}}</td>
+                           </tr>
+                           <tr *ngIf="Table_Top_20_RTO_Pincode == null || Table_Top_20_RTO_Pincode.length == 0">
+                              <td colspan="5">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>

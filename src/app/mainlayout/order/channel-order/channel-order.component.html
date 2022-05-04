@@ -1,0 +1,540 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Channel Orders</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> -->
+              <!--   <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Channel Orders</li> -->
+               <!--  <div class="btn-group mb-3" role="group" aria-label="Basic example"> -->
+                 <!--  <button type="button" class="btn btn-secondary rad_0 "  (click)="go_to_All_order()">All Order</button>
+                  <button type="button" class="btn btn-secondary rad_0" (click)="go_to_order()">Add Order</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_b2b()">B2B</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_add_bulk()">Add Bulk</button>
+                  <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_channel()">Channel Order</button> -->
+              <!--  </div> -->
+            <!-- </ol> -->
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_All_order()" >All Order</a>
+               <a href="javascript:" (click)="go_to_order()">Add Order</a>
+               <a href="javascript:" (click)="go_to_b2b()" >B2B</a>
+               <a href="javascript:" (click)="go_to_add_bulk()" >Add Bulk</a>
+              <a href="javascript:" (click)="go_to_channel()" class="active">Channel Order</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Process Order</h4>
+                  <div class="card-header-form">
+                     <div class="form-check form-check-inline">
+                        <button class="btn btn-primary btn-sm mr-2 rounded" (click)="sync()">Sync Order</button>
+                        <button class="btn btn-primary btn-sm mr-2 rounded" (click)="push()">Push</button>
+                        <button *ngIf="zoho_flag != 0" class="btn btn-primary btn-sm rounded" (click)="zoho()" >Zoho Connect</button>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form-group mb-2 mt-2">
+                           <div class="input-group">
+                              <input type="text" class="form-control" [(ngModel)]="filterId"  placeholder="Order ID" aria-label="" >
+                              <div class="input-group-append">
+                                 <button class="btn btn-primary btn-sm w-40" type="button" (click)="filter()"><i class="fa fa-search"></i></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form-group mb-2 mt-2">
+                           <div class="input-group">
+                              <button *ngIf="filterflag == 1" class="btn btn-warning btn-sm mr-2" (click)="reset_filter()" >Reset Filter</button>
+                              <button class="btn btn-primary btn-sm mr-2" (click)="process_modal(process)">Order Process</button>
+                              <button class="btn btn-primary btn-sm mr-2" (click)="remove_order()">Remove Order</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table-responsive m-t-5">
+                     <table class="table" id="save-stage">
+                        <thead>
+                           <tr>
+                              <th style="width:0%">Sr. No.</th>
+                              <th>
+                                 <div class="form-check">
+                                   <div class="custom-control custom-checkbox">
+                                     <input type="checkbox" id="checkbox" [(ngModel)]="checkVal" (change)="checkAllCheckBox($event)">
+                                    </div>
+                                 </div>
+                              <th class="sizeSet">Order ID</th>
+                              <th class="sizeSet">
+                                 Channel 
+                                  <div class="dropdown notifications pull-right" dropdown [insideClick]="true">
+                                    <a data-toggle="dropdown" aria-expanded="false" dropdownToggle> <i class="fa fa-filter"></i> </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" *dropdownMenu>
+                                       <div class="row">
+                                                <div class="col">
+                                                      <li *ngFor="let item of channelList">
+                                                      
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changechannelSelection()"><span style="font-size: 13px" class="ml-2">{{item.module_name}}</span>
+                                                    </li>
+                                                </div>
+                                             </div>
+                                       <div class="mt-2">
+                                          <button class="btn btn-primary btn-sm" (click)="filter()">Apply</button>
+                                         <!--  <button class="btn btn-primary pull-right btn-sm">Clear</button> -->
+                                       </div>
+                                    </div>
+                                 </div>
+                              </th>
+                              <th class="sizeSet">  Customer Name</th>
+                              <th class="sizeSet" style="width: 6%">
+                                 Payment Mode
+                                   <div dropdown class="dropdown notifications pull-right" [insideClick]="true" [autoClose]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow p-10" role="menu">
+                                       <a  href="javascript:"  role="menuitem"*ngFor="let data of dataPaymode" (click)="payFilter(data.name)" class="dropdown-item "> {{data.name}}</a>
+                                    </ul>
+                                </div>
+                              </th>
+                              <th class="sizeSet"> Status 
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow p-10">
+                                       <a href="javascript:" *ngFor="let data of statList" (click)="status_filter(data.value)" class="dropdown-item "> {{data.name}}</a>
+                                    </ul>
+                                </div>
+                              </th>
+                              <th class="sizeSet">
+                                 Order Date
+                                 <div class="dropdown notifications pull-right" dropdown [insideClick]="true">
+                                    <a data-toggle="dropdown" aria-expanded="false" dropdownToggle> <i class="fa fa-filter"></i> </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" *dropdownMenu>
+                                       <div class="font-12">Search by Date</div>
+                                       <div>
+                                          <input type="text" placeholder="From Date To Date" class="form-control" [(ngModel)]="dRange" bsDaterangepicker [bsConfig]="{showWeekNumbers: false, containerClass:'theme-dark-blue'}"> 
+                                       </div>
+                                       <div class="mt-2">
+                                          <button class="btn btn-primary btn-sm" (click)="date_filter()" >Apply</button>
+                                          <button class="btn btn-primary pull-right btn-sm">Clear</button>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </th>
+                              <th class="sizeSet" style="width: 10%;">Pickup Address</th>
+                              <th class="sizeSet">Delivery Address </th>
+                              <th class="sizeSet" style="width: 4%;">Product Details </th>
+                              <th class="sizeSet" style="width: 10%;">Weight(kg) 
+                                 Dimension(cm) </th>
+                              <th class="sizeSet">
+                                 Price
+                                 <div class="dropdown notifications pull-right" dropdown [insideClick]="true">
+                                    <a data-toggle="dropdown" aria-expanded="false" dropdownToggle> <i class="fa fa-filter"></i> </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" *dropdownMenu>
+                                       <div class="font-12">Search by price</div>
+                                       <div>
+                                          <input type="text" placeholder="Amount" class="form-control" [(ngModel)]="amount"> 
+                                       </div>
+                                       <div class="mt-2">
+                                          <button class="btn btn-primary btn-sm" (click)="filter()" >Apply</button>
+                                          <button class="btn btn-primary pull-right btn-sm">Clear</button>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </th>
+                              <th class="sizeSet">Insurance </th>
+                              <th class="sizeSet">Action </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of channel_orders; let i = index">
+                              <td class="">
+                                 {{i+1}}
+                              </td>
+                              <td class="text-center sizeSet" >
+                                 <div class="form-check check-box" >
+                                    <div class="custom-control custom-checkbox">
+                                      <div class="custom-control custom-checkbox ">
+                                      <input  type="checkbox" name="" id="" [(ngModel)]="data.checked" (change)="changeTableSelection()">
+                                    </div>
+                                    </div>
+                                 </div>
+                              </td> 
+                              <td class="text-center sizeSet">
+                                 <p class="mb-1"><b>{{data.order_id}} </b></p>
+                              </td>
+                              <td class="sizeSet">
+                                 <p class="text-primary">{{data.module_name}}</p>
+                              </td>
+                              <td class="sizeSet"><i class="far fa-user"></i>&nbsp; {{data.fname}} {{data.lname}}</td>
+                              <td class="sizeSet" > {{data.payment_mode}}</td>
+                              <td class="sizeSet"> {{data.order_status}}</td>
+                              <td class="sizeSet" >
+                                 {{data.date_value}}
+                              {{data.time_value}}
+                              </td>
+                             
+                              <td  class="sizeSet">
+                                  <form [formGroup]="pinform">
+                                 <ng-select [items]="Pick_list"
+                                    bindLabel="pickup_name"
+                                    bindValue="pickup_id"
+                                    formControlName="pickPin"
+                                    tooltip="Pickup Address">
+                                    <ng-template ng-option-tmp let-item="item" style="padding: 1px;">
+                                       <div style="font-size: 12px; "><span>{{item.pickup_name}}({{item.pickup_pincode}})</span></div>
+                                    </ng-template>
+                                    </ng-select>
+                                     </form>
+                              </td>
+                          
+                              <td class="sizeSet">
+                                 <p class="mb-1"> {{data.shipping_address_name}} <a href="javascript:" (click)="fetchAddress(del_add, data.id)"><i class="fas fa-edit text-info"></i></a> </p>
+                              </td>
+                              <td class="text-center sizeSet" >
+                                 <ng-template #popTemplate style="width: 500px;">
+                                    <div>
+                                    <table>
+                                       <thead>
+                                         
+                                          <th>Sr.No.</th>
+                                          <th style="width: 40%">Name</th>
+                                          <th>SKU</th>
+                                          <th>Qty</th>
+                                          <th>Price</th>
+                                        
+                                       </thead>
+                                       <tbody>
+                                          <tr *ngFor="let prod of data.proddata; let j = index">
+                                          <td>{{j+1}}</td>
+                                          <td>{{prod.name}}</td>
+                                          <td>{{prod.sku}}</td>
+                                          <td>{{prod.quantity}}</td>
+                                          <td>{{prod.subtotal}}</td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div></ng-template>
+                                 <a href="javascript:" [popover]="popTemplate" [outsideClick]="true">
+                                    <i class="fa fa-eye fa-lg mb-1 text-primary" ></i>
+                                 </a>
+                              </td>
+                              <td class="text-center sizeSet">
+                                
+                                 <input type="text" [(ngModel)]="channel_orders[i].weight" name="weight" placeholder="Weight" class="form-control mb-2" style="width: 95%;">
+                                 <input type="text"  placeholder="L" [(ngModel)]="channel_orders[i].l" name="length" style="width: 30%; float: left;" class="form-control mr-1" >
+                                 <input type="text"  placeholder="W"  name="width" style="width: 30%; float: left;" class="form-control mr-1" [(ngModel)]="channel_orders[i].w">
+                                 <input type="text"  placeholder="H" name="height" style="width: 30%; float: left;" class="form-control" [(ngModel)]="channel_orders[i].h">
+                           
+                              </td>
+                              <td class="text-center sizeSet"> {{data.total_price}}</td>
+                              <td class="text-center sizeSet">
+                                 <form [formGroup]="ins_form">
+                                 <select class="form-control" formControlName="ins" style="border-color: #c5c5c5;">
+                                    <option value="no">NO</option>
+                                    <option value="yes">YES</option>
+                                 </select>
+                              </form>
+                              </td>
+                              <td class="text-center sizeSet">
+                                 <a href="javascript:" (click)="ship_now(onfetch, data.id, data.d_pin)"><p class="mb-1"><i class="fa fa-truck fa-lg text-warning" tooltip="Ship"></i></p></a>
+                                <a href="javascript:" (click)="go_to_edit(data.id)"> <p class="mb-1"><i class="fa fa-edit fa-lg text-info" tooltip="Edit"></i></p></a>
+                              </td>
+                           </tr>
+                              <tr *ngIf="channel_orders == null || channel_orders.length == 0">
+                                    <td colspan="14">
+                                       <div class="col-lg-12 mt-5 mb-5 text-center">
+                                          <img src="assets/img/alert.png">
+                                          <p class="mb-0"><small>Opps! nothing to show here</small></p>
+                                       </div>
+                                    </td>
+                                 </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+
+<ng-template #del_add>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Change address of order
+</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeFetch()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form [formGroup]="add_delivery" (ngSubmit)="submit()" autocomplete="off" >
+   <div class="modal-body">
+         <div class="row">
+            <div class="col-4">
+               <div class="form-group mb-0">
+                  <label>First Name</label>
+                  <input type="text" class="form-control" formControlName="fname" [ngClass]="{'is-invalid':add_delivery.get('fname').touched && add_delivery.get('fname').invalid}">
+                  <div id="" class="invalid-feedback">
+                     Please Enter First Name
+                  </div>   
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group mb-0">
+                  <label>Last Name</label>
+                  <input type="text" class="form-control" formControlName="lname"  [ngClass]="{'is-invalid':add_delivery.get('lname').touched && add_delivery.get('lname').invalid}">
+                  <div id="" class="invalid-feedback">
+                     Please Enter last Name
+                  </div>      
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group mb-0">
+                  <label>Company Name</label>
+                  <input type="text" class="form-control" formControlName="company" >
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group mb-0">
+                  <label>Contact</label>
+                  <input type="text" class="form-control" formControlName="conatact" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="10" maxlength="12" [ngClass]="{'is-invalid':add_delivery.get('conatact').touched && add_delivery.get('conatact').invalid}">
+                  <div id="" class="invalid-feedback">
+                     Please Enter conatact Number
+                  </div>            
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group mb-0">
+                  <label>Email</label>
+                  <input type="text" class="form-control" formControlName="email" [ngClass]="{'is-invalid':add_delivery.get('email').touched && add_delivery.get('email').invalid}">
+                  <div id="" class="invalid-feedback">
+                     Please Enter valid email
+                  </div>               
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class=" col form-group mb-0">
+            <label>Address 1</label>
+            <input type="text" class="form-control" formControlName="add1" [ngClass]="{'is-invalid':add_delivery.get('add1').touched && add_delivery.get('add1').invalid}">
+                  <div id="" class="invalid-feedback">
+                     Please Enter Address
+                  </div>               
+         </div>
+         </div>
+         <div class="row">
+            <div class="col form-group mb-0">
+            <label>Address 2</label>
+            <input type="text" class="form-control" formControlName="add2">
+         </div>
+         </div>
+         <div class="row">
+            <div class="col-4">
+               <div class=" form-group mb-0">
+                  <label>Pincode</label>
+                  <input type="text" class="form-control" formControlName="pin" minlength="6" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [ngClass]="{'is-invalid':add_delivery.get('pin').touched && add_delivery.get('pin').invalid}">
+                  <div id="" class="invalid-feedback">
+                     Please Enter Valid Pincode
+                  </div>                  
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group mb-0">
+                  <label>City</label>
+                  <input type="text" class="form-control" formControlName="city"  [ngClass]="{'is-invalid':add_delivery.get('city').touched && add_delivery.get('city').invalid}">
+                  <div id="" class="invalid-feedback">
+                     Please Enter City
+                  </div>                     
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group mb-0">
+                  <label>State</label>
+                  <input type="text" class="form-control" formControlName="state" [ngClass]="{'is-invalid':add_delivery.get('state').touched && add_delivery.get('state').invalid}">
+                  <div id="" class="invalid-feedback">
+                     Please Enter State
+                  </div>                        
+               </div>
+            </div>
+         </div>
+   </div>
+   <div class="modal-footer">
+     <button type="submit" class="btn btn-primary btn-sm" [disabled]="add_delivery.invalid" > Update</button>
+      <button type="button" (click)="closeFetch()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+   </ng-template>
+
+
+<ng-template #process>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Order Summary
+</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_process()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #f="ngForm" (ngSubmit)="submit_process(f)" autocomplete="off" >
+   <div class="modal-body">
+      <div class="row">
+         <div class="col">
+            <div class="formGroup">
+               <small class="text-dark">Select Pickup Address</small>
+               <ng-select [items]="Pick_list"
+               bindLabel="pickup_name"
+               bindValue="pickup_id"
+               tooltip="Pickup Address"
+               [(ngModel)]="pickup_id"
+               name="pickup_id" #Pickup_id="ngModel"
+                >
+               <ng-template ng-option-tmp let-item="item" style="padding: 1px;">
+                  <div style="font-size: 12px; "><span>{{item.pickup_name}}({{item.pickup_pincode}})</span></div>
+               </ng-template>
+               </ng-select>
+                <small *ngIf="(pickup_id == null || pickup_id == '') && f.submitted" class="text-danger">Pickup required.</small>
+         </div>
+      </div>
+         <div class="col">
+             <div class="formGroup">
+               <small class="text-dark">Width</small>
+               <input type="text" class="form-control" placeholder="Enter Width" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46' minlegth="1" maxlength="3" [(ngModel)]="towidth" name="towidth" #Towidth="ngModel">
+               <small *ngIf="(towidth == null || towidth == '') && f.submitted" class="text-danger">Width required.</small>
+            </div>
+         </div>
+      </div>
+       <div class="row">
+         <div class="col">
+            <div class="formGroup">
+               <small class="text-dark">Select Courier</small>
+               <ng-select [items]="cour_list"
+               bindLabel="company_name"
+               bindValue="user_id" [(ngModel)]="courier_id" name="courier_id" #Courier_id="ngModel">
+               </ng-select>
+               <small *ngIf="(courier_id == null || courier_id == '') && f.submitted" class="text-danger">Courier required.</small>
+            </div>
+         </div>
+         <div class="col">
+             <div class="formGroup">
+               <small class="text-dark">Height</small>
+               <input type="text" class="form-control" placeholder="Enter Height" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46'  minlegth="1" maxlength="3" [(ngModel)]="toheight" name="toheight" #Toheight="ngModel">
+               <small *ngIf="(toheight == null || toheight == '') && f.submitted" class="text-danger">Height required.</small>
+            </div>
+         </div>
+      </div>
+       <div class="row">
+         <div class="col">
+            <div class="formGroup">
+               <small class="text-dark">Select Service</small>
+                <ng-select [items]="serv_list"
+               bindLabel="service_name"
+               bindValue="avn_service_id" placeholder="Select Service"  [(ngModel)]="service_id" name="service_id" #Service_id="ngModel">
+               </ng-select>
+               <small *ngIf="(service_id == null || service_id == '') && f.submitted" class="text-danger">Service required.</small>
+            </div>
+         </div>
+         <div class="col">
+             <div class="formGroup">
+               <small class="text-dark">Length</small>
+               <input type="text" class="form-control" placeholder="Enter Length" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46'  minlegth="1" maxlength="3" [(ngModel)]="tolength" name="tolength" #Tolength="ngModel">
+               <small *ngIf="(tolength == null || tolength == '') && f.submitted" class="text-danger">Length required.</small>
+            </div>
+         </div>
+      </div>
+       <div class="row mb-2">
+         <div class="col">
+            <div class="formGroup">
+               <small class="text-dark">Weight</small>
+               <input type="text" class="form-control" placeholder="Enter Weight" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46'  minlegth="1" maxlength="3" [(ngModel)]="toweight" name="toweight" #Toweight="ngModel">
+               <small *ngIf="(toweight == null || toweight == '') && f.submitted" class="text-danger">Weight required.</small>
+            </div>
+         </div>
+         <div class="col">
+             <div class="formGroup">
+               <small class="text-dark">Insurance</small>
+               <select class="form-control" id="insurance" [(ngModel)]="toinsurance" name="toinsurance" #Insurance="ngModel">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                  
+               </select>
+               <small *ngIf="(toinsurance == null || toinsurance == '') && f.submitted" class="text-danger">Please select.</small>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="modal-footer">
+     <button type="submit" class="btn btn-primary btn-sm"  > Update</button>
+      <button type="button" (click)="close_process()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+   </ng-template>
+
+
+
+   <ng-template #onfetch>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Order Summary
+</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closefetchsubmit()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (ngSubmit)="submit_process(f)" autocomplete="off" > -->
+   <div class="modal-body">
+         <table class="table  table-hover table-order" id="save-stage" style="width:100%;">
+                    <thead>
+                      <th>Sr.No</th>
+                      <th>Couier</th>
+                      <th>Service Name</th>
+                      <th>Weight</th>
+                      <th>Delivery Charge </th>
+                      <th>Cod Charges</th>
+                      <th>Insurance</th>
+                      <th>Other</th>
+                      <th>GST</th>
+                      <th>Applicable Charges</th>
+                      <th>Select</th>
+                      
+                    </thead>
+                    <tbody >
+                        <tr *ngFor ="let data of fetchData; let i = index ">
+                            <td>{{i+1}}</td>
+                            <td>{{data.courier_name}}</td>
+                            <td>{{data.service_name}}</td>
+                            <td>{{data.user_weight}}</td>
+                            <td>{{data.delivery_charge}} Rs.</td>
+                            <td>{{data.cod_parcentage}} Rs.</td>
+                            <td>{{data.total_insurance}} Rs.</td>
+                            <td>{{data.other_charge}} Rs.</td>
+                            <td>{{data.tax}}</td>
+                            <td>{{data.total}}</td>
+                            <td><a href="javascript:" (click)="final_ship(data.partner_id, data.service_id)" ><i class="fa fa-truck"></i></a></td>
+                        </tr>
+                        <tr *ngIf="fetchData == null || fetchData == ''">
+                          <td colspan="14" class="text-center">Data Not Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+   </div>
+
+   <div class="modal-footer">
+     <!-- <button type="submit" class="btn btn-primary btn-sm"  > Update</button> -->
+      <button type="button" (click)="closefetchsubmit()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   <!-- </form> -->
+   </ng-template>
+
+
+
+
+
+   

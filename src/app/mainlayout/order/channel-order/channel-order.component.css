@@ -1,0 +1,17 @@
+.pad2
+{
+	padding: 2px; 
+}
+
+.sizeSet
+{
+	padding: 4px 3px !important;
+    height: auto;
+}
+.custom-control{
+	padding-left: 0rem!important;
+}
+.form-check{
+	padding-left: 3px!important;
+    padding-right: 0px!important;
+}

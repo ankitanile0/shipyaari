@@ -1,0 +1,484 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <h4>Order Confirmation</h4>
+            <!-- <ol class="breadcrumb p-0 m-b-0"> 
+               <li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Order Confirmation</a></li>
+            </ol>-->
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-body pt-0">
+                  <div class="card-header pl-1">
+                     <h4>Order Cofirmation List</h4>
+                     <div class="card-header-form mt-1">
+                        <div class="form-check form-check-inline">
+                           <a href="javascript:" (click)="upload_modal(upload)" tooltip="Add Bulk"> <i class="fa fa-upload fa-lg blue"></i></a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row  mb-1 mt-1">
+                     <div class="col-sm-6">
+                        <div class="card-header-form">
+                           <div class="form-check form-check-inline">	
+                              <a href="javascript:;" class="mr-3" ><strong>Total : <span id="no_total_order">{{total}}</span></strong></a> 
+                              <a href="javascript:;" class="mr-3" ><strong>Processing : <span id="no_process_order">{{pro_cnt}}</span></strong></a>
+                              <a href="javascript:;" class="mr-3" ><strong>Success : <span id="no_success_order">{{su_cnt}}</span></strong></a>
+                              <a href="javascript:;" class="mr-3" ><strong>failed : <span id="no_faild_order">{{f_ct}}</span></strong></a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6 text-right">
+                        <div class="card-header-form">
+                           <a href="javascript:" class="btn btn-primary btn-sm mr-1" (click)="open_call_record(report)">Search call records</a>
+                           <a href="javascript:" class="btn btn-primary btn-sm mr-1" (click)="open_ext_etting(ext)">Extention Settings</a>
+                           <a href="javascript:" class="btn btn-primary btn-sm mr-1" (click)="open_ext_list(extlist)" >My Extention List</a>
+                           <a href="javascript:" class="btn btn-primary btn-sm mr-1" (click)="clear_all()" >Clear all</a>
+                           <a href="javascript:" class="btn btn-primary btn-sm " (click)="delete_bulk()" >Delete bulk</a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table-responsive m-t-5 h-500">
+                     <table class="table table-striped  table-order mb-0" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th  style="width: 5%" >
+                                 <div class="form-check text-center">
+                                    <div class="form-check">
+                                       <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" id="checkbox" [(ngModel)]="checkVal" (change)="checkAllCheckBox($event)">
+                                       </div>
+                                    </div>
+                                 </div>
+                              </th>
+                              <th style="width: 5%">Sr No.</th>
+                              <th style="width: 13%">Order ID</th>
+                              <th style="width: 8%">Date</th>
+                              <th style="width: 8%">Payment Mode</th>
+                              <th style="width: 10%">Pickup Pincode</th>
+                              <th style="width: 10%">Delivery Pincode</th>
+                              <th style="width: 8%">Weight</th>
+                              <th style="width: 8%">Status</th>
+                              <th style="width: 8%">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of orderlist; let i = index">
+                              <td class="text-center " >
+                                 <div class="form-check">
+                                    <div class="custom-control custom-checkbox">
+                                       <input  type="checkbox" name="" id="" [(ngModel)]="data.checked" (change)="changeSelection()">
+                                    </div>
+                                 </div>
+                              </td>
+                              <td class=" ">
+                                 <p class="mb-1">{{i+1}} </p>
+                              </td>
+                              <td class="">
+                                 <p class="mb-1">{{data.order_id}} </p>
+                              </td>
+                              <td class=" ">
+                                 <p class="mb-1">{{data.ship_date}} </p>
+                              </td>
+                              <td class="">
+                                 <p *ngIf="data.PaymentMode != ''" class="mb-1"><i class="fa fa-credit-card"></i>  {{data.PaymentMode == 'cod' ? 'COD' : 'Online'}} </p>
+                                 <!-- <p class="mb-1">{{data.PaymentMode}} </p> -->
+                              </td>
+                              <td class=" ">
+                                 <p class="mb-1">{{data.pickup_pincode}}</p>
+                              </td>
+                              <td class=" ">
+                                 <p class="mb-1">{{data.delivery_pincode}}</p>
+                              </td>
+                              <td class=" ">
+                                 <p class="mb-1">{{data.Weight}}</p>
+                              </td>
+                              <td class=" ">
+                                 <p *ngIf="data.order_status == 'hold'" class="mb-1 text-primary"> Hold</p>
+                                 <a href="javascript:" (click)="status_details(eye, data.id)" *ngIf="data.order_status == 'hold'"><i class="fa fa-eye text primary"></i></a>
+                                 <p *ngIf="data.order_status == 'processing'" class="mb-1 text-primary"> Processing</p>
+                              </td>
+                              <td class=" ">
+                                <span class="text-center"> <a href="javascript:" (click)="open_view(view, data.id, data.order_id)"><i class="fa fa-eye mr-2"></i></a>
+                                 <a href="javascript:" ><i class="fa fa-edit mr-2"></i></a>
+                                 <a href="javascript:" (click)="delete(data.id)"><i class="fa fa-trash mr-2"></i></a></span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+<ng-template #upload>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Order Confirmation</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_upload()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col">
+            <button class="btn btn-primary btn-sm" (click)="download_sheet()">Download sample sheet</button>
+            <div class="form-group">
+               <label>Upload Sheet</label>
+               <input type="file" class="form-control" [(ngModel)]="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" id="sheet">
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="upload_sheet()" class="btn btn-primary btn-sm"> Upload</button>
+      <button type="button" (click)="close_upload()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<ng-template #report>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Search Call Record</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_call_record()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col">
+            <div class="form-group">
+               <label>Order Id</label>
+               <input type="text" class="form-control" [(ngModel)]="order_id"  >
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="search_call()" class="btn btn-primary btn-sm"> Search</button>
+      <button type="button" (click)="close_call_record()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<ng-template #ext>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Extension Settings</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_ext_setting()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col">
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <!-- 	<button type="button" (click)="search_call()" class="btn btn-primary btn-sm"> Upload</button> -->
+      <button type="button" (click)="close_ext_setting()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<ng-template #extlist>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">My Extension Settings</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_ext_list()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <table class="table table-striped  table-order mb-0" id="save-stage" style="width:100%;">
+         <thead class="text-center">
+            <tr>
+               <th>Id</th>
+               <th>Extensions Number</th>
+               <th>Amount In Rs
+                  (Including 18% GST)
+               </th>
+               <th>Duration Of Months</th>
+               <th>Extensions Expire Date</th>
+               <th>Status</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let data of exten_list; let i = index">
+               <td>{{i+1}}</td>
+               <td>{{data.extensions_number}}</td>
+               <td>{{data.amount}}</td>
+               <td>{{data.month}}</td>
+               <td>{{data.end_date}}</td>
+               <td><span class="badge badge-primary">{{data.btn}}</span></td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <div class="modal-footer">
+      <!-- 	<button type="button" (click)="search_call()" class="btn btn-primary btn-sm"> Upload</button> -->
+      <button type="button" (click)="close_ext_list()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<ng-template #view>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">View Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_view()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+   	<div class="row">
+   		<div class="col-6 p-2">
+   			<button class="btn btn-warning btn-sm  ml-2 mr-1" (click)="onbook()">Book Now</button>
+   			<button class="btn btn-primary btn-sm mr-1" (click)="onhold()">Hold</button>
+   			<button class="btn btn-info btn-sm mr-1" (click)="onreject()">Reject</button>
+   			<button class="btn btn-success btn-sm mr-1">Edit</button>
+   		</div>
+   	</div>
+      <div class="row">
+         <div class="col-6">
+            <button type="button" style="width:100%; border-radius:0px;" class="btn btn-primary text-left" (click)="isCollapsed1 = !isCollapsed1"
+            [attr.aria-expanded]="!isCollapsed1" aria-controls="collapseBasic"> 
+            <span *ngIf="isCollapsed1 == false"><i class="fas fa-minus-circle fas-lg"></i> </span>
+            <span *ngIf="isCollapsed1 == true"> <i class="fas fa-plus-circle fas-lg"></i> </span>&nbsp;  <span style="font-size:17px;">Client Details</span></button>
+            <div id="collapseBasic" [collapse]="isCollapsed1" [isAnimated]="true" style="border: 1px solid gray; height: 225px;">
+            <div class="well well-lg card card-block card-header p-0">
+            
+            	<table class="table table-striped  table-order mb-0" id="save-stage" style="width:100%;">
+			         <tbody>
+			            <tr>
+			               <td class="list_table tab_width_30"><b>Order ID :</b></td>
+			               <td class="list_table">{{userdata.order_id}}</td>
+			           </tr>
+			           <tr>
+			               <td class="list_table tab_width_30"><b>Name :</b></td>
+			               <td class="list_table">{{userdata.customer_name}}</td>
+			           </tr>
+			           <tr>
+			               <td class="list_table tab_width_30"><b>Email :</b></td>
+			                <td class="list_table">{{userdata.customer_email}}</td>
+			           </tr>
+			           <tr>
+			               <td class="list_table tab_width_30"><b>Contact :</b></td>
+			                <td class="list_table">{{userdata.customer_phone}}</td>
+			           </tr>
+			           <tr>
+			               <td class="list_table tab_width_30"><b>Landmark :</b></td>
+			                <td class="list_table">{{userdata.delivery_landmark}}</td>
+			           </tr>
+			           <tr>
+			               <td class="list_table tab_width_30"><b>Address 1 :</b></td>
+			                <td class="list_table">{{userdata.delivery_address1}}</td>
+			           </tr>
+			           <tr>
+			               <td class="list_table tab_width_30"><b>Address 2 :</b></td>
+			                <td class="list_table">{{userdata.delivery_address2}}</td>
+			           </tr>
+			           <tr>
+			               <td class="list_table tab_width_30"><b>Pincode :</b></td>
+			                <td class="list_table">{{userdata.delivery_pincode}}</td>
+			           </tr>
+			               
+			         </tbody>
+			      </table>
+            </div>
+         </div>
+      </div>
+      <div class="col-6">
+         <button type="button" style="width:100%; border-radius:0px;" class="btn btn-primary text-left" (click)="isCollapsed2 = !isCollapsed2"
+         [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseBasic">
+         <span *ngIf="isCollapsed2 == false"> <i class="fas fa-minus-circle fas-lg"></i></span>
+         <span *ngIf="isCollapsed2 == true"> <i class="fas fa-plus-circle fas-lg"></i> </span>&nbsp;  <span style="font-size:17px;">Actions</span>
+         </button>
+         <div id="collapseBasic" [collapse]="isCollapsed2" [isAnimated]="true" style="border: 1px solid gray; height: 225px;">
+         <div class="well well-lg card card-block card-header pt-1" >
+         	<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+         	<div class="row">
+         		<div class="col">
+         			<div class="form-group mb-2">
+         				<label class="mb-1">Call desposition <b class="text-danger">*</b></label>
+         				<ng-select [items]="reasonlist"
+						           bindLabel="name"
+						           bindValue="id"
+						           placeholder="Select"
+						           name="reason" [(ngModel)]="reason"  #Reason="ngModel" required>
+						</ng-select>
+         				<small class="text-danger" *ngIf="Reason.touched && !Reason.valid">
+					          Please Select
+					      </small>
+         			</div>
+					
+         		</div>
+         		<div class="col">
+         			<div class="form-group mb-2">
+         				<label class="mb-1">Customer feedback <b class="text-danger">*</b></label>
+         				<ng-select [items]="feedback_list"
+						           bindLabel="name"
+						           bindValue="id"
+						           placeholder="Select "
+						           name="feedback" [(ngModel)]="feedback"  #Feedback="ngModel" required>
+						</ng-select>
+						<small class="text-danger" *ngIf="Feedback.touched && !Feedback.valid">
+					          Please Select
+					      </small>
+         			</div>
+         			
+         		</div>
+         	</div>
+         	<div class="row">
+         		<div class="col">
+         			<div class="form-group mb-2">
+         				<label class="mb-1">Remark <b class="text-danger">*</b></label>
+         				<textarea class="form-control" name="remark" [(ngModel)]="remark" #Remark="ngModel" required></textarea>
+         				<small class="text-danger" *ngIf="Remark.touched && !Remark.valid">
+					          Please Select
+					      </small>
+         			</div>
+         		</div>
+         	</div>
+         	<div class="row">
+         		<div class="col">
+         			<button class="btn btn-primary btn-sm" style="float: right;">Update</button>
+         		</div>
+         	</div>
+         </form>
+         </div>
+      </div>
+   </div>
+   </div>
+   <div class="row mt-2">
+      <div class="col">
+         <button type="button" style="width:100%; border-radius:0px;" class="btn btn-primary text-left" (click)="isCollapsed3 = !isCollapsed3"
+         [attr.aria-expanded]="!isCollapsed3" aria-controls="collapseBasic">
+         <span *ngIf="isCollapsed3 == false"> <i class="fas fa-minus-circle fas-lg"></i> </span>
+         <span *ngIf="isCollapsed3 == true"> <i class="fas fa-plus-circle fas-lg"></i> </span>&nbsp;
+			<span style="font-size:17px;">Package & Shipping Details</span>
+     </button>
+         <div id="collapseBasic" [collapse]="isCollapsed3" [isAnimated]="true" style="border: 1px solid gray; height: auto;">
+         <div class="well well-lg card card-block card-header p-2" >
+         	<div class="row">
+         		<div class="col">
+         			<table class="table table-striped  table-order mb-0" id="save-stage" style="width:100%;">
+			         <tbody>
+			            <tr>
+			               <td class=" tab_width_20"><b>Shipping Date :</b></td>
+			               <td class="">{{userdata.ship_date}}</td>
+			               <td class=" tab_width_20"><b>Number of Packages :</b></td>
+			               <td class="">{{userdata.NoOfPackages}}</td>
+			           </tr>
+			          <!--  <tr>
+			               
+			           </tr> -->
+			           <tr>
+			               <td class=" tab_width_20"><b>Are packages Identical? </b></td>
+			                <td class="">{{userdata.PackageType == "Identical" ? 'Yes' : ''}}</td>
+			                <td class=" tab_width_20"><b>Package Contents :</b></td>
+			                <td class="">{{userdata.PackageContents}}</td>
+			           </tr>
+			          <!--  <tr>
+			               
+			           </tr> -->
+			           <tr>
+			               <td class=" tab_width_20"><b>Total Invoice Value :</b></td>
+			                <td class="">₹ {{userdata.TotalInvoiceValue}}</td>
+			                <td class=" tab_width_20"><b>AVN Package :</b></td>
+			                <td class="">{{userdata.avn_package}}</td>
+			           </tr>
+			          <!--  <tr>
+			               
+			           </tr> -->
+			           <tr>
+			               <td class=" tab_width_20"><b>Payment Mode</b></td>
+			                <td class="">{{userdata.PaymentMode}}</td>
+			                <td class=" tab_width_20"><b>Package Weight</b></td>
+			                <td class="">{{userdata.Package_Weight}} Kg</td>
+			           </tr>
+			           <!-- <tr>
+			               <td class="list_table tab_width_30">Package Weight</td>
+			                <td class="list_table">{{userdata.Package_Weight}} Kg</td>
+			           </tr> -->
+			               
+			         </tbody>
+			      </table>
+         		</div>
+         	</div>
+         	<div class="row"> 
+				<div class="col p-3">
+					<table class="table table-striped  table-order mb-0" id="save-stage" style="width:100%;">
+				         <thead class="text-center">
+				            <tr>
+				               <th>Sr No.</th>
+				               <th>Product Name</th>
+				               <th>SKU</th>
+				               <th>Dimension (L X W X H)</th>
+				               <th>Weight</th>
+				               <th>Qty</th>
+				                <th>Invoice Value</th>
+				            </tr>
+				         </thead>
+				         <tbody>
+				            <tr *ngFor="let data of prod_list; let i = index">
+				               <td>{{i+1}}</td>
+				               <td>{{data.ProductName}}</td>
+				               <td>{{data.SKU}}</td>
+				               <td>{{data.Dimension}}</td>
+				               <td>{{data.Weight}}</td>
+				               <td>{{data.Qty}}</td>
+				               <td>₹ {{data.InvoiceValue}}</td>
+				            </tr>
+				         </tbody>
+				      </table>
+				</div>
+         	</div>
+         </div>
+      </div>
+   </div>
+   </div>
+   </div>
+   <div class="modal-footer">
+      <!-- 	<button type="button" (click)="search_call()" class="btn btn-primary btn-sm"> Upload</button> -->
+      <button type="button" (click)="close_view()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<ng-template #eye>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">View Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_status()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <p class="text-dark"><b>Call log details</b></p>
+      <table class="table table-striped  table-order mb-0" id="save-stage" style="width:100%;">
+         <thead class="text-center">
+            <tr>
+               <th style="width: 15%">Date</th>
+               <th style="width: 15%">Dispostion </th>
+               <th style="width: 20%">Customer Feedback
+               </th>
+               <th style="width: 20%">Agent Remark</th>
+               <th style="width: 30%">Audio Record</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let data of status_detals_list; let i = index">
+               <td><b>{{data.dateadded}}</b></td>
+               <td>{{data.calldispostion}}</td>
+               <td>{{data.cust_feedback}}</td>
+               <td>{{data.agent_remark}}</td>
+               <td>
+                  <audio controls style="height: 25px;">
+                     <source [src]="data.audio" type="audio/mpeg">
+                  </audio>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <div class="modal-footer">
+      <!-- 	<button type="button" (click)="search_call()" class="btn btn-primary btn-sm"> Upload</button> -->
+      <button type="button" (click)="close_status()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>

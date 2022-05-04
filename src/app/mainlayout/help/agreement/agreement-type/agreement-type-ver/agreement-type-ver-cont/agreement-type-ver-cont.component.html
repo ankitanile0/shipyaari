@@ -1,0 +1,70 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+	<section class="section">
+		<div class="d-flex space-between align-items-center m-b-15">
+			<div class="crumb">
+				<!-- <h4>Agreement Type Version Contents</h4>
+				<ol class="breadcrumb p-0 m-b-0">
+					<li class="breadcrumb-item">Help</li>
+					<li class="breadcrumb-item " aria-current="page">Agreement</li> 
+					<li class="breadcrumb-item" aria-current="page">Agreement Types</li>  
+					<li class="breadcrumb-item" aria-current="page">Agreement Type Versions</li>  
+					<li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Agreement Type Versions Contents</a></li>                       
+				</ol> -->
+				<div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_support()">Support Ticket</a>
+               <a href="javascript:" (click)="go_to_agreement()"  class="active">Agreements</a>
+            </div>
+			</div>
+		</div>
+				
+		<div class="row">
+			
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-header">
+						<h4>Agreement Type Version Contents</h4>
+						<div class="card-header-form">
+		                     <div class="form-check form-check-inline">
+		                        <button class="btn btn-primary mr-1 mb-1" (click)="accept_all_point()">Accept all agreements</button>
+		                     </div>
+		                </div>
+		                <div class="card-header-form ml-2">
+				            <div class="form-check form-check-inline pull-right">
+				                <button class="btn btn-primary mr-1 text-right mb-1 rounded-pill" (click)="returnpage(agr_type_ver_id)">Back</button>
+				            </div>
+		        		</div>
+					</div>					
+					<div class="card-body">                  
+						<div class="tab-content tab-bordered" id="myTab3Content">
+							<div class="tab-pane fade show active p-0 br-0" id="all" role="tabpanel" aria-labelledby="home-tab2">
+								<div class="card-body bg-w">
+	                        		<div class="tab_wrapper first_tab">                  
+        								<div class="row">
+                          					<div class="col-md-12"> <span id="msg" class="text-center"></span></div>  
+        									<div class="col-md-8">                     
+				                              	<b><p>Agreement Name : {{name}} </p></b>
+				                              	<b><p>Agreement Type : {{type | uppercase}}</p></b>
+				                              	<b><p>Version : V{{version}}</p></b>
+                          					</div>
+                          					<div class="col-md-4" >  
+							  					<a *ngIf="agrrement_accept_id == 'yes'" href="javascript:void(0);"  onclick="accept_Agrrement();" class="btn btn-warning pull-right" >I Accept</a>
+                          					</div>
+                        				</div>
+                        				<div class="row">  
+                                 			<div class="col-md-12">
+                                 			<p class="text-center" [innerHTML]="agreementtypeVerContents"></p>
+                                 			</div>
+        								</div>
+									</div>
+								</div>				
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

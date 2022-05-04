@@ -1,0 +1,528 @@
+<div [innerHTML]="Loader"></div>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>NDR</h4> -->
+            <ol class="breadcrumb p-0 m-b-0">
+              <!--  <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Dashboard</a></li>
+               <li class="breadcrumb-item active" aria-current="page">NDR</li> -->
+               <!-- <div class="btn-group mb-3" role="group" aria-label="Basic example"> -->
+                  <!-- <button type="button" class="btn btn-secondary rad_0 " (click)="go_to_home()">Dashboard</button>
+                  <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_ndr()">NDR</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_tracking()">Tracking</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_rto()">RTO</button> -->
+              <!--  </div> -->
+            </ol>
+             <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_home()" >Dashboard</a>
+               <a href="javascript:" (click)="go_to_ndr()" class="active">NDR</a>
+               <a href="javascript:" (click)="go_to_tracking()" >Tracking</a>
+               <a href="javascript:" (click)="go_to_rto()">RTO</a>
+            </div>
+         </div>
+         <div class=" align-right">
+            <form [formGroup]="form">
+               <div class="">
+                  <input type="text"
+                  class="form-control-sm date-box date-input" 
+                  formControlName="Drange" 
+                  (onHidden)="showdash()" 
+                  placeholder="Select date range" 
+                  #daterangepicker="bsDaterangepicker"
+                  bsDaterangepicker 
+                  [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY', showWeekNumbers: false, containerClass:'theme-dark-blue', ranges: ranges  }">
+               </div>
+            </form>
+         </div>
+      </div>
+      <!-- ndr delivery days -->
+      <div class="row">
+         <div class="col-sm-12 col-lg-3 card_box ">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                        <i  style="font-size: 24px !important;"
+                           class="fas fa-exchange-alt"></i>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{total_ndr}}</h3>
+                        <div class="text-muted">Total NDR
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-12 col-lg-3 card_box ">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                        <i  style="font-size: 24px !important;"
+                           class="fa fa-commenting-o"></i>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{send_sms}}</h3>
+                        <div class="text-muted">Total SMS Sent
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-12 col-lg-3 card_box ">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                        <i  style="font-size: 24px !important;"
+                           class="fa fa-users "></i>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{seller_action}}</h3>
+                        <div class="text-muted" style="margin-left: -20px;">Total Seller Action
+                        </div> 
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-12 col-lg-3 card_box ">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="d-flex">
+                     <div class="w50">
+                        <i  style="font-size: 24px !important;"
+                           class="fa fa-phone"></i>
+                     </div>
+                     <div class="col text-right">
+                        <h3 class="mb-1 counter font-26">{{call}}</h3>
+                        <div class="text-muted">Total Calls Done
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+        
+
+      </div>
+
+      <div class="row">
+         <div class="col-lg-6">
+            <div class="card"  style="height: 394px;">
+               <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
+                  <li class="nav-item"> <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab" aria-controls="home" aria-selected="false">All</a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile" aria-selected="false">Online</a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact" aria-selected="true">COD</a> </li>
+               </ul>
+               <div class="tab-content tab-bordered" id="myTab3Content">
+                  <div class="tab-pane fade active show" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+                     <div class="table-responsive h-255">
+                        <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                           <thead>
+                              <tr>
+                                 <th >Courier Co 
+                                 </th>
+                                 <th >NDR 
+                                 </th>
+                                 <th >Delivered 
+                                 </th>
+                                 <th >RTO 
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr *ngFor ="let data of all_data; let i = index ">
+                                 <td>{{data.couier_comp}} </td>
+                                 <td>{{data.cnt}}</td>
+                                 <td>{{data.dl}} </td>
+                                 <td>{{data.rto}} </td>
+                              </tr>
+                              <tr *ngIf="all_data == null || all_data.length == 0">
+                                 <td colspan="4">
+                                    <div class="col-lg-12 mt-5 mb-5 text-center">
+                                       <img src="assets/img/alert.png">
+                                       <p class="mb-0"><small>No data Found</small></p>
+                                    </div>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+                     <div class="table-responsive h-255">
+                        <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                           <thead>
+                              <tr>
+                                 <th >Courier Co 
+                                 </th>
+                                 <th >NDR 
+                                 </th>
+                                 <th >Delivered 
+                                 </th>
+                                 <th>RTO 
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr *ngFor ="let data of online_data; let i = index ">
+                                 <td>{{data.couier_comp}} </td>
+                                 <td>{{data.cnt}}</td>
+                                 <td>{{data.dl}} </td>
+                                 <td>{{data.rto}} </td>
+                              </tr>
+                              <tr *ngIf="online_data == null || online_data.length == 0">
+                                 <td colspan="4">
+                                    <div class="col-lg-12 mt-5 mb-5 text-center">
+                                       <img src="assets/img/alert.png">
+                                       <p class="mb-0"><small>No data Found</small></p>
+                                    </div>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
+                     <div class="table-responsive h-255">
+                        <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                           <thead>
+                              <tr>
+                                 <th >Courier Co 
+                                 </th>
+                                 <th >NDR 
+                                 </th>
+                                 <th >Delivered 
+                                 </th>
+                                 <th >RTO 
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr *ngFor ="let data of cod_data; let i = index ">
+                                 <td>{{data.couier_comp}} </td>
+                                 <td>{{data.cnt}}</td>
+                                 <td>{{data.dl}} </td>
+                                 <td>{{data.rto}} </td>
+                              </tr>
+                              <tr *ngIf="cod_data == null || cod_data.length == 0">
+                                 <td colspan="4">
+                                    <div class="col-lg-12 mt-5 mb-5 text-center">
+                                       <img src="assets/img/alert.png">
+                                       <p class="mb-0"><small>No data Found</small></p>
+                                    </div>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>NDR To Delivery Days</h4>
+                  <div class="card-header-form">
+                     <!-- <form>
+                        <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Search">
+                           <div class="input-group-btn">
+                              <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                           </div>
+                        </div>
+                     </form> -->
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Courier Co</th>
+                              <th>0-3 Days</th>
+                              <th>4-6 Days</th>
+                              <th>7-10 Days</th>
+                              <th>10 Days And Above</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let data of ndr_to_days; let i = index ">
+                              <td>{{data.couier_comp}} </td>
+                              <td>{{data.zero_three}}</td>
+                              <td>{{data.four_six}}</td>
+                              <td>{{data.serven_ten}} </td>
+                              <td>{{data.above_ten}}</td>
+                           </tr>
+                           <tr *ngIf="ndr_to_days == null || ndr_to_days.length == 0">
+                              <td colspan="5">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+      <!-- ndr delivery days ends -->
+      <!-- shipyaari wise starts -->
+      <div class="row">
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Delivery Ratio Shipyaari Wise</h4>
+                  <div class="card-header-form">
+                     <!-- <form>
+                        <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Search">
+                           <div class="input-group-btn">
+                              <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                           </div>
+                        </div>
+                     </form> -->
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Particulars</th>
+                              <th>Shipyaari Action Reattempt</th>
+                              <th>Delivered</th>
+                              <th>Success Ratio</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let data of del_ratio_shipayaari_wise; let i = index">
+                              <td><b>{{data.comp_name}}</b> </td>
+                              <td>{{data.cnt}}</td>
+                              <td>{{data.dl}} </td>
+                              <td>{{data.dl_ratio}} </td>
+                           </tr>
+                           <tr *ngIf="del_ratio_shipayaari_wise == null || del_ratio_shipayaari_wise.length == 0">
+                              <td colspan="4">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>RTO Ratio Shipyaari Wise</h4>
+                  <div class="card-header-form">
+                     <!-- <form>
+                        <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Search">
+                           <div class="input-group-btn">
+                              <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                           </div>
+                        </div>
+                     </form> -->
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th >Particulars 
+                              </th>
+                              <th >Shipyaari Action Seller
+                              </th>
+                              <th >RTO
+                              </th>
+                              <th>Success Ratio
+                                 <span class="arrow12">
+                                 </span> 
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let data of rto_ratio_shipayaari_wise; let i = index">
+                              <td><b>{{data.comp_name}}</b> </td>
+                              <td>{{data.cnt}}</td>
+                              <td>{{data.dl}} </td>
+                              <td>{{data.dl_ratio}} </td>
+                           </tr>
+                           <tr *ngIf="rto_ratio_shipayaari_wise == null || rto_ratio_shipayaari_wise.length == 0">
+                              <td colspan="4">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- shipyaari wise ends -->
+      <!-- seller wise starts -->
+      <div class="row">
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Delivery Ratio Seller Wise</h4>
+                  <div class="card-header-form">
+                    <!--  <form>
+                        <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Search">
+                           <div class="input-group-btn">
+                              <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                           </div>
+                        </div>
+                     </form> -->
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th >Particulars 
+                              </th>
+                              <th >Seller Action Reattempt
+                              </th>
+                              <th>Delivered 
+                              </th>
+                              <th>Success Ratio 
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let data of dl_ratio_seller; let i = index ">
+                              <td><b>Delivery</b> </td>
+                              <td>loream1</td>
+                              <td>Detail </td>
+                              <td>Detail </td>
+                           </tr>
+                           <tr *ngIf="dl_ratio_seller == null || dl_ratio_seller.length == 0">
+                              <td colspan="4">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>RTO Ratio Seller Wise</h4>
+                  <div class="card-header-form">
+                    <!--  <form>
+                        <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Search">
+                           <div class="input-group-btn">
+                              <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                           </div>
+                        </div>
+                     </form> -->
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th >Particulars 
+                              </th>
+                              <th >Seller Action Return
+                              </th>
+                              <th >RTO
+                              </th>
+                              <th >Success Ratio 
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let data of rto_ratio_seller; let i = index ">
+                              <td><b>Delivery</b> </td>
+                              <td>loream1</td>
+                              <td>Detail </td>
+                              <td>Detail </td>
+                           </tr>
+                           <tr *ngIf="rto_ratio_seller == null || rto_ratio_seller.length == 0">
+                              <td colspan="4">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- seller wise ends -->
+      <!-- tabs -->
+      <div class="row">
+        
+         <!-- <div class="col-lg-4">
+            <div class="card">
+               <div class="row ">
+                  <div class="col-xl-6 col-lg-6 col-md-3 dash1">
+                     <div class="total color-green">
+                        <h5 class="icon_new" style="color: #000000"><i class="fa fa-exchange"></i></h5>
+                        <p class=" mb-0 "> Total NDR</p>
+                        <h2 class="mb-2">{{total_ndr}}</h2>
+                     </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-3 dash1">
+                     <div class="total color-org">
+                        <h5 class="icon_new" style="color: #00A4EF"><i class='fa fa-commenting-o'></i></h5>
+                        <p class=" mb-0 "> Total SMS sent</p>
+                        <h2 class="mb-2">{{send_sms}}</h2>
+                     </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-3 dash1">
+                     <div class="total color-red">
+                        <h5 class="icon_new" style="color: #25D366"><i class='fa fa-whatsapp'></i></h5>
+                        <p class=" mb-0"> Total Whatsapp sent</p>
+                        <h2 class="mb-2">{{seller_action}}</h2>
+                     </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-3 dash1">
+                     <div class="total">
+                        <h5 class="icon_new" style="color: #FC642D" ><i class='fa fa-phone'></i></h5>
+                        <p class=" mb-0 "> Total Calls done</p>
+                        <h2 class="mb-2">{{call}}</h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div> -->
+      </div>
+   </section>
+</div>

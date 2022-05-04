@@ -1,0 +1,172 @@
+{
+  "modules": [{
+      "id": "1",
+      "name": "Overall",
+      "value": "Overall",
+      "submodule": []
+    },
+    {
+      "id": "2",
+      "name": "Overview",
+      "value": "Overview",
+      "submodule": [{
+          "id": "1",
+          "name": "Dashboard",
+          "value": "Dashboard"
+        },
+        {
+          "id": "2",
+          "name": "NDR",
+          "value": "NDR"
+        },
+        {
+          "id": "3",
+          "name": "Tracking",
+          "value": "Tracking"
+        },
+        {
+          "id": "4",
+          "name": "RTO",
+          "value": "RTO"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Smart Shipyaari",
+      "value": "Smart Shipyaari",
+      "submodule": [{
+          "id": "1",
+          "name": "Template",
+          "value": "Template"
+        },
+        {
+          "id": "2",
+          "name": "Address Book",
+          "value": "Address Book"
+        },
+        {
+          "id": "3",
+          "name": "Module",
+          "value": "Module"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Orders",
+      "value": "Orders",
+      "submodule": [{
+          "id": "1",
+          "name": "Add Orders",
+          "value": "Add Orders"
+        },
+        {
+          "id": "2",
+          "name": "B2B Shipment",
+          "value": "B2B Shipment"
+        },
+        {
+          "id": "3",
+          "name": "Add Bulk",
+          "value": "Add Bulk"
+        },
+        {
+          "id": "4",
+          "name": "All Orders",
+          "value": "All Orders"
+        },
+        {
+          "id": "5",
+          "name": "Channel Orders",
+          "value": "Channel Orders"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Trackings",
+      "value": "Trackings",
+      "submodule": [{
+          "id": "1",
+          "name": "Tracking",
+          "value": "Tracking"
+        },
+        {
+          "id": "2",
+          "name": "Approve RTO",
+          "value": "Approve RTO"
+        },
+        {
+          "id": "3",
+          "name": "Approve Pickup",
+          "value": "Approve Pickup"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Billing",
+      "value": "Billing",
+      "submodule": [{
+          "id": "1",
+          "name": "Tracking",
+          "value": "Tracking"
+        },
+        {
+          "id": "2",
+          "name": "Approve RTO",
+          "value": "Approve RTO"
+        },
+        {
+          "id": "3",
+          "name": "Approve Pickup",
+          "value": "Approve Pickup"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Plans",
+      "value": "Plans",
+      "submodule": []
+    },
+    {
+      "id": "8",
+      "name": "Setting",
+      "value": "Setting",
+      "submodule": [{
+          "id": "1",
+          "name": "Label Setting",
+          "value": "Label Setting"
+        },
+        {
+          "id": "2",
+          "name": "Change Password",
+          "value": "Change Password"
+        },
+        {
+          "id": "3",
+          "name": "Download Pincode",
+          "value": "Download Pincode"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Help",
+      "value": "Help",
+      "submodule": [{
+          "id": "1",
+          "name": "Support Ticket",
+          "value": "Support Ticket"
+        },
+        {
+          "id": "2",
+          "name": "Agreement",
+          "value": "Agreement"
+        }
+      ]
+    }
+  ]
+}

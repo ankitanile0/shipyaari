@@ -1,0 +1,48 @@
+<div [innerHTML]="Loader"></div> 
+<app-toastr></app-toastr>
+<!-- <alert></alert> -->
+<div class="mt-2">
+    <form id=marketingdetails_form  #f="ngForm" (submit)="submit(f)" novalidate enctype="multipart/form-data" > 
+    <div class="row">
+        <div class="col-6">
+             <div class="col-md-6 d-flex">
+            <label class="d-flex">
+               <!--  <i data-feather="upload" data-toggle="tooltip" title="" data-original-title="Upload Profile Logo"></i> -->
+                <img src="assets/img/upload.png" style="width: 35px" tooltip="Upload profile logo">
+                <input type="file" [(ngModel)]="Marketing_Profile_Logo" name="Marketing_Profile_Logo" (change)="upload1($event)" class="custom-file-input" accept=".png, .jpg, .jpeg" id="logofile" name="logofile" visible="false">
+            </label>
+          
+             <img *ngIf="url1 != null" [src]="url1" class="thumbnail" style="height: 35px;" >
+              <img *ngIf="url1 == null" [src]="Marketing_Profile_Logo" onError="this.src='assets/img/sample.jpg'" class="thumbnail" style="height: 35px;" >
+        </div>
+        </div>
+        <div class="col-6">
+            <div class="col-md-6 d-flex">
+            <label class="d-flex">         
+                <img src="assets/img/upload.png" style="width: 35px" tooltip="Upload shipping label logo">
+                <input type="file" [(ngModel)]="Ship_Label_Image" name="Ship_Label_Image" (change)="upload2($event)" class="custom-file-input" accept=".png, .jpg, .jpeg" id="labelfile" visible="false">
+            </label>
+           
+             <img *ngIf="url2 != null" [src]="url2" class="thumbnail" style="height: 35px;" >
+            <img *ngIf="url2 == null" [src]="Ship_Label_Image" onError="this.src='assets/img/sample.jpg'" class="thumbnail" style="height: 35px;" >
+        </div>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        
+    </div>
+    <div class="row align-items-center">
+
+        <div class="col-md-3">
+            <input type="text"  [(ngModel)]="Brand_Name" name="Brand_Name" class="form-control" tooltip="Brand Name *" placeholder="Brand Name">
+
+              <small *ngIf="(Brand_Name == null || Brand_Name == '') && f.submitted" class="text-danger">Brand Name required.</small>
+        </div>
+        <div class="col-md-5 col-sm-5 col-lg-5 col-xl-5">
+            <button type="submit" class="btn btn-primary btn-sm">Update Marketing Details</button>
+        </div>
+    </div>
+    </form>
+</div>

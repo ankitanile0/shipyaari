@@ -1,0 +1,24 @@
+.box_height{
+height: 164px;
+}
+
+.btn_11
+{
+	font-size: 11px;
+}
+
+.panel card panel-default 
+{
+	background-color: #076dbb;
+}
+
+.panel.myClass
+{
+	background-color: red;
+	color:#fff;
+}
+
+.panel-body.card-block.card-body
+{
+	height: 100px;
+}

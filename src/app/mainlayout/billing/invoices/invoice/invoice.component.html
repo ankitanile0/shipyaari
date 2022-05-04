@@ -1,0 +1,85 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="col-lg-12 m-t-10">
+   <div class="row">
+      <div class="col-lg-6 wd-lg-2">
+          <div class="form-group mb-2 align-left">
+            <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="trackingID" placeholder="Invoice Number" aria-label="" style="width: auto;" >
+            <div class="input-group-append">
+                <button class="btn btn-primary btn-sm w-40"  type="button" (click)="filter()"><i class="fa fa-search"></i></button>
+            </div>
+            </div>
+            </div>
+      </div>
+      <div class="col-lg-6 wd-lg-4" style="float: right;">
+         <div class="form-group mb-2 align-right" >
+             <div class="input-group">
+             <button *ngIf="fileter_flag == 1" class="btn btn-warning btn-sm mb-1 mr-2 align-right" (click)="reset_filter()" >Reset Data</button>
+
+             
+               </div>
+         </div>
+      </div>
+      <!-- <button *ngIf="filterFlag == 1" class="btn btn-warning btn-sm mb-1 ml-2" (click)="reset_filter()">Reset Filter</button> -->
+      <div class="col-lg-12 col-md-12">
+         <div class="table-responsive h-500 m-t-5">
+            <table class="table  table-hover table-order" id="save-stage" style="width:100%;">
+               <thead>
+                  <tr>
+                     <th>Sr No</th>
+                     <th>Date Of Report</th>
+                     <th>Invoice ID</th>
+                     <th>MIS / Invoice</th>
+                     <th>Total Amount</th>
+                     <th>Due Date</th>
+                     <th>Paid Amount</th>
+                     <th>Due Amount</th>
+                     <th>Approved Amount</th>
+                     <th>Dispute Amount</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr  *ngFor ="let data of list | paginate: { itemsPerPage: 20, currentPage: p }; let i = index ">
+                    <td>{{i+1}}</td>
+                    <td>{{data.bill_invoice_date}}</td>
+                    <td>{{data.invoice_number}}</td>
+                    <td class="text-center"><a href="javascript:" (click)="down_mis(data.csv_url)" ><i class="fa fa-download text-primary" tooltip="Download MIS"></i></a>&nbsp;&nbsp;<a href="javascript:" (click)="down_invoice(data.invoice_url)"><i class="fa fa-download text-primary" tooltip="Download Invoice"></i></a></td>
+                    <td>₹ {{data.tot_bill_amt | number:'2.2'}}</td>
+                    <td>{{data.due_date}}</td>
+                    <td>{{data.paidamnt}}</td>
+                    <td>{{data.due_amount}}</td>
+                    <td>{{data.adjustamount}}</td>
+                    <td>₹ {{data.disputeamnt}}</td>
+                    <td>                       
+                    <!--  <a href="javascript:void(0)" class="text-primary"><i class="fas fa-credit-card" data-toggle="tooltip" title="Pay Due Amount" data-original-title="Pay Due Amount"></i></a>
+ -->
+                     <a href="javascript:void(0)" class="text-primary ml-3"><i class="fa fa-eye" data-toggle="tooltip" title="View Details" data-original-title="View Details" (click)="gotoinvoicedetails(data.invoice_number)"></i>
+                     </a>
+                    </td>
+                  </tr>
+                 <tr *ngIf="list == null || list.length == 0">
+                     <td colspan="19">
+                        <div class="col-lg-12 mt-5 mb-5 text-center">
+                           <img src="assets/img/alert.png">
+                           <p class="mb-0"><small>No data Found</small></p>
+                        </div>
+                     </td>
+                  </tr> 
+               </tbody>
+            </table>
+         </div>
+         <div class="row mb-3">
+            <div class="col-sm-12 col-md-5 align-right"></div>
+             <div class="col-sm-12 col-md-7 align-right">
+               <div class="dataTables_paginate paging_simple_numbers align-right" id="table-1_paginate">
+                   <ul class="align-right pagination">
+                       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                   </ul>
+               </div>
+               </div>
+         </div>
+      </div>
+   </div>
+</div>

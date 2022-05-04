@@ -1,0 +1,212 @@
+<!-- <div [innerHTML]="Loader"></div> -->
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Create Ticket</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> 
+               <li class="breadcrumb-item">Support</li>
+               <li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Create Ticket</a></li>
+            </ol>-->
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_support()" class="active">Support Ticket</a>
+               <a href="javascript:" (click)="go_to_agreement()">Agreements</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card" >
+               <div class="card-body pt-0">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>Create Ticket</h4>
+                   
+                  </div>
+                  <div class="row">
+                  <div class="col-lg-12 col-md-6 col-sm-12 col-12 pl-3 pr-3">
+                     <div class="d-flex space_between">
+                        <div class="w20 sec_div bg_blue mt-0">
+                           <div class=" float-left">
+                              <h3 class="pt-0" style="font-weight: 500; float: left;font-size: 20px;height: 48px;">Sales Support</h3>
+                           </div>
+                           <div class="card-options">
+                              <label class="custom-control custom-radio" style="top:9px">
+                              <input type="radio" class="custom-control-input ser_type" name="category_type" value="sales_support" id="radio_1" (click)="get_data_sale_support()"> <span class="custom-control-label"></span>
+                              </label>
+                           </div>
+                           <p class="category_desc pb-0 mb-0" style="font-weight: 500;">Service related sales issues</p>
+                        </div>
+                        <div class="w20 sec_div bg-orange mt-0">
+                           <div class="float-left">
+                              <h3 class="pt-0" style="font-weight: 500; float: left;font-size: 20px;height: 48px;">Account And Billing Support</h3>
+                           </div>
+                           <div class="card-options">
+                              <label class="custom-control custom-radio" style="top:9px">
+                              <input type="radio" class="custom-control-input ser_type" name="category_type" value="sales_support" id="radio_1"> <span class="custom-control-label" (click)="get_data_account_support()"></span>
+                              </label>
+                           </div>
+                           <p class="category_desc pb-0 mb-0" style="font-weight: 500;" >Assistance with account and billing-related inquiries.</p>
+                        </div>
+                        <div class="w20 sec_div bg-green mt-0">
+                           <div class="float-left">
+                              <h3 class="pt-0" style="font-weight: 500; float: left;font-size: 20px;height: 48px;">Operation support</h3>
+                           </div>
+                           <div class="card-options">
+                              <label class="custom-control custom-radio" style="top:9px">
+                              <input type="radio" class="custom-control-input ser_type" name="category_type" value="sales_support" id="radio_1"> <span class="custom-control-label" (click)="get_data_operation_support()"></span>
+                              </label>
+                           </div>
+                           <p class="category_desc pb-0 mb-0" style="font-weight: 500;">Request to operation support.</p>
+                        </div>
+                        <div class="w20 sec_div bg-red mt-0">
+                           <div class="float-left">
+                              <h3 class="pt-0" style="font-weight: 500; float: left;font-size: 20px;height: 48px;">Technical support</h3>
+                           </div>
+                           <div class="card-options">
+                              <label class="custom-control custom-radio" style="top:9px">
+                              <input type="radio" class="custom-control-input ser_type" name="category_type" value="sales_support" id="radio_1"> <span class="custom-control-label" (click)="get_data_technical_support()"></span>
+                              </label>
+                           </div>
+                           <p class="category_desc pb-0 mb-0" style="font-weight: 500;">Service related sales issues and third-party applications..</p>
+                        </div>
+                     </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" enctype="multipart/form-data" method="POST">
+       <div  *ngIf="divFlag == 1"class="row">
+          <!--  -->
+         <div class="col-lg-12">
+            <div class="card mb-3" >
+               <div class="card-body pt-0">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>Case Classification</h4>
+                  </div>
+                  <div class="row">
+                     <div class="col pl-3">
+                        <div class="form-group">
+                           <label>Category Type</label>
+                           <ng-select [items]="support_list"
+                                       bindLabel="issue_type"
+                                       bindValue="id"
+                                      [(ngModel)]="category"
+                                      name="category"
+                                      #Category = "ngModel"
+                                      (change)="change_type()"
+                                       tooltip=" Select Category Type"
+                                       required>
+                    </ng-select>
+                     <small *ngIf="(category == null || category == '') && f.submitted" class="text-danger">Category required.</small> <small *ngIf="(!Category.valid && (category != '' && category != null)) && f.submitted" class="text-danger">Category required..</small>
+                        </div>
+                     </div>
+                     <div class="col pr-3">
+                         <div class="form-group">
+                           <label>Issue Type</label>
+                            <ng-select [items]="issue_list"
+                                       bindLabel="issue_desc"
+                                       bindValue="id"
+                                       [(ngModel)]="issue"
+                                       name="issue"
+                                       #Issue = "ngModel"
+                                       (change)="type(1)"
+                                       tooltip=" Select issue Type" required>
+                                         <small *ngIf="(issue == null || issue == '') && f.submitted" class="text-danger">Issue Description required.</small> <small *ngIf="(!Issue.valid && (issue != '' && issue != null)) && f.submitted" class="text-danger">Issue Description required.</small>
+                    </ng-select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row pb-3">
+                     <div class="col-6 pl-3">
+                        <label class="text-dark">Priority  </label><br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" [checked]="high" (click)="priority(1)" name="inlineRadioOptions" id="inlineRadio1" >
+                          <label class="form-check-label" for="inlineRadio1" style="font-size: 15px">High</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" [checked]="medium" (click)="priority(2)" name="inlineRadioOptions" id="inlineRadio2" >
+                          <label class="form-check-label" for="inlineRadio2" style="font-size: 15px">Medium</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" [checked]="low" (click)="priority(3)" name="inlineRadioOptions" id="inlineRadio3"  >
+                          <label class="form-check-label" for="inlineRadio3" style="font-size: 15px">Low</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+        <div *ngIf="divFlag == 1"  class="row">
+         <!--  -->
+         <div class="col-lg-12">
+            <div class="card mb-3" >
+               <div class="card-body pt-0">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>Case Description</h4>
+                  </div>
+                  <div class="row">
+                     <div class="col">
+                        <div class="form-group">
+                           <label>Subject</label>
+                           <input type="text" class="form-control" [(ngModel)]="subject" name="subject" #Subject = "ngModel" required>
+                            <small *ngIf="(subject == null || subject == '') && f.submitted" class="text-danger">Subject required.</small> <small *ngIf="(!Subject.valid && (subject != '' && subject != null)) && f.submitted" class="text-danger">Subject required.</small>
+                        </div>
+                     </div>
+                     <div class="col">
+                        <div class="form-group">
+                           <label>Add Cc</label>
+                           <input type="text" class="form-control" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="cc" name="cc" #Cc = "ngModel" >
+                           <small *ngIf="!Cc.valid && f.submitted" class="text-danger">Enter Proper Email.</small>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row mb-3">
+                     <div class="col">
+                      <!-- <div [ngxSummernote]></div> -->
+                      <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="html" name="html" #Html = "ngModel" required></angular-editor>
+                       <small *ngIf="(html == null || html == '') && f.submitted" class="text-danger">Description Required.</small> <small *ngIf="(!Html.valid && (html != '' && html != null)) && f.submitted" class="text-danger">Description Requred.</small>
+
+                     </div>
+                  </div>
+                  <div class="row mb-3">
+                     <div class="col-4">
+                       <label class="text-dark ">Attachments </label> &nbsp;&nbsp; <a href="javacript:" (click)="show()"><i class="fa fa-paperclip fa-lg text-primary" aria-hidden="true" tooltip="Click to add Attachments"></i></a><br>
+                        
+                           <ng-container *ngIf="attachflag == 1">
+                            <input type="file" class="form-control" id="file1" [(ngModel)]="file1" name="file1" placeholder="Upload File" style="border: none;" >
+                            
+                            <input  type="file" class="form-control" id="file2" name="file2" placeholder="Upload File" style="border: none;">
+                             <input  type="file" class="form-control" id="file3" name="file3" placeholder="Upload File" style="border: none;">
+                             </ng-container>
+                        </div>
+                     <div class="col-4">
+                        <label class="text-dark">Contact Methods </label><br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" [checked]="mail" (click)="type(1)" name="inlineRadioOptions1" id="inlineRadio5" value="option1">
+                          <label class="form-check-label" for="inlineRadio5"  style="font-size: 15px">Via E-Mail And Support Cente</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" [checked]="chat" (click)="type(2)" name="inlineRadioOptions1" id="inlineRadio6" value="option2">
+                          <label class="form-check-label" for="inlineRadio6"  style="font-size: 15px">Via Support Chat</label>
+                        </div>
+                     </div>
+                     <div class="col-4">
+                        
+                     </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col">
+                      <button type="submit" class="btn btn-primary float-right">Submit</button>
+                    </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </form>
+   </section>
+</div>

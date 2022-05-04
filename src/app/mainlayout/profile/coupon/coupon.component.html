@@ -1,0 +1,49 @@
+<div class="row mt-2">
+    <!-- <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Wallet Coupon</h4>
+            </div>
+            <div class="card-body">
+                <p>On minimum Rs.1000 of wallet recharge get 10% of extra credit amount upto Rs.5000</p>
+                <p><b>Start Date:</b> 2020-12-23 </p>
+                <p><b>End Date:</b> 2020-12-31</p>
+                <p>Coupon Code: <b class="text-info">XMASNY2020</b></p>
+            </div>
+        </div>
+    </div> -->
+    
+        <div style="width: 100%" class="card ml-2 mr-2">
+            <div class="card-header">
+                <h4>Referred And Earn</h4>
+            </div>
+            <div class="card-body" *ngFor ="let data of AllCoupoun; ">
+                <p>Refer a friend and get {{data.percentage}}% of extra credit amount upto Rs.{{data.offer_amount}} on minimum recharge by referred user amount of Rs.{{data.on_amount}}</p>
+                <p><b>Start Date:</b> {{data.start_date}} </p> 
+                <p><b>End Date:</b> {{data.end_date}}</p>
+                <p>Coupon Code: <b class="text-info">{{refrealcode}}</b></p>
+            </div>
+        </div>
+   
+</div>
+
+<div class="section-title mt-2">Yaari Point Slab</div>
+<div class="table-responsive">
+    <table class="table table-striped table-hover" id="save-stage" style="width:100%; font-size: 12px;">
+        <thead >
+            <tr>
+                <th>Sr. No.</th>
+                <th>From Point</th>
+                <th>To Point</th>
+                <th>Slab Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor ="let data of yaaripointtable; let i = index " >
+                <td> {{data.id}} </td>
+                <td> {{data.from_point}} </td>
+                <td> {{data.to_point}} </td>
+                <td> Rs. {{data.slab_amount}} </td>
+        </tbody>
+    </table>
+</div>

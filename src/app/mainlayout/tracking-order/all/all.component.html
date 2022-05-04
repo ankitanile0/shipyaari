@@ -1,0 +1,538 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="col-lg-12 m-t-10">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+             <div class="form-check form-check-inline" style="float: right;">
+                        <a href="javascript:" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-primary btn-sm mb-1" (click)="downloadMoal(download)" >Tracking Report</button>
+                        </a>
+                        <button *ngIf="filterFlag == 1" class="btn btn-warning btn-sm mb-1 ml-1"(click)="reset_filter()">Reset Filter</button>
+                     </div>
+                     <div class="search-results h-500" infiniteScroll [infiniteScrollDistance]="1"
+                           [infiniteScrollThrottle]="10" (scrolled)="onallScrollData()">
+            <div class="table-responsive m-t-5 ">
+                <table class="table table-striped table-order" id="save-stage">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Shipyaari ID /Order ID 
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a data-toggle="dropdown" dropdownToggle aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu  class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style="margin-top:33px">
+                                        <div class="font-13 mb-2">Search by Shipyaari ID / Order ID</div>
+                                    <div>
+                                            <input type="text" [(ngModel)]="trackingID" class="form-control"></div>
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>Customer Details
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <div class="font-13 mb-2">Search by Mobile Number</div>
+                                        <div>
+                                            <input type="text" [(ngModel)]="cust_mobile" class="form-control"></div>
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <th >Product Details
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                       <a href="javascript:" style="padding-top: 5px;" *ngFor="let data of paymode" (click)="payFilter(data.name)" class="dropdown-item">{{data.value}}</a>
+                                    </ul>
+                                </div>
+                            </th>
+                            <th>AWB Details
+                                <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style="width:350px; margin-top: 50px;">
+                                        <div class="font-13 mb-2">Select Courier partner</div>
+                                        <div class="form-group">
+                                            <input type="text" placeholder="Tracking Number" [(ngModel)]="track_no" class="form-control">   
+                                        </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                      <li *ngFor="let item of partnerList">
+                                                      <div *ngIf="item.user_id%2 == 0">
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changeSelection()"><span style="font-size: 13px" class="ml-2">{{item.company_name}}</span></div>
+                                                    </li>
+                                                </div>
+                                                <div class="col">
+                                                     <li *ngFor="let item of partnerList">
+                                                      <div *ngIf="item.user_id%2 != 0">
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changeSelection()"><span style="font-size: 13px" class="ml-2">{{item.company_name}}</span></div>
+                                                    </li>
+                                                </div>
+                                            </div>                    
+                                          
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button type="reset" class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>Pickup Date</th>
+                            <th>Status
+                             <div dropdown class="dropdown notifications pull-right" [insideClick]="true">
+                                    <a dropdownToggle data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="fa fa-filter"></i> 
+                                    </a>
+                                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style="width:350px;">
+                                       
+                                       
+                                            <div class="row">
+                                                <div class="col">
+                                                      <li *ngFor="let item of status_list">
+                                                      <div *ngIf="item.id%2 == 0">
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changeSelection2()"><span style="font-size: 13px" class="ml-2">{{item.status_name}}</span></div>
+                                                    </li>
+                                                </div>
+                                                <div class="col">
+                                                     <li *ngFor="let item of status_list">
+                                                      <div *ngIf="item.id%2 != 0">
+                                                      <input  type="checkbox" name="" id="" [(ngModel)]="item.checked" (change)="changeSelection2()"><span style="font-size: 13px" class="ml-2">{{item.status_name}}</span></div>
+                                                    </li>
+                                                </div>
+                                            </div>                    
+                                          
+                                        <div class="mt-2">
+                                            <button (click)="filter()" class="btn btn-primary btn-sm">Apply</button> 
+                                            <button type="reset" class="btn btn-primary pull-right btn-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>Estimated Delivery Date (EDD)</th>
+                            <th>Last Updated Status</th>
+                            <th>Feedback</th>
+                            <th>Issue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor ="let data of all_list ; let i = index " style="font-size: 10px;" >
+                        	<td class="">
+                                 {{i+1}}
+                            </td>
+                            <td>
+                               <a href="javascript:" (click)="detailsmodal(details, data.client_consignment_id)">
+                                    <p class="text-primary mb-0"><b>{{data.avn_shipping_id}}</b></p>
+                                </a>
+                                <p class="text-success mb-0">{{data.client_order_id}}</p>
+                              
+                            </td>
+                            <td>
+                            	<p class="text-dark mb-0" tooltip="{{data.customer_name | titlecase}}"> <i class="far fa-user"></i> {{(data.customer_name.length>20) ? (data.customer_name | titlecase | slice:0:20 )+'...':(data.customer_name | titlecase)}}</p>
+                               <p class="text-primary mb-0"><i class="fas fa-map-marker-alt"></i>&nbsp; {{data.delivery_city}}</p>
+                               <p style="color:#763568;" class="mb-0"><i class="fas fa-mobile-alt"></i>&nbsp; {{data.customer_contact_no}}</p>
+                            </td>
+                            <td>
+                            	<p class="text-primary mb-0" tooltip="{{data.package_content_desc}}"><i class="fas fa-cube"></i> &nbsp;{{(data.package_content_desc.length>25) ? (data.package_content_desc | slice:0:25)+'...':(data.package_content_desc)}} </p>
+                                <p class=" mb-0"> &nbsp;{{data.package_total_weight}}Kg. (10x10x10)</p>
+                                <p class=" mb-0"><i class="fas fa-credit-card"></i> &nbsp;{{data.payment_mode}} | <i class="fa fa-inr"></i> {{data.total_invoice_value}}</p>
+                            </td>
+                            <td> 
+                            	<p class="text-dark mb-0"> <b> &nbsp;{{data.courier_name}}</b></p>
+                                 <a href="javascript:" (click)="go_to_tracking(data.tracking_number)"><p class="text-danger mb-0"><i class="fa fa-road"></i> &nbsp;{{data.tracking_number}}</p></a>
+                                 <p *ngIf="data.pickup_track_number != undefined" class="text-primary mb-0"><i class="fa fa-truck"></i> &nbsp;{{data.pickup_track_number}}</p>
+                            </td>
+                            <td>
+                               <p class="text-primary mb-0"><i class="fa fa-calendar"></i> {{data.pickup_date == '' ? 'Not Picked' : data.pickup_date}}</p>  
+                            </td>
+                            <td>
+
+                                <p class="text-dark mb-0">&nbsp; {{data.status_name}}</p>  
+                               
+                            </td>
+                            <td>
+                            	 <p class="text-success mb-0 "><i class="fa fa-calendar"></i> &nbsp; {{ data.expect_date}}</p>
+                        
+                            </td>
+                           
+                            <td>  
+                                 <p class="text-primary mb-0 "><i class="fa fa-calendar"></i> &nbsp; {{ data.mydate}}</p>
+                                 <p class="text-success mb-0 "><i class="fa fa-clock-o"></i> &nbsp; {{ data.updateTime}}</p>
+                            </td>
+                            <td>
+                            	<span *ngIf="data.feedbackcount == 0">
+                            		
+                            			<i class="fa fa-star"></i>
+                            		
+                               </span>
+                               <span *ngIf="data.feedbackcount != 0">
+                            		<p class="mb-1 text-warning">
+                            			<i class="fa fa-star"></i>
+                            		</p>
+                               </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                         <tr *ngIf="all_list == null || all_list.length == 0">
+                            <td colspan="10">
+                                <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>Opps! nothing to show here</small></p>
+                                </div>
+                           </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
+             
+        </div>
+    </div>
+</div>
+
+<ng-template #download>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Tracking Report</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeReport()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+     <div class="form-group">
+                <label>Select Date</label>
+                <input type="text"placeholder="FromDate ToDate" class="form-control" [(ngModel)]="date" name="dateRange" bsDaterangepicker #DateRange="ngModel"         
+                   [bsConfig]="{showWeekNumbers: false, containerClass:'theme-dark-blue'}">
+                   
+             </div>
+   
+        <div class="form-group">
+          <label>Download Report  </label> 
+          <a href="javascript:" class="btn btn-primary btn-sm ml-2" (click)="report_download()"><i class="fa fa-download"></i></a>
+        </div>
+        <div class="form-group mb-2">
+          <button type="button" class="btn btn-primary btn-sm mr-2 mb-1" id="days" value="currentmonth" (click)="report_current_month()">Current Month Report</button>
+          <button type="button" class="btn btn-primary btn-sm mr-2 mb-1" id="days" value="last30days" (click)="report_last_30()">Last 30 Days</button>
+          <button type="button" class="btn btn-primary btn-sm mb-1" id="days" value="last60days" (click)="report_last_60()" >Last 60 Days</button>
+        </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="closeReport()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+ <ng-template #details>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Shipyaari ID Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_modal()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div id="accordion1" class=" col-lg-6 col-md-6 col-sm-12">
+                            <div class="accordion" >
+                                <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-1" aria-expanded="true">
+                                    <h4>Client Details</h4> </div>
+                                <div class="accordion-body collapse show" id="panel-body-1" data-parent="#accordion1">
+                                    <div class="table-responsive h-200">
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th>AVN Shipping ID</th>
+                                                    <td  >{{datalist.avn_shipping_id}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Client name</th>
+                                                    <td>{{datalist.pickup_company_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <td>{{datalist.client_order_id}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <td>{{datalist.pickup_company_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <td>{{datalist.email}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Contact</th>
+                                                    <td>{{datalist.pickup_contact_number}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Landmark</th>
+                                                    <td>{{datalist.pickup_landmark}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Address 1</th>
+                                                    <td>{{datalist.pickup_addr}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Address 2</th>
+                                                    <td>{{datalist.pickup_addr2}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>City</th>
+                                                    <td>{{datalist.pickup_city}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>State</th>
+                                                    <td>{{datalist.pickup_state}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <td>{{datalist.pickup_country}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Pincode</th>
+                                                    <td>{{datalist.pickup_pincode}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="accordion2" class=" col-lg-6 col-md-6 col-sm-12">
+                            <div class="accordion">
+                                <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-2" aria-expanded="true">
+                                    <h4>Delivery Details</h4> </div>
+                                <div class="accordion-body collapse show" id="panel-body-2" data-parent="#accordion2">
+                                    <div class="table-responsive h-200">
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Recipient Name</th>
+                                                    <td>{{datalist.customer_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Recipient Email</th>
+                                                    <td> {{datalist.customer_email}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Recipient Contact Number</th>
+                                                    <td>{{datalist.customer_contact_no}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Recipient Contact Number 2</th>
+                                                    <td> {{datalist.customer_contact_no_updated}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Landmark</th>
+                                                    <td>{{datalist.delivery_landmark}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Address 1</th>
+                                                    <td>{{datalist.delivery_addr}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Address 2</th>
+                                                    <td> {{datalist.delivery_addr2}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery City</th>
+                                                    <td>{{datalist.delivery_city}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery State</th>
+                                                    <td>{{datalist.delivery_state}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Country</th>
+                                                    <td>{{datalist.delivery_country}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Delivery Pincode</th>
+                                                    <td>{{datalist.delivery_pincode}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="accordion3" class=" col-lg-6 col-md-6 col-sm-12">
+                            <div class="accordion">
+                                <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-3">
+                                    <h4>Package & Shipping Details</h4> </div>
+                                <div class="accordion-body collapse" id="panel-body-3" data-parent="#accordion3">
+                                    <div class="table-responsive h-200">
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Shipping Date</th>
+                                                    <td>{{datalist.ship_date}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Number Of Packages</th>
+                                                    <td>{{datalist.no_of_packages}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Are Packages Identical?</th>
+                                                    <td>{{datalist.package_type}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Package Contents</th>
+                                                    <td>{{datalist.package_contents}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Package Content Description</th>
+                                                    <td>{{datalist.package_content_desc}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Invoice Value</th>
+                                                    <td>{{datalist.total_invoice_value}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>AVN Package</th>
+                                                    <td>{{datalist.serv_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Payment Mode</th>
+                                                    <td>{{datalist.payment_mode}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Packages</th>
+                                                    <td>
+                                                        <tr>
+                                                            <th>Package Weight</th>
+                                                            <td>{{datalist.package_weight}}</td>
+                                                        </tr>
+                                                         <tr>
+                                                            <th>Package Height</th>
+                                                            <td>{{datalist.package_height}}</td>
+                                                        </tr>
+                                                         <tr>
+                                                            <th>Package Length</th>
+                                                            <td>{{datalist.package_length}}</td>
+                                                        </tr>
+                                                         <tr>
+                                                            <th>Package Width</th>
+                                                            <td>{{datalist.package_width}}</td>
+                                                        </tr>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                           <thead>
+                                               <th>Product Name</th>
+                                               <th>SKU</th>
+                                               <th>QTY</th>
+                                               <th>Price</th>
+                                           </thead> 
+                                           <tbody>
+                                               <tr *ngFor="let data of prodlist">
+                                                   <td>{{data.pro_name}}</td>
+                                                   <td>{{data.sku}}</td>
+                                                   <td>{{data.quantity}}</td>
+                                                   <td>{{data.price}}</td>
+                                               </tr>
+                                           </tbody>        
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="accordion4" class=" col-lg-6 col-md-6 col-sm-12">
+                            <div class="accordion">
+                                <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-4">
+                                    <h4>Consignment Charge Details</h4> </div>
+                                <div class="accordion-body collapse" id="panel-body-4" data-parent="#accordion4">
+                                    <div class="table-responsive h-200">
+                                        <table class="table table-striped table-hover table-order mb-0" id="save-stage" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="width: 50%;">Total Invoice Amount/COD</th>
+                                                    <td>{{datalist.total_invoice_value}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Invoice/COD Status</th>
+                                                    <td>{{datalist.invoice_cod_status}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Carrier Name</th>
+                                                    <td>{{datalist.partner_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Zone</th>
+                                                    <td>{{datalist.zone_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Zone Charge</th>
+                                                    <td>{{datalist.client_zone_price}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Consignment charge</th>
+                                                    <td>{{datalist.delivery_charges}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Fuel charge 0%</th>
+                                                    <td>{{datalist.fuel_percentage}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total COD charge</th>
+                                                    <td>{{datalist.total_cod_amount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Advance Fees (0%) OR (0)/-</th>
+                                                    <td>{{datalist.advance_fees}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Insurance</th>
+                                                    <td>{{datalist.total_insurance}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Additional Charges</th>
+                                                    <td>{{datalist.additional_charge}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Tax charge {{datalist.tax_charges}}</th>
+                                                    <td>{{datalist.calculated_tax_charges}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Duty {{datalist.duty_percentage}}%</th>
+                                                    <td>{{datalist.duty_amount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Coupon Type (NA)</th>
+                                                    <td>NA</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Amount</th>
+                                                    <td>{{datalist.applicable_charges}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Client Consignment Charge Status
+</th>
+                                                    <td>{{datalist.client_consignment_charge_status}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   <div class="modal-footer">
+      <button type="button" (click)="close_modal()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </ng-template>

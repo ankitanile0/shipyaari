@@ -1,0 +1,963 @@
+<!-- new file -->
+<html lang="en" dir="ltr">
+   <head>
+      <!-- Meta data -->
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+      <meta content="" name="description">
+      <meta content="" name="author">
+      <meta name="keywords" content="">
+      <!--favicon -->
+      <link rel="icon" href="https://seller.shipyaari.com/client/themes/assets/images/svgs/shipyaariicon.png" type="image/x-icon">
+      <!-- TITLE -->
+      <title>SHIPYAARI | E-Commerce Logistics Solution</title>
+      <!-- DASHBOARD CSS -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+         <link href="https://seller.shipyaari.com/client/themes/assets/css/style.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/css/loader.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/css/color-style.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/css/skins-modes.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/sidemenu/sidemenu.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/formwizard/smart_wizard.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/formwizard/smart_wizard_theme_arrows.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/formwizard/smart_wizard_theme_circles.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/formwizard/smart_wizard_theme_dots.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/tabs/tabs-2.css" rel="stylesheet" type="text/css">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/accordion/accordion.css" rel="stylesheet" type="text/css">
+         <link href="https://seller.shipyaari.com/client/themes/assets/css/icons.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/right-sidebar/right-sidebar.css" rel="stylesheet">
+         <link href="https://seller.shipyaari.com/client/themes/assets/switcher/css/switcher.css" rel="stylesheet" id="switcher-css" type="text/css" media="all">
+         <link id="theme" rel="stylesheet" type="text/css" media="all" href="https://seller.shipyaari.com/client/themes/assets/skins/skins-modes/color1.css">
+         <link href="https://seller.shipyaari.com/client/themes/assets/plugins/tabs/tabs.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://seller.shipyaari.com/client/themes/assets/skins/demo.css">
+         <link href="https://seller.shipyaari.com/client/themes/assets/css/main.css" rel="stylesheet">
+      <script async="" src="https://embed.tawk.to/5ce7c990a667a0210d594185/default" charset="UTF-8" crossorigin="*"></script>
+      <script type="text/javascript" src="https://seller.shipyaari.com/client/themes/assets/js/jquery_lib.js"></script>
+      <script src="https://seller.shipyaari.com/client/themes/assets/js/vendors/bootstrap.bundle.min.js"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+</style>
+      <style type="text/css">
+         .error {
+         color: red;
+         display: inline;
+         }
+         .track-pg {
+         background-color: #fff;
+         height: 45px;
+         }
+         .track-text {
+         font-size: 22px;
+         text-transform: uppercase;
+         font-weight: 500;
+         }
+         .track-content {
+         padding: 1% 0%;
+         }
+         .delievery_info {
+         position: relative;
+         background: #fff;
+         overflow: hidden;
+         }
+         .delievery_info ul {
+         padding: 0;
+         width: 76%;
+         float: right;
+         margin: 0;
+         }
+         .delievery_info li {
+         list-style: none;
+         background: #fff;
+         padding: 16px 0px;
+         border-bottom: 1px solid #e8e8e8;
+         position: relative;
+         }
+         .delievery_info li:last-child {
+         margin-bottom: 0;
+         }
+         .delievery_info li span:first-child {
+         display: block;
+         margin-bottom: 6px;
+         }
+         .delievery_info li span span {
+         display: inline;
+         }
+         .status_cont {
+         max-width: 90%;
+         }
+         .date_info_wrap {
+         position: absolute;
+         left: -118px;
+         top: 18px;
+         text-align: right;
+         font-size: 13px;
+         }
+         .date_info_wrap .date {
+         color: #434343;
+         margin-bottom: 2px;
+         font-weight: bold;
+         font-size: 14px;
+         text-transform: uppercase;
+         }
+         .date_info_wrap .time {
+         color: #454545;
+         }
+         .delievery_info li .date_info_wrap span:first-child {
+         margin-bottom: 1px;
+         }
+         .delievery_info li activity {
+         color: #737373;
+         }
+         .delievery_info li:after {
+         content: '';
+         height: 100%;
+         width: 2px;
+         display: block;
+         position: absolute;
+         left: -23px;
+         top: 52px;
+         z-index: 9;
+         border: 1px dashed #dedede;
+         }
+         .delievery_info li.active .circle_icon {
+         border: 3px solid white;
+         }
+         .delievery_info li:last-child:after {
+         display: none;
+         }
+         .circle_icon {
+         height: 16px;
+         width: 16px;
+         position: absolute;
+         left: 0;
+         border: 3px solid green;
+         box-shadow: 0 0 2px #a8a8a8;
+         display: block;
+         left: -30px;
+         border-radius: 50%;
+         background: #5beb34;
+         z-index: 9;
+         top: 37px;
+         }
+         .delievery_info li.active .circle_icon {
+         background: #18F040;
+         }
+         .delievery_info li.active span span {
+         color: #1EA231;
+         }
+         .check_delievery {
+         font-size: 46px;
+         color: #1EA231;
+         width: 34px;
+         height: 40px;
+         display: inline-block;
+         background: url(../img/sprite.png?v=1) no-repeat;
+         background-position: -135px -1px;
+         vertical-align: middle;
+         }
+         .delievery_list_wrap {
+         max-height: 254px;
+         padding-top: 1%;
+         overflow-y: auto;
+         }
+         @media (max-width: 767px) {
+         .delievery_info {
+         background: #fff;
+         border: none;
+         padding-top: 0px;
+         margin-bottom: 0;
+         padding-bottom: 12px;
+         }
+         .delievery_info li {
+         padding: 15px 0px 15px 50px;
+         }
+         .delievery_info li span:first-child {
+         display: block;
+         margin-top: 5px;
+         }
+         .date_info_wrap {
+         left: -53%;
+         top: 22px;
+         }
+         }
+         @media (max-width: 767px) and (min-width: 320px) {
+         .date_info_wrap {
+         left: -31%;
+         }
+         }
+         @media (max-width: 479px) {
+         .circle_icon {
+         top: 24px;
+         left: 25px;
+         }
+         .delievery_info li:after {
+         left: 32px;
+         top: 40px;
+         }
+         }
+         .track-icon {
+         border-radius: 100%;
+         background-color: #fff;
+         height: 30px;
+         width: 30px;
+         position: absolute;
+         font-size: 18px;
+         left: -16px;
+         top: 22%;
+         line-height: 29px;
+         text-align: center;
+         box-shadow: 0 1px 4px 0 rgba(160, 160, 160, 0.45);
+         }
+         .card {
+         border-radius: 10px!important;
+         border: 1px solid #eee!important;
+         box-shadow: 0px 0px 8px 0px #d4d4d4!important;
+         transition: 0.5s!important;
+         }
+         .order-details {
+         border-radius: 10px!important;
+         border: none;
+         }
+         @media (max-width: 767px) {
+         .track-icon {
+         display: none;
+         }
+         }
+         @media (max-width:425px) {
+         .status-txt {
+         margin-top: 2%;
+         border-right: 1px solid #fff!important;
+         border-bottom: 1px solid #e5e6f1!important;
+         }
+         .track-card2 {
+         height: auto!important;
+         max-height: 100%!important;
+         }
+         .pb100 {
+         padding-bottom: 70px;
+         }
+         }
+         .number-font {
+         font-size: 18px;
+         }
+         .track-card {
+         max-height: 900px;
+         height: 697px;
+         }
+         #feedbackModal .checked {
+         color: orange;
+         }
+         #feedbackModal .modal-body h4 {
+         font-weight: bold;
+         font-size: 14px;
+         margin-bottom: 0px;
+         }
+         #feedbackModal .click {
+         color: lightgray;
+         }
+         .alert-danger {
+         border: 0px;
+         background: #fff;
+         padding-left: 0px;
+         color: red
+         }
+         .status_cont {
+         max-width: 90%;
+         }
+         .pull-left {
+         float: left!important;
+         }
+         .delievery_status span {
+         margin-bottom: 10px;
+         font-weight: normal;
+         font-size: 14px;
+         }
+         .delievery_status span, .delievery_status strong {
+         display: block;
+         }
+         .edd_info:last-child {
+         margin-right: 0;
+         }
+         .edd_info {
+         float: left;
+         width: 173px;
+         position: relative;
+         margin-right: 55px;
+         }
+         .share_icon_wrap {
+         margin: 5px 9px 0;
+         }
+         .pull-right {
+         float: right!important;
+         }
+         .mytooltip {
+         position: relative;
+         display: inline-block;
+         }
+         .mytooltip .tooltiptext {
+         visibility: hidden;
+         width: 140px;
+         background-color: #555;
+         color: #fff;
+         text-align: center;
+         border-radius: 6px;
+         padding: 5px;
+         position: absolute;
+         z-index: 1;
+         bottom: 150%;
+         left: 50%;
+         margin-left: -75px;
+         opacity: 0;
+         transition: opacity 0.3s;
+         font-size: 14px;
+         }
+         .delievery_status span {
+         margin-bottom: 10px;
+         font-weight: normal;
+         font-size: 14px;
+         }
+         .delievery_status span, .delievery_status strong {
+         display: block;
+         }
+         .delievery_status .edd_day {
+         font-weight: bold;
+         font-size: 20px;
+         }
+         .delievery_status span {
+         margin-bottom: 10px;
+         font-weight: normal;
+         font-size: 14px;
+         }
+         .delievery_status .edd_month {
+         font-size: 16px;
+         }
+         .delievery_status .edd_date {
+         color: #2960db;
+         }
+         .delievery_status .edd_date {
+         font-size: 100px;
+         line-height: 100px;
+         font-weight: normal;
+         }
+         .delievery_status span.year_txt {
+         display: inline-block;
+         line-height: 0px;
+         color: #333333;
+         }
+         .delievery_status span {
+         margin-bottom: 10px;
+         font-weight: normal;
+         font-size: 14px;
+         }
+         #shipment_status_label {
+         margin-bottom: -15px;
+         margin-top: 10px;
+         }
+         .delievery{
+         margin-bottom: 10px!important;
+         font-weight: normal!important;
+         font-size: 14px!important;
+         }
+         .delievery_status span, .delievery_status strong {
+         display: block;
+         }
+         .delievery_status #shipment_status {
+         font-size: 38px;
+         font-weight: normal;
+         margin-top: 10px;
+         margin: 8px 0px;
+         }
+         .check_delievery {
+         font-size: 46px;
+         color: #1EA231;
+         width: 34px;
+         height: 40px;
+         display: inline-block;
+         background: url(../img/sprite.png?v=1) no-repeat;
+         background-position: -135px -1px;
+         vertical-align: middle;
+         }
+         .courier_info {
+         background: #fff;
+         padding: 23px 23px 0px 18px;
+         }
+         .courier_logo {
+         background-color: #ddd;
+         background-size: contain;
+         -webkit-background-size: contain;
+         border-radius: 5px;
+         width: 75px;
+         height: 65px;
+         margin-right: 15px;
+         }
+         .courier_info span:first-child {
+         margin-bottom: 5px;
+         margin-top: 9px;
+         }
+         .courier_info span, .courier_info a {
+         display: block;
+         }
+         b, strong {
+         font-weight: 700;
+         }
+         .courier_info span, .courier_info a {
+         display: block;
+         }
+         .tracking_id {
+         color: #285ddb;
+         }
+         .delievery_info {
+         padding: 25px 15px 25px;
+         position: relative;
+         background: #fff;
+         overflow: hidden;
+         border-radius: 0 0 10px 10px;
+         -webkit-border-radius: 0 0 10px 10px;
+         margin-bottom: 45px;
+         }
+         .delievery_list_wrap {
+         max-height: 220px;
+         overflow-y: auto;
+         color: black;
+         }
+         .courier_info {
+         background: #fff;
+         padding: 23px 23px 0px 18px;
+         }
+         .delievery_info ul {
+         padding: 0;
+         width: 76%;
+         float: right;
+         margin: 0;
+         }
+         .delievery_info li {
+         list-style: none;
+         background: #fff;
+         padding: 24px 0px;
+         border-bottom: 1px solid #e8e8e8;
+         position: relative;
+         margin-right: 10px;
+         }
+         .delievery_info li span:first-child {
+         display: block;
+         margin-bottom: 12px;
+         }
+         .delievery_info li activity {
+         color: #737373;
+         }
+         .information_block .hp_cards_info {
+         border-radius: 10px;
+         -webkit-border-radius: 10px;
+         position: relative;
+         padding-bottom: 2px;
+         }
+         .inner_page .hp_cards_info {
+         padding: 17px 15px 1px;
+         background: #fff;
+         border-radius: 10px 10px 0px 0px;
+         -webkit-border-radius: 10px 10px 0px 0px;
+         }
+         .inner_page .hp_cards_info h5 {
+         font-size: 15px!important;
+         margin: 9px 0 0;
+         border-bottom: 1px solid #CFD4D6;
+         padding-bottom: 21px;
+         padding-left: 35px;
+         font-weight: 400;
+         }
+         .order_detail_icon {
+         width: 25px;
+         height: 27px;
+         background: url(../img/Box.png) no-repeat;
+         display: inline-block;
+         position: absolute;
+         left: 16px;
+         top: 21px;
+         }
+         .hp_cards_info h5 i {
+         margin-right: 8px;
+         font-size: 22px;
+         }
+         .ord{
+         margin-top: 20px;
+         margin-bottom: 20px;
+         }
+         .information_block .hp_cards_info span, .information_block .hp_cards_info strong {
+         font-size: 13px;
+         }
+         .righton {
+         width: 65%;
+         word-break: break-word;
+         color: #737373;
+         }
+         #nps_courier_form {
+         margin-left: 0px;
+         padding-left: 0px;
+         padding-right: 0px;
+         }
+         .recommend_info {
+         background: #fff;
+         padding: 18px 20px 25px;
+         border-radius: 10px;
+         -webkit-border-radius: 10px;
+         margin-bottom: 45px;
+         margin-top: 30px;
+         }
+         ul.pagination.nps_courier_rating {
+         flex-direction: row;
+         flex-wrap: nowrap;
+         justify-content: space-between;
+         align-items: center;
+         align-content: center;
+         display: inline-flex;
+         margin-bottom: 25px;
+         width: 100% !important;
+         padding: 0px 18px;
+         padding-bottom: 20px;
+         }
+         .recommend_info .pagination li .courier {
+         display: block !important;
+         text-align: center !important;
+         -webkit-transition: width 0.3s !important;
+         transition: width 0.3s !important;
+         border: 0px !important;
+         height: 65px !important;
+         width: 100%;
+         padding: 0px !important;
+         }
+         .recommend_info .pagination li a {
+         background: #fff;
+         border-radius: 50%;
+         font-size: 16px;
+         padding: 7px;
+         color: #000;
+         width: 35px;
+         height: 35px;
+         display: block;
+         text-align: center;
+         -webkit-transition: width 0.3s;
+         transition: width 0.3s;
+         }
+         .pagination.nps_courier_rating img {
+         height: 63px;
+         display: block;
+         margin: 0 auto;
+         }
+      </style>
+   </head>
+   <body class="app" style="background-color: #f1f1f1;" data-new-gr-c-s-check-loaded="14.1024.0" data-gr-ext-installed="" cz-shortcut-listen="true">
+      <app-toastr></app-toastr>
+      <!--  <input type="hidden" value="282072721480" id="tracking_number">
+         <input type="hidden" value="5934" id="vendor_id">
+         <input type="hidden" value="" id="partner_id">
+         <input type="hidden" id="client_order_id" value="60b8e8f4498e2b5b9ca168ce_1627847847">
+         <input type="hidden" id="customer_name" value="Faisal Khan">
+         <input type="hidden" id="customer_contact_no" value="8879527261"> -->
+      <div class="page track-pg">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12 p-1 text-center">
+                  <h2 class="mb-0 track-text">
+                     <img style="max-height: 42px;" width="13%"  [src]="track_data.company_logo" onError="this.src='assets/img/complogo.png'">  
+                  </h2>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="track-content">
+         <div class="container">
+            <input type="hidden" id="getval" value="">
+            <!-- <div class="row mt-2">
+               <div class="col-lg-12">
+                  <div class="card card-box">
+                     <div class="card-body border-0">
+                        <div style="text-align: center;margin-top: 9px;font-size: 15px;">
+                           <p>You don't have access to take any action on the tracking page. <a>Click here</a> to verify yourself as a buyer.</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div> -->
+            <div class="row mt-2">
+                <div class="col-lg-12">
+                    <div class="card card-box">
+                        <!-- <div class="alert alert-primary mb-0">
+                    <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>Estimated Delivery Date</div>  -->
+                        <div class="card-body border-0 mt-5">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-6 col-sm-6 pr-0 pl-0 border-right status-txt">
+                                    <div class="card-body border-0 pt-0 pb-0 text-left">
+                                        <h6 class="mb-0 ml-3 text-primary">From</h6>
+                                        <h2 class="mb-1 ml-3 mt-2 number-font">{{track_data.pickup_city}}</h2>
+                                        <p class="mb-1 mt-2 ml-3">{{track_data.pickup_addr}} {{track_data.pickup_pincode}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6 col-sm-6 pr-0 pl-0 border-right status-txt ">
+                                    <div class="card-body  border-0 pt-0 pb-0 text-left"> <i class="fa fa-exchange track-icon" data-toggle="tooltip" title="" data-original-title="ion-arrow-swap"></i>
+                                        <h6 class="mb-0 ml-3 text-primary">To</h6>
+                                        <h2 class="mb-1 ml-3 mt-2 number-font">{{track_data.delivery_city}}</h2>
+                                        <p class="mb-1 mt-2 ml-3">{{track_data.delivery_addr}} {{track_data.delivery_pincode}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 status-txt col-lg-6 col-sm-6 pr-0 pl-0 border-right">
+                                    <div class="card-body  border-0 pt-0 pb-0 text-left">
+                                        <h6 class="mb-0 ml-3 text-primary">Status</h6>
+                                        <h2 class="mb-2 ml-3 mt-2 number-font">{{track_data.current_status}}<div style="font-size: 13px; padding-top: 4px;"></div></h2> </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6 col-sm-6 pr-0 pl-0 status-txt">
+                                    <div class="card-body  border-0 pt-0 pb-0 text-left">
+                                        <h6 class="mb-0 ml-3 text-primary">                                         
+                                        Estimated Delivery Date </h6>
+                                        <h2 class="mb-1 ml-3 mt-2 number-font">
+                                    {{track_data.estimate_date_con}}        
+                                </h2>
+                                        <p class="mb-2 mt-2 ml-3"> <span>{{track_data.ondatatime}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+               <div class="col-lg-6 col-md-12">
+                  <div class="card track-card track-card2" style="height: 600px;">
+                     <div class="card-body pt-0">
+                        <div class="clearfix  delievery_status" style="margin-top:15px">
+                           <div class="pull-left status_cont">
+                              <div class="status_check clearfix">
+                                 <span class="delievery"><i class="fas fa-truck-loading"></i> &nbsp; Delivered On</span>
+                                 <div class="edd_info">
+                                    <span style="display: inline;" class="edd_day" id="edd_day">{{edd_dayName}}</span>
+                                    <strong class="edd_month" id="edd_month">{{edd_month}}</strong>
+                                    <strong class="edd_date" id="edd_date">{{edd_date}}<span class="year_txt">{{edd_year}}</span></strong>
+                                 </div>
+                              </div>
+                              <span id="shipment_status_label">Status:</span>
+                              <strong id="shipment_status">
+                              {{curr_status | uppercase}}
+                              </strong>
+                           </div>
+                           <div class="pull-right status_cont">
+                              <div class="status_check clearfix">
+                                 <span class="delievery" style="float: right"><i class="fas fa-project-diagram"></i> &nbsp;Tracking ID</span><br>
+                              </div>
+                              <div class="" style="float: right">
+                                    <span  class="edd_day" id="edd_day" style="float: right">{{track_no}}  <a href="javascript:" (click)="copy_url()"> <i class="fas fa-copy" tooltip="Copy Url"></i></a></span><br>
+                                   
+                                   <img [src]="track_data.curier_logo" onError="this.src='assets/img/cour.png'" style="width:60%;">
+                                <br>
+                                 </div><br>
+                                   <div style="float: right; margin-top: 10px; margin-right: 25px;">
+                                      <span><b>{{partner_name}}</b></span>
+                                   </div>
+                              <!-- <span id="shipment_status_label">Status:</span>
+                              <strong id="shipment_status">
+                              <i style="font-size: 24px;cursor: pointer;" class="far fa-check-circle mb-1"></i>
+                              DELIVERED
+                              </strong> -->
+                           </div>
+                          <!--  <div class="pull-right share_icon_wrap">
+                              <div class="pull-right">
+                                 <div class="mytooltip">
+                                    <i style="font-size: 24px;cursor: pointer;" onmouseout="outFunc()" onclick="copy_to_clipboard()" class="fa fa-copy">    <span class="tooltiptext" id="myTooltip">Copy URL</span></i>
+                                 </div>
+                              </div>
+                           </div> -->
+                        </div>
+                        <hr>
+                        <div class="courier_info clearfix">
+                          <!--  <div class="pull-left courier_logo" style="background-image: url('assets/img/cour.png');background-repeat: no-repeat;">
+                           </div>
+                           <div class="pull-left">
+                              <span><b>Bluedart</b></span>
+                           </div> -->
+                           <!-- <div class="pull-right">
+                              <span><b>Tracking ID</b> </span>
+                              <span class="tracking_id">89233481035</span>
+                           </div> -->
+                        </div>
+                        <div class="delievery_info pt-0">
+                           <div class="delievery_list_wrap clearfix">
+                              <ul>
+                                 <li class="pb-0" *ngFor="let data of cycle">
+                                    <span>
+                                       <p class="mb-0"><b>Status :</b>  &nbsp;
+                                         <span style="color: gray;">{{data.Status}}</span></p>
+                                    </span>
+                                    <span>
+                                       <p class="mb-0"><b>Message : </b>
+                                       <span style="color: gray;">{{data.Message}}</span></p>
+                                    </span>
+                                     <span>
+                                       <p class="mb-0"><b>Instructions  : </b>
+                                       <span style="color: gray;">{{data.Instructions}}</span></p>
+                                    </span>
+                                     <span>
+                                       <p class="mb-0"><b>Location  : </b>
+                                       <span style="color: gray;">{{data.Location}}</span></p>
+                                    </span>
+                                   
+                                    <div class="date_info_wrap">
+                                       <span class="date">{{data.date}}</span> 
+                                       <span class="time">{{data.time}}</span>
+                                    </div>
+                                    <i class="circle_icon"></i>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-12">
+                  <div class="card track-card track-card2" style="height:340px">
+                     <div class="hp_cards information_block">
+                        <div class="card-body p-3">
+                        <div class="status_check clearfix">
+                              <span class="delievery mb-2"><h3><b> <i class="fa fa-cube" aria-hidden="true"></i> &nbsp;Order Details</b></h3></span>
+                        </div>
+                           <div class="row mb-3 pl-3">
+                                <div class="col">
+                                    <div class="float-left">
+                                        <h5 class="mb-0"><b>Order ID</b></h5> </div>
+                                </div>
+                                <div class="col pl-3">
+                                    <div> <small class=" mb-0 number-font1 fs-14">{{track_data.client_order_id}}</small> </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 pl-3">
+                                <div class="col">
+                                    <div class="float-left">
+                                        <h5 class="mb-0"><b>Order Placed On</b></h5> </div>
+                                </div>
+                                <div class="col">
+                                    <div> <small class=" mb-0 number-font1 fs-14">{{track_data.packdate}}</small> </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 pl-3">
+                                <div class="col">
+                                    <div class="float-left">
+                                        <h5 class="mb-0"><b>Buyer's Name</b></h5> </div>
+                                </div>
+                                <div class="col">
+                                    <div> <small class=" mb-0 number-font1 fs-14">{{track_data.customer_name}}</small> </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 pl-3">
+                                <div class="col">
+                                    <div class="float-left">
+                                        <h5 class="mb-0"><b>Phone Number</b></h5> </div>
+                                </div>
+                                <div class="col">
+                                    <div> <small class=" mb-0 number-font1 fs-14">{{track_data.customer_contact_no}}</small> </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 pl-3">
+                                <div class="col">
+                                    <div class="float-left">
+                                        <h5 class="mb-0"><b>Invoice</b></h5> </div>
+                                </div>
+                                <div class="col">
+                                    <div> <small class=" mb-0 number-font1 fs-14">₹ {{track_data.total_invoice_value}}</small> </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 pl-3">
+                                <div class="col">
+                                    <div class="float-left">
+                                        <h5 class="mb-0"><b>Payment Mode</b></h5> </div>
+                                </div>
+                                <div class="col">
+                                    <div> <small class=" mb-0 number-font1 fs-14">{{track_data.payment_mode}}</small> </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 pl-3">
+                                <div class="col">
+                                    <div class="float-left">
+                                        <h5 class="mb-0"><b>Address</b></h5> </div>
+                                </div>
+                                <div class="col">
+                                    <div> <small class=" mb-0 number-font1 fs-14">{{track_data.address}}</small> </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- <div class="card track-card track-card2 p-2" style="height:231px">
+                     <div class="recommend_info nps_pagination text-center" id="nps_courier_form">
+                        <p style="margin-top: -33px;"> How was your Delivery Experience?</p>
+                        <ul class="pagination nps_courier_rating">
+                           <li data-rating="1">
+                              <a href="javascript:void(0);" class="courier">
+                              <img src="assets/img/1-grey-icon.png" data-colored="/post_order/img/feedback/courier/colored/1-color-icon.png" data-non_colored="/post_order/img/feedback/courier/non-colored/1-grey-icon.png" href="javascript:void(0);" class="hover-image">
+                              <span style="padding-top: 4px; display: inline-block;">TERRIBLE </span> 
+                              </a>
+                           </li>
+                           <li data-rating="2">
+                              <a href="javascript:void(0);" class="courier">
+                              <img src="assets/img/2-grey-icon.png" data-colored="/post_order/img/feedback/courier/colored/2-color-icon.png" data-non_colored="/post_order/img/feedback/courier/non-colored/2-grey-icon.png" href="javascript:void(0);" class="hover-image">
+                              <span style="padding-top: 4px; display: inline-block;">BAD </span> 
+                              </a>
+                           </li>
+                           <li data-rating="3">
+                              <a href="javascript:void(0);" class="courier">
+                              <img src="assets/img/3-grey-icon.png" data-colored="/post_order/img/feedback/courier/colored/3-color-icon.png" data-non_colored="/post_order/img/feedback/courier/non-colored/3-grey-icon.png" href="javascript:void(0);" class="hover-image">
+                              <span style="padding-top: 4px; display: inline-block;">OKAY </span> 
+                              </a>
+                           </li>
+                           <li data-rating="4">
+                              <a href="javascript:void(0);" class="courier">
+                              <img src="assets/img/4-grey-icon.png" data-colored="/post_order/img/feedback/courier/colored/4-color-icon.png" data-non_colored="/post_order/img/feedback/courier/non-colored/4-grey-icon.png" href="javascript:void(0);" class="hover-image">
+                              <span style="padding-top: 4px; display: inline-block;">GOOD </span> 
+                              </a>
+                           </li>
+                           <li data-rating="5">
+                              <a href="javascript:void(0);" class="courier">
+                              <img src="assets/img/5-grey-icon.jpeg" data-colored="/post_order/img/feedback/courier/colored/5-color-icon.png" data-non_colored="/post_order/img/feedback/courier/non-colored/5-grey-icon.jpeg" href="javascript:void(0);" class="hover-image">
+                              <span style="padding-top: 4px; display: inline-block;">EXCELLENT </span> 
+                              </a>
+                           </li>
+                        </ul>
+                        <form style="display: flex; padding: 0px 15px 0px 15px;">
+                           <input type="hidden" name="nps_courier_score" id="nps_courier_score" value="">
+                           <span class="error" style="display:none;margin-bottom: 5px;"></span>
+                           <button onclick="open_otp_modal()" class="btn btn-primary btn-sm" type="button" style="float: left;">Submit</button>    
+                        </form>
+                     </div>
+                  </div> -->
+               </div>
+            </div>
+             <div class="row  mt-2 mb-3">
+           <div class="col-lg-12">
+              <div class="card">
+                 <div class="card-body border-0 pb100 mt-3">
+                    <div class="row">
+                       <div class=" col-md-5 ">
+                          <p class="m-0 ml-2" style="font-size: 13px;padding: 4px 4px;"><i class="fa fa-mobile fa-xl mr-1 text-primary fs-20"></i> You are receiving real time shipment updates on:<b> {{track_data.customer_contact_no}}</b></p>
+                       </div>
+                       <div class="col-md-2 text-center">
+                          <button *ngIf="track_data.intransitcheck == 1 " class="btn btn-primary notify-btn" (click)="notifyModal(notify)" >Notify Delivery Issue</button> 
+                          <button *ngIf="track_data.deliveredcheck == 1 && track_data.buyitmail == 1" class="btn btn-primary" (click)="buyitagin()" >Buy it Again</button>
+                       </div>
+                       <div *ngIf="track_data.deliveredcheck == 0" style="margin-left: auto;" class=" col-md-3">
+                           <form #g="ngForm" (ngSubmit)="submitMobile(g)" novalidate autocomplete="off">
+                          <div class="d-flex">
+                             <div class="input-group wd-150 mr-3">
+                               
+                                <div class="input-group-prepend">
+                                   <div class="input-group-text"> <i class="fa fa-mobile tx-16 lh-0 op-6"></i> </div>
+                                   <!-- input-group-text -->
+                                </div>
+                                <!-- input-group-prepend -->
+                                <input class="form-control" id="phone_no" placeholder="Phone Number" [(ngModel)]="mobile" name="mobile"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text" autocomplete="off" minlength="10" maxlength="10">
+                                <button class="btn btn btn-primary update-btn" type="submit" (click)="otpModal(otp)" id="updateShippingNoBtn">Update</button>
+                                <small *ngIf="(mobile == null || mobile == '') && g.submitted" class="text-danger">Mobile required.</small>
+                               
+                             </div>
+                             <!-- input-group -->
+                          </div>
+                           </form>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+         </div>
+         <footer class="footer p-0 left-footer">
+            <div class="container">
+               <div class="row align-items-center flex-row-reverse">
+                  <div class="col-md-12 col-sm-12 text-center"> Powered by
+                     <a href="https://shipyaari.com/"><img src="https://shipyaari.com/assets/img/logo.png"></a>
+                  </div>
+               </div>
+            </div>
+         </footer>
+      </div>
+   </body>
+</html>
+<ng-template #notify>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title text-center" id="exampleModalLabel"><b>WRITE TO US FOR YOUR DELIVERY ISSUES</b></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeNotify()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #f="ngForm"  (ngSubmit)="submit(f)" novalidate autocomplete="off">
+   <div class="modal-body model-ISSUES">
+      <div class="row">
+         <div class="col">
+            <div class="form-group">
+               <label>Name</label>
+               <input type="text" class="form-control" [(ngModel)]="name" name="name" readonly>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col">
+            <div class="form-group">
+               <label>Order ID</label>
+               <input type="text" class="form-control" [(ngModel)]="orderID" name="orderID"  readonly>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col">
+            <div class="form-group">
+               <label>Select Issue</label>
+               <select class="form-control" [(ngModel)]="reason" name="reason">
+               <option value="0" selected>Select</option>
+               <option value="Update Address" >Update Address</option>
+               <option value="Delivery Delay" >Delivery Delay</option>
+               <option value="Status different on courier co website" >Status different on courier co website</option>
+               <option value="Delivery boy didn’t attempt delivery" >Delivery boy didn’t attempt delivery</option>
+               <option value="Fake Remarks" >Fake Remarks</option>
+               <option value="Need Product, Status says Return" >Need Product, Status says Return</option>
+               <option value="Other Issues" >Other Issues</option>
+               </select>
+               <small *ngIf="(reason == null || reason == '') && f.submitted" class="text-danger">Issue required.</small>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col">
+            <div class="form-group">
+               <label>Message</label>
+               <textarea class="form-control" [(ngModel)]="message" name="message"></textarea>
+               <small *ngIf="(message == null || message == '') && f.submitted" class="text-danger">Reason required.</small>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="submit"  class="btn btn-primary btn-sm"> Submit</button>
+      <button type="button" (click)="closeNotify()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+</ng-template>
+<ng-template #otp>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title text-center" id="exampleModalLabel"><b>OTP</b></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeotpModal()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #f="ngForm"  (ngSubmit)="submit(f)" novalidate autocomplete="off">
+   <div class="modal-body">
+      <div class="row">
+         <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="onetimepass">
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="submitotp()" class="btn btn-primary btn-sm"> Submit</button>
+      <button type="button" (click)="closeotpModal()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+</ng-template>

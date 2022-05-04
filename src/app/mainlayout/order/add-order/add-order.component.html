@@ -1,0 +1,1050 @@
+<div class="main-content">
+   <div [innerHTML]="Loader"></div> 
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Add Order</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> -->
+              <!--  <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Add Order</li> -->
+             <!--   <div class="btn-group mb-3" role="group" aria-label="Basic example"> -->
+               <!-- <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_All_order()">All Order</button>
+                  <button type="button" class="btn btn-secondary rad_0 dash_tab" (click)="go_to_order()">Add Order</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_b2b()">B2B</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_add_bulk()">Add Bulk</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_channel()">Channel Order</button> -->
+             <!--   </div> -->
+            <!-- </ol> -->
+             <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_All_order()" >All Order</a>
+               <a href="javascript:" (click)="go_to_order()" class="active">Add Order</a>
+               <a href="javascript:" (click)="go_to_b2b()" >B2B</a>
+               <a href="javascript:" (click)="go_to_add_bulk()" >Add Bulk</a>
+              <a href="javascript:" (click)="go_to_channel()">Channel Order</a>
+            </div>
+         </div>
+      </div>
+      <div class="col-12 col-md-12 col-lg-12">
+         <!-- <alert></alert> -->
+      </div>
+      <form id=addorder_form [formGroup]="add_shipment" (ngSubmit)="Submit()" novalidate autocomplete="off" >
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Delivery Details</h4> <small class="text-dark ml-3"><i>**(All Fields Are Mandatory)</i></small>
+               </div>
+             
+               <div class="card-body">
+                  <div class="col-12">
+                     <div class="row">
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <ng-select [items]="deliveryAddress "
+                              bindLabel="delivery_address_name"
+                              bindValue="id"
+                              name="Addcountry"
+                              tooltip="Select Delivery Address"
+                              placeholder = "Select Delivery Address"
+                              formControlName="to_company"
+                              [(ngModel)]="delAddId"
+                              (change)="get_del_address()"
+                             >
+                              <ng-template ng-option-tmp let-item="item">
+                                 <div style="font-size: 13px;"><span>{{item.delivery_address_name}}({{item.name}})</span></div>
+                              </ng-template>
+                              </ng-select>
+                              <div *ngIf="add_shipment.get('to_company').invalid && add_shipment.get('to_company').touched" class="invalid-feedback">
+                                 <span *ngIf="!!add_shipment.get('to_company').errors.required"> Oh no! Email is invalid.</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <div class="input-group">
+                                 <div class="input-group-prepend">
+                                    <div class="input-group-text"> <i class="fa fa-phone"></i> </div>
+                                 </div>
+                                 <input type="text" formControlName="customer_contact_no" [(ngModel)]="Mobile_Number" name="customer_contact_no" class="form-control phone-number" placeholder="9XXXXXXXXX" data-toggle="tooltip" data-placement="top" title="Mobile Number" 
+                                [ngClass]="{'is-invalid':add_shipment.get('customer_contact_no').touched && add_shipment.get('customer_contact_no').invalid}" maxlength="10" 
+                                (blur)="get_del_address_by_mobile()"
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+                                 >
+                                 <div *ngIf="add_shipment.get('customer_contact_no').errors" class="invalid-feedback">
+                                   <div *ngIf="add_shipment.get('customer_contact_no').errors.required">Enter Proper Contact number </div>
+                                   <div *ngIf="add_shipment.get('customer_contact_no').errors.minLength">min 10 Digit </div>
+                                   <div *ngIf="add_shipment.get('customer_contact_no').errors.maxLength">Max 10 Digit </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="order_id" class="form-control" placeholder="Order ID" data-toggle="tooltip" data-placement="top" title="Order ID" [ngClass]="{'is-invalid':add_shipment.get('order_id').touched && add_shipment.get('order_id').invalid}">
+                              <div id="" class="invalid-feedback">
+                                 Please Enter Order Id
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="customer_name"  [(ngModel)]="Name" name="Name" class="form-control" placeholder="Full Name" data-toggle="tooltip" data-placement="top" title="Full Name" [ngClass]="{'is-invalid':add_shipment.get('customer_name').touched && add_shipment.get('customer_name').invalid}">
+                              <div id="" class="invalid-feedback">
+                                 Please Enter Full Name
+                              </div>
+                           </div>
+
+                        </div>
+                      <!--   <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              
+                           </div>
+                        </div> -->
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="customer_email"  [(ngModel)]="Email" name="Email" class="form-control" placeholder="Email Address" data-toggle="tooltip" data-placement="top" title="Email Address"> 
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="to_landmark"  [(ngModel)]="Landmark" name="Landmark" class="form-control" placeholder="Landmark" data-toggle="tooltip" data-placement="top" title="Landmark"> 
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="to_address"  [(ngModel)]="Address1" name="Address1" class="form-control" placeholder="Address 1" data-toggle="tooltip" data-placement="top" title="Address 1" [ngClass]="{'is-invalid':add_shipment.get('to_address').touched && add_shipment.get('to_address').invalid}"> 
+                              <div id="" class="invalid-feedback">
+                                 Please Enter Address1
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="to_address2" [(ngModel)]="Address2" name="Address2" class="form-control" placeholder="Address 2" data-toggle="tooltip" data-placement="top" title="Address 2"> 
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="to_pincode" [(ngModel)]="Delivery_Pincode" name="Delivery_Pincode" class="form-control" placeholder="Delivery Pincode" data-toggle="tooltip" data-placement="top" title="Delivery Pincode" (blur)="get_add_by_pin()"
+                              [ngClass]="{'is-invalid':add_shipment.get('to_pincode').touched && add_shipment.get('to_pincode').invalid}">
+                              <div id="" class="invalid-feedback" >
+                                 Please Provide Valid Pincode
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="to_city" [(ngModel)]="City" name="City" class="form-control" placeholder="City" data-toggle="tooltip" data-placement="top" title="City" readonly> 
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="to_state"  [(ngModel)]="State" name="State"  class="form-control" placeholder="State" data-toggle="tooltip" data-placement="top" title="State" readonly> 
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" formControlName="to_country"  [(ngModel)]="Country" name="Country" class="form-control" placeholder="Country" data-toggle="tooltip" data-placement="top" title="Country" readonly> 
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="row">
+                  <div class="col-lg-6 col-12 col-md-12">
+                     <div class="card-header">
+                        <h4>Pickup Details</h4><small class="text-dark ml-3"><i>**(All Fields Are Mandatory)</i></small>
+                     </div>
+                      <!-- <small class="text-dark ml-3">** All Fields Are Mandatory</small> -->
+                     <div class="card-body">
+                        <div class="col-12">
+                           <div class="row align-items-center">
+                              <div class="col-12 col-md-5 col-lg-5 plr-5">
+                                 <div class="form-group">
+
+                                    <ng-select [items]="PickupAddlist"
+                                    bindLabel="pickup_name"
+                                    bindValue="pickup_id"
+                                    name="PickAddId"
+                                    tooltip="Select Pickup Address"
+                                    placeholder = "Select Pickup Address"
+                                    formControlName="f_com_name"
+                                    [(ngModel)]="PickAddId"
+                                    (change)="get_Pic_address()"
+                                    [ngClass]="{'is-invalid':add_shipment.get('f_com_name').touched && add_shipment.get('from_company_name').invalid}"
+                                    >
+                                     <ng-template ng-option-tmp let-item="item">
+                                          <div style="font-size: 13px;"><span>{{item.pickup_name}}</span></div>
+                                       </ng-template>
+                                    </ng-select>
+                                 </div>
+                              </div>
+                              <div class="col-lg-2 col-xl-2 col-md-2 plr-5 text-center">
+                                 <div class="form-group">
+                                    <a href="javascript:" (click)="viewPickupDetailsmodal(ViewPickup)" data-toggle="modal" data-target="#showAddress"><i class="fa fa-eye" tooltip="View Address"></i></a>
+                                    &nbsp; OR &nbsp; <a href="javascript:" (click)="addPickupAddress(addPickup)" data-toggle="modal" data-target="#addAddress"><i class="fa fa-plus-circle" tooltip="Add New Address"></i></a>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-md-5 col-lg-5 plr-5">
+                                 <div class="form-group">
+                                    <div class="input-group">
+                                       <input type="text"  formControlName="from_gst"  [(ngModel)]="Gst_Number" name="Gst_Number" class="form-control phone-number" placeholder="GST Number" data-toggle="tooltip" title="" data-original-title="GST Number" readonly> 
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-6 col-12 col-md-12">
+                     <div class="card-header">
+                        <h4>Package Details</h4> <small class="text-dark ml-3"><i>**(All Fields Are Mandatory Except Checkbox)</i></small>
+                     </div>
+                      <!-- <small class="text-dark ml-3">** All Fields Are Mandatory except Checkbox</small> -->
+                     <div class="card-body">
+                        <div class="col-12">
+                           <div class="row align-items-center">
+                              <div class="col-12 col-md-3 col-lg-3 plr-5">
+                                 <div class="form-group">
+                                    <div class="input-group">
+                                       <div class="input-group-prepend">
+                                          <div class="input-group-text"> <i class="fas fa-calendar"></i> </div>
+                                       </div>
+                                       <input
+                                          bsDatepicker
+                                          [bsConfig]="{showWeekNumbers: false, containerClass:'theme-dark-blue'}" [datesEnabled]="bsRangeValue"
+                                          type="text" formControlName="ship_date" class="form-control" placeholder="Ship Date" tooltip="Select Date"
+                                           [ngClass]="{'is-invalid':add_shipment.get('ship_date').touched && add_shipment.get('ship_date').invalid}">
+                                       <div id="" class="invalid-feedback" >
+                                          Date Required
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-md-3 col-lg-3 plr-5">
+                                 <div class="form-group">
+                                    <input type="text" formControlName="no_of_packages" class="form-control" placeholder="Number Of Packages" data-toggle="tooltip" data-placement="top" title="Number of Packages" id="count"
+                                    (keyup)="addMainTable()" (keydown)="remTable()" (input)="calculaetAll()"  [(ngModel)]="a"
+                                       [ngClass]="{'is-invalid':add_shipment.get('no_of_packages').touched && add_shipment.get('no_of_packages').invalid}" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46'
+                                    > <!-- (keydown)="remTable() -->
+                                    <div id="" class="invalid-feedback">
+                                       No. Of Package Required.
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-md-3 col-lg-2 plr-5">
+                                 <div class="form-group">
+                                    <div  class="custom-control custom-checkbox">
+                                       <input type="checkbox" class="custom-control-input"  id="customCheck1" (click)="Chek_Identical()" formControlName="identical" [(ngModel)]="identical" >
+                                       <label  class="custom-control-label" for="customCheck1">Identical</label>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-md-3 col-lg-2 plr-5">
+                                 <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                       <input type="checkbox" class="custom-control-input" [(ngModel)]="insurance" id="customCheck2" formControlName="Insurance">
+                                       <label class="custom-control-label" for="customCheck2">Insurance</label>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-md-3 col-lg-2 plr-5">
+                                 <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                       <input type="checkbox" class="custom-control-input" id="customCheck3" formControlName="COD">
+                                       <label class="custom-control-label" for="customCheck3">COD</label>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Product Details</h4> <small class="text-dark ml-3"><i>**(All Fields Are Mandatory Except Tax, Discount)</i></small>
+               </div>
+               <!-- <small class="text-dark ml-3">** All Fields Are Mandatory except Tax, Discount</small> -->
+               <div class="card-body pb-0" >
+                  <div class="table-responsive tabl-drop" formArrayName="product_data"  *ngFor=" let item of add_shipment.get('product_data')['controls']; let i = index" >
+                     <ng-container [formGroupName]="i">
+                        <table class="table fixed_headers table-striped table-bordered mb-0" >
+                           <thead>
+                              <tr>
+                                 <th width="33%">Package Product Details {{i+1}}</th>
+                                 <!--   {{i+1}} -->
+                                 <th width="10%">SKU</th>
+                                 <!-- <th width="10%">HSN</th> -->
+                                 <th width="5%">Weight</th>
+                                 <th width="5%">Qty</th>
+                                 <th width="5%">Tax(%)</th>
+                                 <th width="8%">Price<b>(₹)</b></th>
+                                 <th width="4%">Discount<b>(₹)</b></th>
+                                 <th width="8%">Total</th>
+                                 <th width="7%">Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <ng-container formArrayName="package_details" *ngFor=" let aa of getCond(i); let k = index;">
+                                 <ng-container [formGroupName]="k">
+                                    <tr>
+                                       <!-- *ngFor="let child of main.childArr; let j = index" -->
+                                       <td>
+                                          <div class="row ">
+                                             <div class="col-lg-6 col-xl-6">
+                                                <ng-select [items]="template_List"
+                                                bindLabel="template_name"
+                                                bindValue="id"
+                                                name="templateID"
+                                                tooltip="Select Template"
+                                                formControlName="pkgname"
+                                                (change)="fetch_template(i, k, aa)"
+                                                placeholder="Select Template">
+                                                 <ng-template ng-option-tmp let-item="item">
+                                                   <div style="font-size: 13px;"><span>{{item.template_name}}</span></div>
+                                                </ng-template>
+                                                </ng-select>
+                                             </div>
+                                             <div class="col-lg-6 col-xl-6 ">
+                                                <input type="text" class="form-control" formControlName="name"  tooltip="Product Name"
+                                                [ngClass]="{'is-invalid':aa.get('name').touched && aa.get('name').invalid}"> 
+
+                                             </div>
+                                          </div>
+                                       </td>
+                                       <td>
+                                          <input type="text" class="form-control" id="temp_sku" formControlName="sku" tooltip="SKU"> 
+                                          <input type="hidden" class="form-control" id="temp_hsn" formControlName="hsn" tooltip="HSN"> 
+                                       </td>
+                                       <!-- <td>
+                                          
+                                       </td> -->
+                                       <td>
+                                          <input type="text" class="form-control" (input)="calculate(aa)"
+                                             onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46' formControlName="weight" tooltip="Weight" [ngClass]="{'is-invalid':aa.get('weight').touched && aa.get('weight').invalid}" maxlength="6" minlength="1" > 
+                                       </td>
+                                       <td>
+                                          <input type="text" class="form-control" (input)="calculate(aa)" formControlName="qty" tooltip="Quantity" [ngClass]="{'is-invalid':aa.get('qty').touched && aa.get('qty').invalid}"
+                                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="3" minlength="1"> 
+                                       </td>
+                                       <td>
+                                          <input type="text" class="form-control" formControlName="tax" tooltip="Tax In %"
+                                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' > 
+                                       </td>
+                                       <td>
+                                          <input type="text" class="form-control" (input)="calculate(aa)" id="temp_price" formControlName="price" tooltip="Price" [ngClass]="{'is-invalid':aa.get('price').touched && aa.get('price').invalid}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="8" minlength="1"> 
+                                       </td>
+                                       <td>
+                                          <input type="text" class="form-control" (input)="calculate(aa)" 
+                                             onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="discount" tooltip="Discount"maxlength="5" > 
+                                       </td>
+                                       <td>
+                                          <input type="hidden" class="form-control" formControlName="wt" readonly>
+                                          <input type="text" class="form-control"  formControlName="total" tooltip="Total" readonly>
+                                       </td>
+                                       <td align="center"> 
+                                             <a *ngIf="aa.valid" href="javascript:"  tooltip="Add New Product"><i class="fa fa-plus-circle green" (click)="addChildTable(i, aa)"></i></a> 
+                                          <a href="javascript:" class="ml-2" tooltip="Delete / Clear"><i class="fa fa-minus-circle red" *ngIf="k!=0" (click)="removeChildTable(i,k)"></i></a> 
+                                          <a href="javascript:" class="ml-2" tooltip="Save Product"><i class="fa fa-save blue" (click)=" Save_Product(i)"></i></a> 
+                                       </td>
+                                    </tr>
+                                 </ng-container>
+                              </ng-container>
+                              <!--     <button (click)="addMainTable()">Add table</button> 
+                                 <button (click)="removeMainTable(i)">rem table</button> -->
+                           </tbody>
+                           <tfoot>
+                              <tr>
+                                 <td colspan="10">
+                                    <div class="row">
+                                       <div class="offset-xl-2 col-xl-2 text-right">
+                                          <label>Dimension (CM)</label>
+                                       </div>
+                                       <div class="col-xl-3">
+                                          <div class="input-group">
+                                             <input type="text" class="form-control Number" formControlName="package_length" placeholder="L" tooltip="Length" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="3" minlength="1"
+                                             [ngClass]="{'is-invalid':item.get('package_length').touched && item.get('package_length').invalid}">&nbsp;
+                                            
+                                             <input type="text" class="form-control Number" formControlName="package_width" placeholder="W" tooltip="Width"
+                                             onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="3" minlength="1" [ngClass]="{'is-invalid':item.get('package_width').touched && item.get('package_width').invalid}">&nbsp;
+                                            
+                                             <input type="text" class="form-control Number" formControlName="package_height" placeholder="H" tooltip="Height" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="3" minlength="1" [ngClass]="{'is-invalid':item.get('package_height').touched && item.get('package_height').invalid}">
+                                          </div>
+                                       </div>
+                                       <div class="col-xl-1 plr-5"> 
+                                          <input type="text" formControlName="total_weight" class="form-control" tooltip="Total Weight"  readonly
+                                          [ngClass]="{'is-invalid':item.get('total_weight').touched && item.get('total_weight').invalid}">
+                                       </div>
+                                       <div class="col-xl-1 plr-5"> 
+                                          <input type="text" formControlName="billabe_weight" class="form-control"  tooltip="Billable Weight" placeholder="0" readonly [ngClass]="{'is-invalid':item.get('billabe_weight').touched && item.get('billabe_weight').invalid}" >
+                                       </div>
+                                       <div class="col-xl-1 plr-5"> 
+                                          <input type="text" formControlName="total" class="form-control"  tooltip="Total" placeholder="0" readonly
+                                          [ngClass]="{'is-invalid':item.get('total').touched && item.get('total').invalid}" >
+                                          <input type="hidden" formControlName="row_total">
+                                       </div>
+                                    </div>
+                                 </td>
+                              </tr>
+                           </tfoot>
+                        </table>
+                     </ng-container>
+                  </div>
+               </div>
+               <div class="card-header">
+                  <h4>Grand Total</h4>
+               </div>
+               <div class="card-body pt-0 pb-0">
+                  <div class="col-12 col-md-3 col-lg-2 plr-5">
+                     <div class="form-group">
+                        <div class="input-group">
+                           <input type="text" formControlName="total_price_set"
+                              class="form-control phone-number" placeholder="Grand Total" data-toggle="tooltip" data-placement="top" title="Grand Total" readonly> 
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="row">
+                  <div class="col-lg-5 col-12 col-md-12">
+                     <div class="card-header">
+                        <h4>Other Details</h4>
+                     </div>
+                     <div class="card-body pt-1 pb-1">
+                        <div class="col-12">
+                           <div class="row align-items-center">
+                              <div class="col-12 col-md-4 col-lg-4 plr-5">
+                                 <div class="form-group">
+                                    <div class="input-group">
+                                       <input type="text"  formControlName="retailerName" class="form-control" placeholder="Other Pickup Name" data-toggle="tooltip" title="" data-original-title="Other Pickup Name"> 
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-md-4 col-lg-4 plr-5">
+                                 <div class="form-group">
+                                    <div class="input-group">
+                                       <input type="text" formControlName="gst_no" class="form-control" placeholder="GST Number" data-toggle="tooltip" title="" data-original-title="GST Number"> 
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-md-4 col-lg-4 plr-5">
+                                 <div class="form-group">
+                                    <div class="input-group">
+                                       <input type="text" formControlName="eway_bill_no" class="form-control" placeholder="Eway Bill No." data-toggle="tooltip" title="" data-original-title="Eway Bill No."> 
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-7 col-12 col-md-12">
+                     <div class="card-header">
+                        <h4>Choose Service Type</h4>
+                     </div>
+                     <small class="text-dark ml-3" *ngIf="a <= '1'"> <i>**(Select Any Service)</i></small>
+                     <div class="card-body pt-1 pb-1">
+                        <div class="col-12">
+                           <div class="row align-items-center">
+                              <div *ngIf="a <= '1'" class="form-check form-check-inline">
+                                 <input class="form-check-input radio_size" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="cheapest" (click)="change_cheap()"  >
+                                 <label class="form-check-label" for="inlineRadio1">Cheapest</label>
+                              </div>
+                              <div *ngIf="a <= '1'" class="form-check form-check-inline">
+                                 <input class="form-check-input radio_size" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="bestservice" (click)="change_best()">
+                                 <label class="form-check-label" for="inlineRadio2">Best Service</label>
+                              </div>
+                              <div *ngIf="a <= '1'" class="form-check form-check-inline">
+                                 <input class="form-check-input radio_size" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="service"  (click)="service_radio()">
+                                 <label class="form-check-label" for="inlineRadio3">Service </label>
+                              </div>
+                              <div *ngIf="a <= '1'" class="form-check form-check-inline">
+                                 <input class="form-check-input radio_size" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="partner" >
+                                 <label class="form-check-label" for="inlineRadio4" (click)="radio_courier()">Courier </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <input class="form-check-input radio_size" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="service@partner" (click)="toggleShow()">
+                                 <label class="form-check-label" for="inlineRadio5">Courier + Service</label>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <span *ngIf="service_flag != false" class="badge badge-danger p-1">{{message_label}}</span>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-12 col-12 col-md-12">
+                     <div class="card-body pt-1 pb-1">
+                        <div class="col-lg-12 col-12 col-md-12">
+                           <div *ngIf="SerIsShow" id="" class="row">
+                              <div class="col-lg-5 col-12 col-md-12">
+                              </div>
+                              <div class="col-lg-3 col-12 col-md-12">
+                                 <div class="input-group">
+                                    <div id=" " style="width: 100%;">
+                                       <label><small>Select Services</small></label>
+                                       <ng-select [items]="radio_Ser_list"
+                                       bindLabel="service_name"
+                                       bindValue="avn_service_id"
+                                       formControlName = "serv_serv_id"
+                                       (change)="Change_service()"
+                                       tooltip=" Select Service"
+                                       placeholder = "Select Service"
+                                    >
+                                        <ng-template ng-option-tmp let-item="item">
+                                                   <div style="font-size: 13px;"><span>{{item.service_name}}</span></div>
+                                                </ng-template>
+                                       </ng-select>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div  *ngIf="courShow" class="row">
+                  <div class="col-lg-12 col-12 col-md-12">
+                     <div class="card-body pt-1 pb-1">
+                        <div class="col-lg-12 col-12 col-md-12">
+                           <div id="" class="row">
+                              <div class="col-lg-5 col-12 col-md-12">
+                              </div>
+                              <div class="col-lg-3 col-12 col-md-12">
+                                 <div class="input-group">
+                                    <div id=" " style="width: 100%;">
+                                       <label><small>Select Courier</small></label>
+                                       <ng-select [items]="radio_cour_list"
+                                       bindLabel="company_name"
+                                       bindValue="user_id"
+                                       formControlName="cour_part_id"
+                                       (change)="Change_courier()"
+                                       placeholder = "Select Courier Partner"
+                                       tooltip=" Select Courier Partner">
+                                       <ng-template ng-option-tmp let-item="item">
+                                                   <div style="font-size: 13px;"><span>{{item.company_name}}</span></div>
+                                                </ng-template>
+                                       </ng-select>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div   *ngIf="isShown" class="row">
+                  <div class="col-lg-12 col-12 col-md-12">
+                     <div class="card-body pt-1 pb-1">
+                        <div class="col-lg-12 col-12 col-md-12">
+                           <div id="" class="row">
+                              <div class="col-lg-5 col-12 col-md-12">
+                              </div>
+                              <div class="col-lg-3 col-12 col-md-12">
+                                 <div class="input-group">
+                                    <div id=" " style="width: 100%;">
+                                       <label><small>Select Service</small></label>
+                                       <ng-select [items]="rad_serv"
+                                       bindLabel="service_name"
+                                       bindValue="avn_service_id"
+                                       name="Serv_id"
+                                       formControlName="Serv_id"
+                                       (change)="fetch_part()"
+                                       tooltip=" Select Service "
+                                       placeholder = "Select Service"
+                                       dropdownPosition = "top">
+                                       <ng-template ng-option-tmp let-item="item">
+                                                   <div style="font-size: 13px;"><span>{{item.service_name}}</span></div>
+                                                </ng-template>
+                                       </ng-select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-3 col-12 col-md-12">
+                                 <div class="input-group">
+                                    <div id=" " style="width: 100%;">
+                                       <label><small>Select Partner</small></label>
+                                       <ng-select [items]="rad_part"
+                                       bindLabel="company_name"
+                                       bindValue="user_id"
+                                       formControlName="part_id"
+                                       tooltip=" Select  Partner"
+                                       placeholder="Select Partner"
+                                       (change)="Change_partner_service()"
+                                       dropdownPosition = "top">
+                                       <ng-template ng-option-tmp let-item="item">
+                                                   <div style="font-size: 13px;"><span>{{item.company_name}}</span></div>
+                                                </ng-template>
+                                       </ng-select>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div *ngIf="aval_serv_table != null && aval_serv_table.length == 1 && aval_serv_table != ''" class="row">
+                  <div class="col m-2 ml-2 mr-2">
+                     <div class="table-responsive">
+                        <table class="table  table-hover table-order" >
+                           <thead>
+                              <tr>
+                                 <th style="width:10%; text-align: center; background-color: #dcdffc;">Select</th>
+                                 <th style="width:25%; text-align: center; background-color: #dcdffc;">Courier Name</th>
+                                 <th style="width:25%; text-align: center; background-color: #dcdffc;">Service Name</th>
+                                 <th style="width:25%; text-align: center; background-color: #dcdffc;">Total Applicable Charges</th>
+                                 <th style="width:10%; text-align: center; background-color: #dcdffc;">Action</th>
+                              </tr>
+                           </thead>
+                           <tbody style="text-align: center;">
+                              <tr *ngFor="let data of aval_serv_table; let i = index;">
+                                 <td>
+                                    <div class="form-check form-check-inline" style="margin-left: 50px;">
+                                       <input class="form-check-input radio_size  ml-5 mb-2 " type="radio" name="inlineRadioOptions1" id="inlineRadio" value="Selected" checked >
+                                       <label class="form-check-label" for="inlineRadio1"></label>
+                                    </div>
+                                 </td>
+                                 <td class="text-center">{{data.courier_name}}</td>
+                                 <td class="text-center">{{data.service_name}}</td>
+                                 <td class="text-center">{{total_applicable_charges}}</td>
+                                 <td class="text-center"><a href="javascript:" (click)="openDetailsModal(Package)"><i class="fa fa-eye blue"></i></a></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <div *ngIf="aval_serv_table != null && aval_serv_table.length != 1 && aval_serv_table != ''" class="row">
+                  <div class="col m-2 ml-2 mr-2">
+                     <div class="table-responsive">
+                        <table class="table  table-hover table-order" >
+                           <thead>
+                              <tr>
+                                 <th style="width:10%; text-align: center; background-color: #dcdffc;">Select</th>
+                                 <th style="width:25%; text-align: center; background-color: #dcdffc;">Courier Name</th>
+                                 <th style="width:25%; text-align: center; background-color: #dcdffc;">Service Name</th>
+                                 <th style="width:25%; text-align: center; background-color: #dcdffc;">Total Applicable Charges</th>
+                                 <th style="width:10%; text-align: center; background-color: #dcdffc;">Action</th>
+                              </tr>
+                           </thead>
+                           <tbody style="text-align: center;">
+                              <tr *ngFor="let data of aval_serv_table; let i = index;">
+                                 <td>
+                                    <div class="form-check form-check-inline" style="margin-left: 50px;">
+                                       <input  type="radio" class="justify-center radio_size"  name="aval_serv_table" [value]="data.partner_id" (click)="set_billable_weight(data.user_weight, data.total, data.partner_id, data.service_name, data.courier_name)" [checked]="i == 0"> 
+                                       <label class="form-check-label" for="inlineRadio5"></label>
+                                    </div>
+                                 </td>
+                                 <td class="text-center">{{data.courier_name}}</td>
+                                 <td class="text-center">{{data.service_name}}</td>
+                                 <td class="text-center">{{data.total}}</td>
+                                 <td class="text-center"><a href="javascript:" (click)="openDetailsModal1(Packagedata, data.courier_name, data.user_weight, data.zone, data.price, data.delivery_charge, data.fuel_charge, data.cod_parcentage, data.other_charge, data.total_insurance, data.tax, data.total)"><i class="fa fa-eye blue"></i></a></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-footer pt-0">
+                  <button class="btn btn-primary mr-1" type="submit" [disabled]="add_shipment.invalid">Add Order</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      </form>
+   </section>
+</div>
+<!-- Update Delivry Address modal -->
+<ng-template #Package>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Package Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeDetailsModal()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="table-responsive">
+                     <table class="table  table-hover table-order" >
+                        <thead>
+                           <tr >
+                              <th style="text-align: center; background-color: #dcdffc;">Package</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> Package {{i+1}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Courier Name</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.courier_name}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Weight</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.billable_weight}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Zone Name</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.zone}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Base Price</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.price}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Consignment Charges</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.delivery_charge}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Fuel Price (Fuel% : 0)</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.fuel_charge}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Actual COD (COD% : 2)</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.cod_parcentage}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Other Charges</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.other_charge}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Insurance</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;">{{head.total_insurance}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">GST (18%)</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.tax}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;">Applicable Charges</th>
+                              <th *ngFor="let head of tbaleTDData; let i = index;"> {{head.total}}</th>
+                           </tr>
+                        </thead>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <button type="button" (click)="closeDetailsModal()" class="btn btn-primary btn-sm">Close</button>
+   </div>
+</ng-template>
+<ng-template #Packagedata>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Package Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeDetailsModal1()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="table-responsive">
+                     <table class="table  table-hover table-order" >
+                        <thead>
+                           <tr >
+                              <th style="text-align: center; background-color: #dcdffc;"> Package</th>
+                              <th > Package 1</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Courier Name</th>
+                              <th > {{modal_courier_name}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Weight</th>
+                              <th > {{modal_billable_weight}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Zone Name</th>
+                              <th> {{modal_zone}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Base Price</th>
+                              <th > {{modal_price}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Consignment Charges</th>
+                              <th > {{modal_delivery_charge}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Fuel Price (Fuel% : 0)</th>
+                              <th > {{modal_fuel_charge}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Actual COD (COD% : 2)</th>
+                              <th > {{modal_cod_parcentage}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Other Charges</th>
+                              <th > {{modal_other_charge}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Insurance</th>
+                              <th >{{modal_total_insurance}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> GST (18%)</th>
+                              <th > {{modal_tax}}</th>
+                           </tr >
+                           <tr>
+                              <th style="text-align: center; background-color: #dcdffc;"> Applicable Charges</th>
+                              <th > {{modal_total}}</th>
+                           </tr>
+                        </thead>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <button type="button" (click)="closeDetailsModal1()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+
+<ng-template #addPickup>
+   <form #add="ngForm" (ngSubmit)="AddPickup(add)" autocomplete="off">
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Add Pickup Address</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeAddPickup()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Personal Details</h4>
+               </div>
+               <div class="card-body">
+                  <div class="col-12">
+                     <div class="row">
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Pickup Name" tooltip="Pickup Name" required
+                              [(ngModel)]="pickupname" name="pickupname" #Pickupname="ngModel">
+                              <small *ngIf="(pickupname == null || pickupname == '') && add.submitted" class="text-danger">Name Required</small>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Company Name" tooltip="Company Name" required
+                              [(ngModel)]="pickupcompanyname" name="pickupcompanyname" #Pickupcompanyname="ngModel">
+                              <small *ngIf="(pickupcompanyname == null || pickupcompanyname == '') && add.submitted" class="text-danger">Company Name Required</small> 
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Contact Name" tooltip="Contact Name" required
+                              [(ngModel)]="contactperson" name="contactperson" #Contactperson="ngModel">
+                              <small *ngIf="(contactperson == null || contactperson == '') && add.submitted" class="text-danger">Person Name Required</small>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Pickup Contact Number" tooltip="Pickup Contact Number" required pattern="^((\\+91-?)|0)?[0-9]{10}$" onKeyPress="if(this.value.length==10)return false;"
+                              [(ngModel)]="contactnumber" name="contactnumber" #Contactnumber="ngModel">
+                              <small *ngIf="(contactnumber == null || contactnumber == '') && add.submitted" class="text-danger">Mobile Number Required</small>
+                              <small *ngIf="(!Contactnumber.valid && (contactnumber != '' && contactnumber != null)) && add.submitted" class="text-danger">Please Enter Correct Mobile No.</small>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="email" class="form-control" placeholder="Pickup Email Id" tooltip="Pickup Email Id" required
+                              [(ngModel)]="pickupemail" name="pickupemail" #Pickupemail="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
+                              <small *ngIf="(pickupemail == null || pickupemail == '') && add.submitted" class="text-danger">Email Required</small>
+                              <small *ngIf="(!Pickupemail.valid && (pickupemail != '' && pickupemail != null)) && add.submitted" class="text-danger">Please Enter Valid Email</small>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-header">
+                  <h4>PickUp Location Details</h4>
+               </div>
+               <div class="card-body">
+                  <div class="col-12">
+                     <div class="row">
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Pincode" tooltip="Pincode" required
+                              [(ngModel)]="pickuppincode" name="pickuppincode" #Pickuppincode="ngModel" pattern="^[1-9][0-9]{5}$" onKeyPress="if(this.value.length==6)return false;" (blur)="get_add_by_pin_modal()">
+                              <small *ngIf="(pickuppincode == null || pickuppincode == '') && add.submitted" class="text-danger">Pincode Required</small>
+                              <small *ngIf="(!Pickuppincode.valid && (pickuppincode != '' && pickuppincode != null)) && add.submitted" class="text-danger">Please enter valid Pincode</small>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Landmark" tooltip="Landmark" required
+                              [(ngModel)]="pickuplandmark" name="pickuplandmark" #Pickuplandmark="ngModel">
+                              <small *ngIf="(pickuplandmark == null || pickuplandmark == '') && add.submitted" class="text-danger">Landmark Required</small>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Address1" tooltip="Address1" required 
+                              [(ngModel)]="pickupaddress1" name="pickupaddress1" #Pickupaddress1="ngModel">
+                              <small *ngIf="(pickupaddress1 == null || pickupaddress1 == '') && add.submitted" class="text-danger">Address 1 Required</small>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <input type="text" class="form-control"  placeholder="Address2" tooltip="Address2" required
+                              [(ngModel)]="pickupaddress2" name="pickupaddress2" #Pickaddress="ngModel">
+                              
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <!-- <input type="text" class="form-control"  placeholder="City" tooltip="city" 
+                              [(ngModel)]="pick_city" name="pick_city" #Pick_city="ngModel" readonly > -->
+                               <ng-select [items]="countryList"
+                                        bindLabel="country_name"
+                                        bindValue="country_id"
+                                        name="Addcountry"
+                                        (change)="Get_State()"
+                                        #Country="ngModel"
+                                        tooltip="Country"
+                                        [(ngModel)]="pick_country"
+                                        placeholder="Select Country">
+                                      </ng-select>
+                                         <small *ngIf="(pick_country == null || pick_country == '') && add.submitted" class="text-danger">Country
+                                       Required.</small>
+
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <div class="form-group">
+                              <!-- <input type="text" class="form-control"  placeholder="State" tooltip="state" 
+                              [(ngModel)]="pick_state" name="pick_state" #Pick_state="ngModel" readonly > -->
+                               <ng-select [items]="statelist"
+                                        bindLabel="state_name"
+                                        bindValue="state_id"
+                                        (change)="Get_City()"
+                                        name="Addstate"
+                                        #State="ngModel"
+                                        tooltip="State"
+                                        [(ngModel)]="pick_state"
+                                        placeholder="Select State">
+                                        </ng-select>
+                                         <small *ngIf="(pick_state == null || pick_state == '') && add.submitted" class="text-danger">State
+                                       Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 plr-5">
+                           <!-- <input type="text" class="form-control"  placeholder="Country" tooltip="country" 
+                           [(ngModel)]="pick_country" name="pick_country" #Pick_country="ngModel" readonly > -->
+                           <ng-select [items]="citylist"
+                                        bindLabel="city"
+                                        bindValue="city_id"
+                                        name="Addcity"
+                                        #State="ngModel"
+                                        tooltip="City"
+                                        [(ngModel)]="pick_city"
+                                        placeholder="Select City">
+                                      </ng-select>
+                                      <small *ngIf="(pick_city == null || pick_city == '') && add.submitted" class="text-danger">City
+                                       Required.</small>
+                        </div>
+                     
+                     <div class="col-12 col-md-3 col-lg-2 plr-5">
+                        <div class="form-group">
+                           <input type="text" class="form-control" placeholder="GST Number" tooltip="GST Number" required 
+                           [(ngModel)]="gst_number" name="gst_number" #Gst_number="ngModel">
+                           <small *ngIf="(gst_number == null || gst_number == '') && add.submitted" class="text-danger">GST Number Required</small>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-12">
+                  <!--   <button type="button" class="btn btn-primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                     <button type="button" class="btn btn-primary">Cancel</button> -->
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+  </div>
+   <div class="modal-footer">
+      <button type="submit" class="btn btn-primary btn-sm m-2 ">Submit</button>
+      <button type="button" (click)="closeAddPickup()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+</ng-template>
+
+<ng-template #ViewPickup>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Pickup Address Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePickupView()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="table-responsive">
+         <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+            <tbody>
+               <tr>
+                  <td>Name</td>
+                  <td>{{Modal_contact_person}}</td>
+               </tr>
+               <tr>
+                  <td>Mobile</td>
+                  <td>{{Modal_contact_number}}</td>
+               </tr>
+               <tr>
+                  <td>Address 1</td>
+                  <td>{{Modal_pickup_address1}}</td>
+               </tr>
+               <tr>
+                  <td>Address 2</td>
+                  <td>{{Modal_pickup_address2}}</td>
+               </tr>
+               <tr>
+                  <td>Landmark</td>
+                  <td>{{Modal_pickup_landmark}}</td>
+               </tr>
+               <tr>
+                  <td>City</td>
+                  <td>{{Modal_city}}</td>
+               </tr>
+               <tr>
+                  <td>State</td>
+                  <td>{{Modal_state_name}}</td>
+               </tr>
+               <tr>
+                  <td>Pincode</td>
+                  <td>{{Modal_pickup_pincode}}</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="closePickupView()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>

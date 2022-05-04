@@ -1,0 +1,29 @@
+.alert-success {
+    background-color: #54ca68;
+}
+.alert-danger {
+    margin-top: 10px;
+    background-color: #fc544b;
+}
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert {
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    font-size: 13px;
+    /* text-transform: capitalize; */
+}
+
+.alert.alert-dark {
+    background-color: #191d21;
+}

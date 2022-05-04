@@ -1,0 +1,36 @@
+.row_pad
+{
+	    padding: 15px;
+}
+
+.form_group_pad
+{
+	    margin-bottom: 2px;
+}
+
+.inp-pad
+{
+	padding: 3px 3px;
+}
+
+
+.redbk
+{
+	background-color: #fccacf!important;
+}
+
+.greenbk
+{
+	background-color: #d7f8c3!important;
+}
+
+.yellowbk
+{
+	background-color: #f2f6b5!important;
+	/*background-image: linear-gradient( to right, red, yellow)!important;*/
+}
+.bluewbk
+{
+	background-color: #077bd4!important;
+	/*background-image: linear-gradient( to right, red, yellow)!important;*/
+}

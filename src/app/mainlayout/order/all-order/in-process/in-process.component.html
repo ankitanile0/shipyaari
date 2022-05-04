@@ -1,0 +1,305 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="col-lg-12 m-t-10">
+   <div class="row">
+      <div class="col-lg-6 col-md-6 col-xl-6 col-xs-6 all-ord" >
+         <div style="background-color: rgb(236 247 255); border-radius: 11px; width: 65%;">
+            <a href="javascript:" class="ml-3"><strong>Total : <span class="text-dark">{{total}}</span></strong></a>&nbsp;&nbsp;
+            <a href="javascript:"><strong>Processing : <span class="text-dark">{{process}}</span></strong></a>&nbsp;&nbsp;
+            <a href="javascript:"><strong>Success : <span class="text-dark">{{success}}</span></strong></a>&nbsp;&nbsp;
+            <a href="javascript:"><strong>Failed : <span class="text-dark">{{failed}}</span></strong></a>&nbsp;&nbsp;
+         </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-xl-6 col-xs-6 text-right">
+         <div class="btn-list">
+             <button class="btn btn-primary btn-sm mb-1 m-r-5" type="button" (click)="process_data(0)">Process</button>
+               <button class="btn btn-primary btn-sm mb-1 m-r-5" (click)="onclick_next()">Next</button>
+               <a href="javascript:" (click)="download_error_sheet()" class="btn btn-primary btn-sm mb-1 m-r-5" >Error Sheet Download</a>
+               <a href="javascript:" (click)="clear_record()" class="btn btn-primary btn-sm mb-1 m-r-5">Clear</a>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12">
+         <div class="search-results " infiniteScroll [infiniteScrollDistance]="1"
+                           [infiniteScrollThrottle]="10" (scrolled)="onScrollInprocessorder()">
+         <div class="table-responsive m-t-10" >
+            <table class="table table-striped table-hover" id="save-stage">
+               <thead class="text-center">
+                  <tr>
+                     <th>Sr no. </th>
+                     <th>Shipyaari Order ID </th>
+                     <th>Payment Mode </th>
+                     <th>Pickup Pin</th>
+                     <th>Delivery Pin</th>
+                     <th>Weight </th>
+                     <th>Status </th>
+                     <th>Tracking Number</th>
+                     <th>Amount </th>
+                     <th>Action </th>
+                  </tr>
+               </thead>
+               <tbody class="black">
+                <ng-container *ngIf="proces_flag == 0" >
+                    <ng-container *ngFor ="let data of Table_process_tab; let i = index">
+                     <tr [ngClass] = "(data.process_class == '0') ? '' : 'alert alert-primary' ">
+                     <td >{{i+1}}</td>
+                     <td >
+                        <p class="text-success">{{data.order_id}}</p>
+                     </td>
+                     <td > <i class="fas fa-wallet"></i>
+                        {{data.PaymentMode}}
+                     </td>
+                     <td > {{data.pickup_pincode}}</td>
+                     <td > {{data.delivery_pincode}}</td>
+                     <td >  {{data.Weight}}  </td>
+                     <td >
+                        <p class="text-primary"> {{data.order_status  | titlecase  }}
+                        <p>
+                     </td>
+                     <td > <p style="font-size: 12px;">{{data.tackno}}</p></td>
+                     <td > {{data.charge}} </td>
+                     <td >
+                         <a  href="javascript:" (click)="edit_bulk(edit,data.order_status,data.id,data.type,i)"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                         
+                     </td>
+                  </tr>
+                  </ng-container>
+                </ng-container>
+                <ng-container *ngIf="proces_flag == 1">
+                  <tr *ngFor ="let data of Table_process_tab; let i = index" [class.bluewbk]="data.process_class == '1'" [class.redbk]="data.process_class == '3'" [class.greenbk]="data.process_class == '2'" >
+                     <td >{{i+1}}</td>
+                     <td >
+                        <p class="text-success">{{data.order_id}}</p>
+                     </td>
+                     <td > <i class="fas fa-wallet"></i>
+                        {{data.PaymentMode}}
+                     </td>
+                     <td > {{data.pickup_pincode}}</td>
+                     <td > {{data.delivery_pincode}}</td>
+                     <td >  {{data.Weight}}  </td>
+                     <td >
+                        <p class="text-primary"> 
+                        <p>
+                     </td>
+                     <td > <p style="font-size: 12px;">{{data.tackno}}</p></td>
+                     <td > {{data.charge}} </td>
+                     <td >
+                        <a *ngIf="data.tackno == ''" href="javascript:" (click)="edit_bulk(edit,data.order_status,data.id,data.type,i)"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                         <span *ngIf="data.tackno != ''"><p class="text-success">Success</p></span>
+                     </td>
+                  </tr>
+                  </ng-container>
+                        <tr *ngIf="Table_process_tab == null || Table_process_tab.length == 0">
+                               <td colspan="9">
+                             <div class="col-lg-12 mt-5 mb-5 text-center">
+                                <img src="assets/img/alert.png">
+                                <p class="mb-0"><small>Opps! nothing to show here</small></p>
+                             </div>
+                          </td>
+                        </tr>
+               </tbody>
+
+            </table>
+         </div>
+     </div>
+      </div>
+   </div>
+</div>
+
+<!-- edit Bulk Order -->
+<ng-template #edit>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Order Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_bulk()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form  [formGroup]="bulk_update" (ngSubmit)="Submit(upd_indx)" novalidate autocomplete="off" >
+   <div class="modal-body">
+     <div class="row row_pad pb-0 pt-0">
+        <div class="col-4 inp-pad">
+            <p class="p-2" style="color: black;">Status: <b>{{status_label}}</b></p>
+        </div><div class="col-6 inp-pad"></div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Order Id</label>
+                <input type="text" class="form-control" formControlName="order_number" name="order_number">
+                  <input type="hidden" class="form-control" formControlName="id" name="id">
+            </div>
+        </div>
+     </div>
+    
+     <div class="row row_pad pt-0">
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Pickup Name</label>
+                <input type="text" class="form-control" formControlName="pick_name" name="pick_name" >
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Pickup Contact</label>
+                <input type="text" class="form-control" formControlName="pick_contact" name="pick_contact">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Pickup Pincode</label>
+                <input type="text" class="form-control" formControlName="pick_pincode" name="pick_pincode">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Pickup landmark</label>
+                <input type="text" class="form-control" formControlName="pick_landmark" name="pick_landmark">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Pickup Address1</label>
+                <input type="text" class="form-control" formControlName="pick_add1" name="pick_add1">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Pickup Address1</label>
+                <input type="text" class="form-control" formControlName="pick_add2" name="pick_add2">
+            </div>
+        </div>
+    
+        <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Customer Name</label>
+                <input type="text" class="form-control" formControlName="del_name" name="del_name">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Customer Email</label>
+                <input type="text" class="form-control" formControlName="del_email" name="del_email">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Customer Contact</label>
+                <input type="text" class="form-control" formControlName="del_contact" name="del_contact">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Delivery Pincode</label>
+                <input type="text" class="form-control" formControlName="del_pincode" name="del_pincode">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Delivery Address1</label>
+                <input type="text" class="form-control" formControlName="del_add1" name="del_add1">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Delivery Address2</label>
+                <input type="text" class="form-control" formControlName="del_add2" name="del_add2">
+            </div>
+        </div>
+   
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Ship Date</label>
+                <input type="text" class="form-control" formControlName="ship_date" name="ship_date">
+            </div>
+        </div>
+
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>No Of Package</label>
+                <input type="text" class="form-control" formControlName="no_of_package" name="no_of_package">
+            </div>
+        </div>
+
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>AVN Service</label>
+                <input type="text" class="form-control" formControlName="avn_service" name="avn_service">
+            </div>
+        </div>
+
+        <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Partner Name</label>
+                <input type="text" class="form-control" formControlName="partner_name" name="partner_name">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Payment Mode</label>
+                <input type="text" class="form-control" formControlName="paymode" name="paymode">
+            </div>
+        </div>
+         <div class="col-2 inp-pad">
+            <div class="form-group form_group_pad">
+                <label>Total Invoice Value</label>
+                <input type="text" class="form-control" formControlName="total_inv_val"  name="total_inv_val">
+            </div>
+        </div>
+        </div>
+        <div class="row row_pad pb-0 pt-0">
+               <div class="col">
+                  <div class="table-responsive m-t-10" >
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%; font-size: 13px;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 7%;" >Sr no. </th>
+                              <th style="width: 20%;">Product Name </th>
+                              <th style="width: 10%;">SKU</th>
+                              <th style="width: 30%;">Diamention (CM)</th>
+                              <th style="width: 10%;">Weight (KG)</th>
+                              <th style="width: 10%;" >Quantity</th>
+                              <th style="width: 12%;" >Invoice Value </th>
+                           </tr>
+                        </thead>
+                        <tbody class="black">
+                            <ng-container formArrayName="product_details"  *ngFor=" let item of bulk_update.get('product_details')['controls']; let i = index">
+                                 <ng-container [formGroupName]="i">
+                            <tr>
+                                <td>
+                                   {{i+1}}
+                                </td>
+                                <td >
+                                    <input type="text" class="form-control" formControlName="Prod_name"  name="Prod_name">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" formControlName="sku" name="sku">
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="l" name="l">
+                                    <input type="text" class="form-control" formControlName="w" name="w">
+                                    <input type="text" class="form-control" formControlName="h" name="h">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" formControlName="weight" name="weight">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" formControlName="qty" name="qty">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" formControlName="inv_val" name="inv_val">
+                                </td>
+                            </tr>
+                             </ng-container>
+                         </ng-container>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>     
+     
+   </div>
+   <div class="modal-footer">
+      <button *ngIf="form_data != 0" type="submit" class="btn btn-primary btn-sm"> Update</button>
+      <button type="button" (click)="close_bulk()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+</ng-template>

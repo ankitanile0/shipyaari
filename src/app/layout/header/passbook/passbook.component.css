@@ -1,0 +1,24 @@
+.table_td_30
+{
+	text-align: left;
+	width: 30%;
+}
+
+.table_td_40
+{
+	text-align: left;
+	width: 40%;
+}
+
+.w5
+{
+	width: 5%;
+}
+
+.table_val
+{
+	text-align: center!important;
+}
+.table.table-order tbody td, .table.table-order thead th, .table.table-order tbody th{
+    text-align: center!important;
+}

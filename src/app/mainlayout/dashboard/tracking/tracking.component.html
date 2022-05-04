@@ -1,0 +1,708 @@
+<div [innerHTML]="Loader"></div>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Tracking</h4> -->
+            <ol class="breadcrumb p-0 m-b-0">
+               <!-- <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Dashboard</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Tracking</li> -->
+               <!--  <div class="btn-group mb-3" role="group" aria-label="Basic example"> -->
+               <!-- <button type="button" class="btn btn-secondary rad_0" (click)="go_to_home()">Dashboard</button>
+               <button type="button" class="btn btn-secondary rad_0" (click)="go_to_ndr()">NDR</button>
+               <button type="button" class="btn btn-secondary rad_0 dash_tab"
+                  (click)="go_to_tracking()">Tracking</button>
+               <button type="button" class="btn btn-secondary rad_0" (click)="go_to_rto()">RTO</button> -->
+               <!--  </div> -->
+            </ol>
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_home()" >Dashboard</a>
+               <a href="javascript:" (click)="go_to_ndr()">NDR</a>
+               <a href="javascript:" (click)="go_to_tracking()" class="active">Tracking</a>
+               <a href="javascript:" (click)="go_to_rto()">RTO</a>
+            </div>
+         </div>
+         <div class=" align-right">
+            <form [formGroup]="form">
+               <div class="">
+                  <input type="text" class="form-control-sm date-box date-input" formControlName="date_range"
+                     (onHidden)="showdash()" name="date_range" placeholder="Select Date Range"
+                     #daterangepicker="bsDaterangepicker" bsDaterangepicker
+                     [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY', showWeekNumbers: false, containerClass:'theme-dark-blue', ranges: ranges}">
+               </div>
+            </form>
+         </div>
+      </div>
+      <!-- not moving -->
+      <div class="row">
+         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 card_box">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+
+                  <div class="p-t-1 p-b-4 d-flex justify-content-between">
+
+                     <!-- <i class="fas fa-truck card-icon col-pink font-30 p-r-30"    (click)=" downloadTrackingDashboard()"></i>
+                        <div class="col text-right margin-top"> -->
+
+                           <a href="javascript:void(0)" (click)="downloadTrackingDashboard('more than 3 days')">
+                              <i class="fas fa-truck card-icon col-pink font-30 p-r-30" style="font-size: 24px !important;"></i>
+                           </a>
+                   
+                            <div class="col text-right margin-top">
+                           <h3 class="mb-1 counter font-26">{{Delay3days}}</h3>
+                           <div class="text-muted">Shipments Not Moved For <br>More Than 3 Days</div> </div>
+                  </div>
+             </div>
+          </div>
+      </div>
+      
+
+
+   
+         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 card_box">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="p-t-1 p-b-4 d-flex justify-content-between">
+
+
+                     <a href="javascript:void(0)" (click)="downloadTrackingDashboard('Delivery Problems')">
+                     <i class="fas fa-truck-loading card-icon col-blue font-30 p-r-30" style="font-size: 24px !important;"></i>
+                     </a>
+
+                     <div class="col text-right margin-top">
+
+                        <h3 class="mb-1 counter font-26">{{Exception_Rto}}
+                        </h3>
+                        <div class="text-muted">Shipments That Are Having <br>Delivery Problems
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 card_box">
+            <div class="card card-bottom">
+               <div class="card-body card-top">
+                  <div class="p-t-1 p-b-4 d-flex justify-content-between">
+
+                     <a href="javascript:void(0)" (click)="downloadTrackingDashboard('more than 10 days')">
+                     <i class="fas fa-exchange-alt card-icon col-orange font-30 p-r-30" style="font-size: 24px !important;"></i>
+                     </a>
+
+                     
+                     <div class="col text-right margin-top">
+
+                        <h3 class="mb-1 counter font-26">{{DelayRto10days}}
+                        </h3>
+                        <div class="text-muted">RTO Shipment Not Delivered<br> For More Than 7 Days</div>
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Courier co -->
+      <div class="row" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+         (scrolledUp)="onScrollUp()">
+         <div class="col-lg-12">
+            <div class="card graph-r">
+               <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
+                  <li class="nav-item">
+                     <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab"
+                        aria-controls="home" aria-selected="false">All</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab"
+                        aria-controls="profile" aria-selected="false">Online</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab"
+                        aria-controls="contact" aria-selected="true">COD</a>
+                  </li>
+               </ul>
+               <div class="tab-content" id="myTab3Content">
+                  <div class="tab-pane fade active show" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+                     <div class="col-lg-12">
+                        <div class="table-responsive h-255">
+                           <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                              <thead>
+                                 <tr>
+                                    <th>Courier Co
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Not Picked
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>In Transit
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>OFD
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Deliverd
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Exception
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>RTO
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr *ngFor="let number of Table_All; let i = index ">
+                                    <td>{{number.couier_name}} </td>
+                                    <td>{{number.not_picked}}</td>
+                                    <td>{{number.in_transit}}</td>
+                                    <td>{{number.ofd}}</td>
+                                    <td>{{number.deliverd}}</td>
+                                    <td>{{number.exception}}</td>
+                                    <td>{{number.rto}}</td>
+                                 </tr>
+                                 <tr *ngIf="Table_All == null || Table_All.length == 0">
+                                    <td colspan="8">
+                                       <div class="col-lg-12 mt-5 mb-5 text-center">
+                                          <img src="assets/img/alert.png">
+                                          <p class="mb-0"><small>No data Found</small></p>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+                     <div class="col-lg-12">
+                        <div class="table-responsive h-255">
+                           <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                              <thead>
+                                 <tr>
+                                    <th>Courier Co
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Not Picked
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>In Transit
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>OFD
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Deliverd
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Exception
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>RTO
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr *ngFor="let data of Table_Online; let i = index ">
+                                    <td>{{data.couier_name}}</td>
+                                    <td>{{data.not_picked}}</td>
+                                    <td>{{data.in_transit}}</td>
+                                    <td>{{data.ofd}}</td>
+                                    <td>{{data.deliverd}}</td>
+                                    <td>{{data.exception}}</td>
+                                    <td>{{data.rto}}</td>
+                                 </tr>
+                                 <tr *ngIf="Table_Online == null || Table_Online.length == 0">
+                                    <td colspan="7">
+                                       <div class="col-lg-12 mt-5 mb-5 text-center">
+                                          <img src="assets/img/alert.png">
+                                          <p class="mb-0"><small>No data Found</small></p>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
+                     <div class="col-lg-12">
+                        <div class="table-responsive h-255">
+                           <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                              <thead>
+                                 <tr>
+                                    <th>Courier Co
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Not Picked
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>In Transit
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>OFD
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Deliverd
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>Exception
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                    <th>RTO
+                                       <span class="arrow12">
+                                       </span>
+                                    </th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr *ngFor="let data of Table_COD; let i = index ">
+                                    <td>{{data.couier_name}}</td>
+                                    <td>{{data.not_picked}}</td>
+                                    <td>{{data.in_transit}}</td>
+                                    <td>{{data.ofd}}</td>
+                                    <td>{{data.deliverd}}</td>
+                                    <td>{{data.exception}}</td>
+                                    <td>{{data.rto}}</td>
+                                 </tr>
+                                 <tr *ngIf="Table_COD == null || Table_COD.length == 0">
+                                    <td colspan="7">
+                                       <div class="col-lg-12 mt-5 mb-5 text-center">
+                                          <img src="assets/img/alert.png">
+                                          <p class="mb-0"><small>No data Found</small></p>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end Courier co -->
+      <div class="row" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+         (scrolled)="onScroll1()" (scrolledUp)="onScrollUp()">
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Zone Wise Delivered Days</h4>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage">
+                        <thead>
+                           <tr>
+                              <th>Zone
+
+                              </th>
+                              <th>0-3 Days
+
+                              </th>
+                              <th>4-6 Days
+
+                              </th>
+                              <th>7-10 Days
+
+                              </th>
+                              <th>Above 10 Days
+
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_Zone_Wise_Delivery_Day; let i = index ">
+                              <td>{{data.zone_name}}</td>
+                              <td>{{data.day03}}</td>
+                              <td>{{data.day36}}</td>
+                              <td>{{data.day710}}</td>
+                              <td>{{data.day10}}</td>
+                           </tr>
+                           <tr *ngIf="Table_Zone_Wise_Delivery_Day == null || Table_Zone_Wise_Delivery_Day.length == 0">
+                              <td colspan="5">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Zone Wise RTO Days</h4>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Zone
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>0-3 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>4-6 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>7-10 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>Above 10 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_Zone_Wise_Rto_Day; let i = index ">
+                              <td>{{data.zone_name}}</td>
+                              <td>{{data.day03}}</td>
+                              <td>{{data.day36}}</td>
+                              <td>{{data.day710}}</td>
+                              <td>{{data.day10}}</td>
+                           </tr>
+                           <tr *ngIf="Table_Zone_Wise_Rto_Day == null || Table_Zone_Wise_Rto_Day.length == 0">
+                              <td colspan="5">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Courier Wise Pickup Hours</h4>
+               </div>
+
+               <div class="card-body left-height">
+                  <div class="text-center" *ngIf="chart_flag != 1">
+                     <img src="assets/img/2001.gif">
+                  </div>
+                  <div *ngIf="chart_flag == 1" class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;    ">
+                        <thead>
+                           <tr>
+                              <th>Courier Co
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>0-24 Hours
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>25-48 Hours
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>48-72 Hours
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>Above 73 Hour
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_Courier_Wise_Pickup_Hours; let i = index ">
+                              <td>{{data.couier_name}}</td>
+                              <td>{{data.pick_to_24}}</td>
+                              <td>{{data.pick_to_2448}}</td>
+                              <td>{{data.pick_to_4827}}</td>
+                              <td>{{data.pick_to_73}}</td>
+                           </tr>
+                           <tr
+                              *ngIf="Table_Courier_Wise_Pickup_Hours == null || Table_Courier_Wise_Pickup_Hours.length == 0">
+                              <td colspan="5">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card card_orderre border-bottom graph-r ">
+               <div class="card-header  dash-bottom">
+                  <h4>Courier Wise Pickup Hours Graph</h4>
+               </div>
+               <div class="text-center" *ngIf="chart_flag != 1">
+                  <img src="assets/img/2001.gif">
+               </div>
+               <div *ngIf="chart_flag == 1" style="width: 100%;" class="card-body">
+                  <app-courier-pickup-hour [courier_wise_pickup_hours_graph]="courier_wise_pickup_hours_graph">
+                  </app-courier-pickup-hour>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Courier Wise Delivery Days</h4>
+               </div>
+               <div class="card-body left-height">
+                  <div class="text-center" *ngIf="chart_flag != 1">
+                     <img src="assets/img/2001.gif">
+                  </div>
+                  <div *ngIf="chart_flag == 1" class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;     ">
+                        <thead>
+                           <tr>
+                              <th>Courier Co
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>0-3 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>4-6 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>7-10 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>Above 10 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_Courier_Wise_Delivery_Days; let i = index ">
+                              <td>{{data.couiername}}</td>
+                              <td>{{data.days_3}}</td>
+                              <td>{{data.days_36}}</td>
+                              <td>{{data.days_710}}</td>
+                              <td>{{data.days_10}}</td>
+                           </tr>
+                           <tr
+                              *ngIf="Table_Courier_Wise_Delivery_Days == null || Table_Courier_Wise_Delivery_Days.length == 0">
+                              <td colspan="5">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card card_orderre border-bottom graph-r ">
+               <div class="card-header  dash-bottom">
+                  <h4>Courier Wise Delivery Graph</h4>
+               </div>
+               <div class="text-center" *ngIf="chart_flag != 1">
+                  <img src="assets/img/2001.gif">
+               </div>
+               <div *ngIf="chart_flag == 1" style="width: 100%;" class="card-body">
+                  <app-courier-delivery [courier_wise_delivery_days_graph]="courier_wise_delivery_days_graph">
+                  </app-courier-delivery>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Courier Wise Delivery First Attempt</h4>
+               </div>
+               <div class="card-body left-height">
+                  <div class="text-center" *ngIf="chart_flag1 != 1">
+                     <img src="assets/img/2001.gif">
+                  </div>
+                  <div *ngIf="chart_flag1 == 1" class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;    ">
+                        <thead>
+                           <tr>
+                              <th>Courier Co
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>0-3 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>4-6 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>7-10 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>Above 10 Days
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_Courier_Wise_Delivery_First_Attempt; let i = index">
+                              <td>{{data.couier_name}}</td>
+                              <td>{{data.dl_3day}}</td>
+                              <td>{{data.dl_47day}}</td>
+                              <td>{{data.dl_710day}}</td>
+                              <td>{{data.dl_10day}}</td>
+                           </tr>
+                           <tr
+                              *ngIf="Table_Courier_Wise_Delivery_First_Attempt == null || Table_Courier_Wise_Delivery_First_Attempt.length == 0">
+                              <td colspan="5">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card card_orderre border-bottom graph-r ">
+               <div class="card-header  dash-bottom">
+                  <h4>Courier Wise Delivery First AMT Graph</h4>
+               </div>
+               <div class="text-center" *ngIf="chart_flag1 != 1">
+                  <img src="assets/img/2001.gif">
+               </div>
+               <div *ngIf="chart_flag1 == 1" style="width: 100%;" class="card-body">
+                  <app-courier-del-amt
+                     [courier_wise_delivery_first_attempt_graph]="courier_wise_delivery_first_attempt_graph">
+                  </app-courier-del-amt>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Delivery Analysis</h4>
+               </div>
+               <div class="card-body left-height">
+                  <div class="text-center" *ngIf="chart_flag1 != 1">
+                     <img src="assets/img/2001.gif">
+                  </div>
+                  <div *ngIf="chart_flag1 == 1" class="table-responsive h-325">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Courier Co
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>1st Attempt
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>2nd Attempt
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>3rd Attempt
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                              <th>4th Attempt And Above
+                                 <span class="arrow12">
+                                 </span>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let data of Table_Delivery_Analysis; let i = index">
+                              <td>{{data.couier_name}}</td>
+                              <td>{{data.f_attampt}}</td>
+                              <td>{{data.s_attampt}}</td>
+                              <td>{{data.three_attampt}}</td>
+                              <td>{{data.four_attampt}}</td>
+                           </tr>
+                           <tr *ngIf="Table_Delivery_Analysis == null || Table_Delivery_Analysis.length == 0">
+                              <td colspan="5">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card card_orderre border-bottom graph-r ">
+               <div class="card-header  dash-bottom">
+                  <h4>Delivery Analysis Graph</h4>
+               </div>
+               <div class="text-center" *ngIf="chart_flag1 != 1">
+                  <img src="assets/img/2001.gif">
+               </div>
+               <div *ngIf="chart_flag1 == 1" style="width: 100%;" class="card-body">
+                  <app-delivry-analysis [delivery_analysis_graph]="delivery_analysis_graph"></app-delivry-analysis>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>

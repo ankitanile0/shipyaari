@@ -1,0 +1,168 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+             <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_support()" class="active">Support Ticket</a>
+               <a href="javascript:" (click)="go_to_agreement()">Agreements</a>
+            </div>
+            <!-- <h4>Support Center</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> 
+               <li class="breadcrumb-item">Home</li>
+               <li class="breadcrumb-item active" aria-current="page"><a href="javacript:void(0);">Support Center</a></li>
+            </ol>-->
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-8">
+            <div class="card" style="height: 315px">
+               <div class="card-body pt-0">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>Support Center</h4>
+                     <div class="card-header-form">
+                        <div class="form-check form-check-inline mr-0">
+                           <button class="btn btn-primary btn-sm mb-1 mr-2 support-but" (click)="go_to_allticket()" >View All Ticket</button>
+                           <button class="btn btn-primary btn-sm mb-1 mr-2 support-but" (click)="go_to_create()">Create Ticket</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table-responsive h-255 m-t-5">
+                     <table class="table  table-hover table-order" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Subject</th>
+                              <th>Ticket ID</th>
+                              <th>Created</th>
+                              <th>Status</th>
+                              <th>Responce</th>
+                              <th> Support</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr  *ngFor ="let data of ticketList ; let i = index ">
+                              <td>{{data.subject | titlecase}}</td>
+                              <td>#{{data.id}}</td>
+                              <td>
+                                 <span class="d-flex">
+                                    <p class="text-success mb-0"><i class="fa fa-calendar" aria-hidden="true"></i> {{data.date}}</p>
+                                    &nbsp; 
+                                    <p class="text-primary mb-0"><i class="far fa-clock"></i> {{data.time}}</p>
+                                 </span>
+                              </td>
+                              <td>
+                                 <span *ngIf="data.status == 0" class="text-primary">Pending</span>
+                                 <span *ngIf="data.status == 1" class="text-warning">In Process</span>
+                                 <span *ngIf="data.status == 2" class="text-success">Resolved</span>
+                                 <span *ngIf="data.status == 3" class="text-danger">Hold</span>
+                              </td>
+                              <td>
+                                 <span *ngIf="data.rply_flag == 0" class="text-danger">Reply Awaited</span>
+                                 <span *ngIf="data.rply_flag != 0" class="text-success">Reply Now</span>
+                              </td>
+                              <td>
+                                 <span *ngIf="data.contact_type == 'chat'">
+                                 <button class="btn btn-primary btn-sm" (click)="go_to_chat_ticket(data.id)" >Chat Support</button>
+                                 </span>
+                                 <span *ngIf="data.contact_type != 'chat'">
+                                 <button class="btn btn-primary btn-sm" (click)="go_to_mail_ticket(data.id)" >Mail Support</button>
+                                 </span>
+                              </td>
+                           </tr>
+                           <tr *ngIf="ticketList == null || ticketList.length == 0">
+                              <td colspan="19">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>Opps! nothing to show here</small></p>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4">
+            <div class="card" style="height: 315px">
+               <div class="card-body pt-0">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>FAQ's</h4>
+                     <div class="card-header-form">
+                        <div class="form-check form-check-inline mr-0">
+                           <input type="text" class="form-control" style="border-radius: 3px!important; width: 250px;"  placeholder="Search FAQ's" name="keyword" [(ngModel)]="keyword" (keyup)="search_faq()">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table-responsive h-255 m-t-5">
+                     <accordion [isAnimated]="true">
+                        <span  *ngFor ="let data of faqs; let i = index ">
+                           <accordion-group>
+                              <button class="btn btn-link text-left" accordion-heading type="button" style="font-size: 14px;">
+                              {{data.title}}
+                              </button>
+                              <!-- <div class="pull-left float-left"></div> -->
+                              <div style="color: black;" [innerHTML]="data.content"></div>
+                           </accordion-group>
+                        </span>
+                     </accordion>
+                     <!-- <a><p class="text-primary">{{data.title}}</p></a> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card" style="height: 315px">
+               <div class="card-body pt-0">
+                  <div class="card-header mt-0 pl-0 pb-1 pr-0" >
+                     <h4>Support Center</h4>
+                     <div class="card-header-form">
+                        <!--  <div class="form-check form-check-inline mr-0">
+                           <button class="btn btn-primary btn-sm mr-1" style="height: 28px;
+                              border-radius: 4px;">View All ticket</button>
+                           <button class="btn btn-primary btn-sm mr-1" style="height: 28px;
+                              border-radius: 4px;">Create ticket</button>
+                           </div> -->
+                     </div>
+                  </div>
+                  <div class="table-responsive h-255 m-t-5">
+                     <table class="table  table-hover table-order" id="save-stage" style="width:100%;">
+                        <thead>
+                           <tr>
+                              <th>Subject</th>
+                              <th>Message</th>
+                              <th>Date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr  *ngFor ="let data of announcement ; let i = index ">
+                              <td>{{data.subject}}</td>
+                              <td>{{data.message}}</td>
+                              <td style="width:10%">
+                                 <span class="d-flex">
+                                  <i class="fa fa-calendar" aria-hidden="true"></i>  {{data.date}} </span>
+                                   <br/>
+                                   <span> <i class="far fa-clock"></i>  {{data.time}}
+                                 </span>
+                              </td>
+                           </tr>
+                           <!--  <tr *ngIf="ticketList == null || ticketList.length == 0">
+                              <td colspan="19">
+                                 <div class="col-lg-12 mt-5 mb-5 text-center">
+                                    <img src="assets/img/alert.png">
+                                    <p class="mb-0"><small>No data Found</small></p>
+                                 </div>
+                              </td>
+                              </tr> -->
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>

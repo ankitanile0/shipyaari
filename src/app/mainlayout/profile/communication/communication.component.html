@@ -1,0 +1,96 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<!-- <alert></alert> -->
+<div class="mt-2">
+   <form id=communicationdetails_form  #f="ngForm" (submit)="submit(f)" novalidate > 
+   <div class="row">
+      <div class="col-lg-3 col-md-3 mb-2">
+         <input type="text" class="form-control" [(ngModel)]="Email" name="Email"  tooltip="Registerd Mail *" disabled>
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <label class="custom-switch">
+         <ui-switch uncheckedLabel="off" checkedLabel="on" size="small"
+         [checked]="Reg_Mail_Switch"(change)="Reg_Mail_Switch = !Reg_Mail_Switch"></ui-switch>
+         <span class="custom-switch-description">Email</span>
+         </label>
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <input type="text" class="form-control"  [(ngModel)]="Contact_Number" name="Contact_Number"  tooltip="Registerd Number *" disabled  >
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <label class="custom-switch">
+         <ui-switch uncheckedLabel="off" checkedLabel="on" size="small"
+         [checked]="Reg_Phone_Switch" (change)="Reg_Phone_Switch = !Reg_Phone_Switch"></ui-switch>
+         <span class="custom-switch-description">SMS</span>
+         </label>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-lg-3 col-md-3 mb-2">
+         <input type="text" class="form-control"  [(ngModel)]="Account_Email" name="Account_Email"  tooltip="Account Mail *" placeholder="Account mail">
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <label class="custom-switch">
+         <ui-switch uncheckedLabel="off" checkedLabel="on" size="small"
+         [checked]="Account_mail_switch"(change)="Account_mail_switch = !Account_mail_switch"></ui-switch>
+         <span class="custom-switch-description">Email</span>
+         </label>
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <input type="text" class="form-control" [(ngModel)]="Account_Phone_No" name="Account_Phone_No"  tooltip="Account Phone Number *"  placeholder="Account phone Number" onKeyPress='return event.charCode >= 48 && event.charCode <= 57' minlength="10" maxlength="10">
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <label class="custom-switch">
+         <ui-switch uncheckedLabel="off" checkedLabel="on" size="small"
+         [checked]="Acc_Phone_Switch"(change)="Acc_Phone_Switch = !Acc_Phone_Switch"></ui-switch>
+         <span class="custom-switch-description">SMS</span>
+         </label>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-lg-3 col-md-3 mb-2">
+         <input type="text" class="form-control" [(ngModel)]="Operation_Email" name="Operation_Email"  tooltip="Operational Mail *" placeholder="Operational mail">
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <label class="custom-switch">
+         <ui-switch uncheckedLabel="off" checkedLabel="on" size="small"
+         [checked]="Ops_Mail_Switch"(change)="Ops_Mail_Switch = !Ops_Mail_Switch"></ui-switch>
+         <span class="custom-switch-description">Email</span>
+         </label>
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <input type="text" class="form-control"  [(ngModel)]="Operation_Mobile" name="Operation_Mobile"  tooltip="Operational Phone Number *" placeholder="Operational Phone Number" onKeyPress='return event.charCode >= 48 && event.charCode <= 57' minlength="10" maxlength="10">
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <label class="custom-switch">
+         <ui-switch uncheckedLabel="off" checkedLabel="on" size="small"
+         [checked]="Ops_Phone_Switch"(change)="Ops_Phone_Switch = !Ops_Phone_Switch"></ui-switch>
+         <span class="custom-switch-description">SMS</span>
+         </label>
+      </div>
+   </div>
+   <div class="row align-items-center">
+      <div class="col-lg-3 col-md-3 mb-2">
+         <p class="text-left mb-0">Buyit User Mail</p>
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <label class="custom-switch text-center">
+         <ui-switch uncheckedLabel="off" checkedLabel="on" size="small"
+         [checked]="Buyitmail"(change)="Buyitmail = !Buyitmail"></ui-switch>
+         </label>
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <p class="text-left mb-0">Rating Mail</p>
+      </div>
+      <div class="col-lg-3 col-md-3 mb-2">
+         <label class="custom-switch text-center">
+         <ui-switch uncheckedLabel="off" checkedLabel="on" size="small"
+         [checked]="Feedbackmail" (change)="Feedbackmail = !Feedbackmail"></ui-switch>
+         </label>
+      </div>
+   </div>
+   <div class="mt-2">
+      <button  type="submit" class="btn btn-primary btn-sm">Update Communication Details</button>
+   </div>
+   </form>
+</div>

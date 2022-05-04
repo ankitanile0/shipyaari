@@ -1,0 +1,2585 @@
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Modules</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> -->
+               <!-- <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Modules </li> -->
+              <!--  <button type="button" class="btn btn-secondary rad_0" (click)="go_to_template()">Template</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_add_book()">Address Book</button>
+                  <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_module()">Module</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_api_doc()">Api Documentation</button> -->
+            <!-- </ol> -->
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_template()" >Template</a>
+               <a href="javascript:" (click)="go_to_add_book()" >Address Book</a>
+               <a href="javascript:" (click)="go_to_module()" class="active">Module</a>
+               <a href="javascript:" (click)="go_to_api_doc()">Api Documentation</a>
+            </div>
+         </div>
+      </div>
+      <div *ngIf="flag_list == 0" class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Select the channel you want to integrate</h4>
+                  <div class="card-header-form">
+                     <div class="form-check form-check-inline">
+                        <button class="btn btn-primary btn-sm" (click)="go_to_integrated_list()" style="height: 28px;
+                           border-radius: 4px;">View Integrated Stores</button>
+                     </div>
+                  </div>
+               </div>
+               <div class="modal-body">
+                  <div class="col-lg-12">
+                     <div class="row">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c1.png">
+                                 <p class="mb-1" style="color: #000;font-weight: 600;">AMAZON_IN</p>
+                                 <div style="height: 20px">
+                                 <!-- <div *ngIf="wordpress_count > 0" class="text-center">
+                                    <small class="text-success">Integrated With {{wordpress_count}} Store</small>
+                                 </div> -->
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:"  class="btn btn-pill btn-sm btn-secondary btn_11">Coming Soon</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c2.png">
+                                 <p class="mb-1" style="color: #429e04;font-weight: 600;">SHOPIFY</p>
+                                 <div style="height: 20px">
+                                 <div *ngIf="shopify_count > 0" class="text-center">
+                                   <a href="javascript:" (click)="go_to_integrated_list()"> <small class="text-success">Integrated With {{shopify_count}} Store</small> </a>
+                                 </div>
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:" class="btn btn-pill btn-sm btn-primary btn_11" (click)="open_shopify(shopify)" >Integrate {{shopify_count > 0 ? 'New Store':''}}</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c3.png">
+                                 <p class="mb-1" style="color: #ef6730;font-weight: 600;">MAGENTO_V1</p>
+                                 <div style="height: 20px">
+                                 <div *ngIf="magento_count1 > 0" class="text-center">
+                                    <a href="javascript:" (click)="go_to_integrated_list()"> <small class="text-success">Integrated With {{magento_count1}} Store</small> </a>
+                                 </div>
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:" class="btn btn-pill btn-sm btn-primary btn_11" (click)="open_magento1(magentov1)">Integrate {{magento_count1 > 0 ? 'New Store':''}}</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c4.png">
+                                 <p class="mb-1" style="color:#6d4264;font-weight: 600;">WOOCOMMERCE</p>
+                                 <div style="height: 20px">
+                                 <div *ngIf="wordpress_count > 0" class="text-center">
+                                    <a href="javascript:" (click)="go_to_integrated_list()"> <small class="text-success">Integrated With {{wordpress_count}} Store</small> </a>
+                                 </div>
+                                 </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:" class="btn btn-pill btn-sm btn-primary btn_11" (click)="open_woo(woo)">Integrate {{wordpress_count > 0 ? 'New Store':''}}</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c3.png">
+                                 <p class="mb-1" style="color: #ef6730;font-weight: 600;">MAGENTO_V2</p>
+                                 <div style="height: 20px">
+                                 <div *ngIf="magentov2_count > 0" class="text-center">
+                                    <a href="javascript:" (click)="go_to_integrated_list()"> <small class="text-success">Integrated With {{magentov2_count}} Store</small> </a>
+                                 </div>
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:" class="btn btn-pill btn-sm btn-primary btn_11" (click)="open_magento2(magentov2)">Integrate {{magentov2_count > 0 ? 'New Store':''}}</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c5.png">
+                                 <p class="mb-1" style="color: #16bdef;font-weight: 600;">OPENCART</p>
+                                 <div style="height: 20px">
+                                 <div *ngIf="opencar_count > 0" class="text-center">
+                                    <a href="javascript:" (click)="go_to_integrated_list()"> <small class="text-success">Integrated With {{opencar_count}} Store</small> </a>
+                                 </div>
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;"> 
+                                    <a href="javascript:" class="btn btn-pill btn-sm btn-primary btn_11" (click)="open_opencart(opencart)" >Integrate {{opencar_count > 0 ? 'New Store':''}}</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c7.png" style="height: 39px;">
+                                 <p class="mb-1" style="color: #ef6730;font-weight: 600;">ZOHO</p>
+                                 <div style="height: 20px">
+                               <!--   <div *ngIf="zoho_count > 0" class="text-center">
+                                    <small class="text-success">Integrated With {{zoho_count}} Store</small>
+                                 </div> -->
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:" class="btn btn-pill btn-sm btn-secondary btn_11" (click)="open_zoho(zoho)" >Comming Soon</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Wix.com_website_logo.svg/1024px-Wix.com_website_logo.svg.png" style="height: 39px;">
+                                 <p class="mb-1" style="color: black;font-weight: 600;">WIX</p>
+                                 <div style="height: 20px">
+                                 <div *ngIf="wix_count > 0" class="text-center">
+                                    <a href="javascript:" (click)="go_to_integrated_list()"> <small class="text-success">Integrated With {{wix_count}} Store</small> </a>
+                                 </div>
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:" class="btn btn-pill btn-sm btn-primary btn_11" (click)="open_wix(wix)" >Integrate {{wix_count > 0 ? 'New Store':''}}</a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c8.png" style="height: 39px;margin-top: 7px;
+                                    ">
+                                 <p  class="mb-1" style="color: #2e2e7e;font-weight: 600;">INSTAMOJO</p>
+                                  <div style="height: 20px">
+                                 <div *ngIf="instamojo_count > 0" class="text-center">
+                                    <a href="javascript:" (click)="go_to_integrated_list()"> <small class="text-success">Integrated With {{instamojo_count}} Store</small> </a>
+                                 </div>
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:"  class="btn btn-pill btn-sm btn-primary btn_11" (click)="open_instamojo_(insta)" >Integrate {{instamojo_count > 0 ? 'New Store':''}} </a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                           <div class="modal-border box_height">
+                              <div class="widget text-center">
+                                 <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c6.png">
+                                 <p class="mb-1" style="color: #e61071;font-weight: 600;">PRESTASHOP</p>
+                                 <div style="height: 20px">
+                                 <div *ngIf="wordpress_count > 0" class="text-center">
+                                    <a href="javascript:" (click)="go_to_integrated_list()"> <small class="text-success">Integrated With {{wordpress_count}} Store</small> </a>
+                                 </div>
+                               </div>
+                                 <p class="mb-0" style="margin-top: 5%;">
+                                    <a href="javascript:" class="btn btn-pill btn-sm btn-secondary btn_11" >Comming Soon </a>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div *ngIf="flag_list != 0" class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Channel</h4>
+                  <div class="card-header-form">
+                     <div class="form-check form-check-inline">
+                        <button class="btn btn-primary btn-sm" (click)="go_to_channels()" style="height: 28px;
+                           border-radius: 4px;">Add Channel</button>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <!-- wordpress -->
+                <!--   <accordion *ngFor ="let wordpressData of wordpress_channel" [isAnimated]="true" style="height: 200px;">
+                     <accordion-group #group [isOpen]="false">
+                     <div class="container p-0" accordion-heading>
+                        <h5 style="color: #077bd4" class="p-0 m-0"> Title </h5>
+                     </div>
+                     <div class="table-responsive" style="height: 100px;">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 15%;">Website Logo </th>
+                              <th style="width: 15%;">Website Name </th>
+                              <th style="width: 17%;">Channel Name </th>
+                              <th style="width: 10%;">Store Url </th>
+                              <th style="width: 16%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td><img [src]="wordpressData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'"></td>
+                              <td>
+                                 {{wordpressData.website_admin}}
+                              </td>
+                              <td>Woocommerce</td>
+                              <td>{{wordpressData.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" (click)="open_edit_woo(e_woo,wordpressData.id,'Woocommerce')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel"  (click)="deleteChannel(wordpressData.id,'Woocommerce')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                     </accordion-group>
+                     </accordion> -->
+                  <!-- 2nd  -->
+                <!--   <accordion *ngFor ="let opencartData of opencart_channel" [isAnimated]="true" style="height: 200px;">
+                     <accordion-group #group [isOpen]="false">
+                     <div class="container p-0" accordion-heading>
+                        <h5 style="color: #077bd4" class="p-0 m-0"> Title </h5>
+                     </div>
+                     <div class="table-responsive" style="height: 100px;">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 15%;">Website Logo </th>
+                              <th style="width: 15%;">Website Name </th>
+                              <th style="width: 17%;">Channel Name </th>
+                              <th style="width: 10%;">Store Url </th>
+                              <th style="width: 16%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr >
+                              <td>
+                                 <img [src]="opencartData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              </td>
+                              <td>{{opencartData.website_name}}</td>
+                              <td>Opencart</td>
+                              <td>{{opencartData.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="open_edit_opencart(e_opencart,opencartData.id,'Opencart')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(opencartData.id,'Opencart')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                     </accordion-group>
+                     </accordion> -->
+                  <!-- 3rd -->
+             <!--      <accordion *ngFor ="let wixData of wix_channel" [isAnimated]="true" style="height: 200px;">
+                     <accordion-group #group [isOpen]="false">
+                     <div class="container p-0" accordion-heading>
+                        <h5 style="color: #077bd4" class="p-0 m-0"> Title </h5>
+                     </div>
+                     <div class="table-responsive" style="height: 100px;">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 15%;">Website Logo </th>
+                              <th style="width: 15%;">Website Name </th>
+                              <th style="width: 17%;">Channel Name </th>
+                              <th style="width: 10%;">Store Url </th>
+                              <th style="width: 16%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr >
+                              <td>
+                               <img [src]="wixData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              </td>
+                              <td>{{wixData.website_name}}</td>
+                              <td>{{wixData.module_name}}</td>
+                              <td>{{wixData.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="viewChannel(wixData.id,'Wix')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(wixData.id,'Wix')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                     </accordion-group>
+                     </accordion> -->
+                  <!-- 4th -->
+            <!--       <accordion *ngFor ="let instamojoData of instamojo" [isAnimated]="true" style="height: 200px;">
+                     <accordion-group #group [isOpen]="false">
+                     <div class="container p-0" accordion-heading>
+                        <h5 style="color: #077bd4" class="p-0 m-0"> Title </h5>
+                     </div>
+                     <div class="table-responsive" style="height: 100px;">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 15%;">Website Logo </th>
+                              <th style="width: 15%;">Website Name </th>
+                              <th style="width: 17%;">Channel Name </th>
+                              <th style="width: 10%;">Store Url </th>
+                              <th style="width: 16%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr >
+                              <td> <img src='https://seller.shipyaari.com/client/themes/assets/images/channels/c8.png' alt=Image height='42' width='42'></td>
+                              <td>Insta Mojo</td>
+                              <td>
+                                  <img [src]="instamojoData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              </td>
+                              <td>{{instamojoData.url}}</td>
+                              <td>                         
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="viewChannel(instamojoData.id,'Insta-Mogo')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(instamojoData.id,'Insta-Mogo')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                     </accordion-group>
+                     </accordion> -->
+                  <!-- 5th -->
+              <!--     <accordion *ngFor ="let magentoData of magento_channel" [isAnimated]="true" style="height: 200px;">
+                     <accordion-group #group [isOpen]="false">
+                     <div class="container p-0" accordion-heading>
+                        <h5 style="color: #077bd4" class="p-0 m-0"> Title </h5>
+                     </div>
+                     <div class="table-responsive" style="height: 100px;">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 15%;">Website Logo </th>
+                              <th style="width: 15%;">Website Name </th>
+                              <th style="width: 17%;">Channel Name </th>
+                              <th style="width: 10%;">Store Url </th>
+                              <th style="width: 16%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr >
+                              <td>
+                              <img [src]="magentoData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              </td>
+                              <td>{{magentoData.website_name}}</td>
+                              <td>Magento V1</td>
+                              <td>{{magentoData.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="open_edit_m1(e_magentov1,magentoData.id,'Magento_v1')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(magentoData.id,'Magento_v1')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                     </accordion-group>
+                     </accordion> -->
+                  <!-- 6th -->
+             <!--      <accordion *ngFor ="let shopifyData of shopify_channel" [isAnimated]="true" style="height: 200px;">
+                     <accordion-group #group [isOpen]="false">
+                     <div class="container p-0" accordion-heading>
+                        <h5 style="color: #077bd4" class="p-0 m-0"> Title </h5>
+                     </div>
+                     <div class="table-responsive" style="height: 100px;">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 15%;">Website Logo </th>
+                              <th style="width: 15%;">Website Name </th>
+                              <th style="width: 17%;">Channel Name </th>
+                              <th style="width: 10%;">Store Url </th>
+                              <th style="width: 16%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                              <td>
+                              <img [src]="shopifyData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              </td>
+                              <td>{{shopifyData.store_name}}</td>
+                              <td>Shopify</td>
+                              <td>{{shopifyData.store_name}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="edit_shopify(editshopify,shopifyData.id,'Shopify')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel"  (click)="deleteChannel(shopifyData.id,'Shopify')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                     </accordion-group>
+                     </accordion> -->
+                  <!-- 7th -->
+               <!--    <accordion  *ngFor ="let magento2 of magentov2List" [isAnimated]="true" style="height: 200px;">
+                     <accordion-group #group [isOpen]="false">
+                     <div class="container p-0" accordion-heading>
+                        <h5 style="color: #077bd4" class="p-0 m-0"> Title </h5>
+                     </div>
+                     <div class="table-responsive" style="height: 100px;">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 15%;">Website Logo </th>
+                              <th style="width: 15%;">Website Name </th>
+                              <th style="width: 17%;">Channel Name </th>
+                              <th style="width: 10%;">Store Url </th>
+                              <th style="width: 16%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <td>
+                              <img [src]="magento2.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              </td>
+                              <td>{{magento2.website_name}}</td>
+                              <td>Magento V2</td>
+                              <td>{{magento2.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="open_edit_m2(e_magentov2,magento2.id,'Magento_v2')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(magento2.id,'Magento_v2')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                     </accordion-group>
+                     </accordion> -->
+
+
+
+
+                  <div class="table-responsive">
+                     <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead class="text-center">
+                           <tr>
+                              <th style="width: 15%;">Website Logo </th>
+                              <th style="width: 15%;">Website Name </th>
+                              <th style="width: 17%;">Channel Name </th>
+                              <th style="width: 10%;">Store Url </th>
+                              <th style="width: 16%;">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor ="let wordpressData of wordpress_channel">
+                              <td><img [src]="wordpressData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'"></td>
+                              <td>
+                                 
+                              {{wordpressData.website_admin}}
+                             </td>
+                              <td>Woocommerce</td>
+                              <td>{{wordpressData.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" (click)="open_edit_woo(e_woo,wordpressData.id,'Woocommerce')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel"  (click)="deleteChannel(wordpressData.id,'Woocommerce')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                           <tr *ngFor ="let opencartData of opencart_channel">
+                              <td>
+                                 <img [src]="opencartData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              </td>
+                              <td>{{opencartData.website_name}}</td>
+                              <td>Opencart</td>
+                              <td>{{opencartData.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="open_edit_opencart(e_opencart,opencartData.id,'Opencart')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(opencartData.id,'Opencart')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                           <tr *ngFor ="let wixData of wix_channel">
+                              <td>
+                               <img [src]="wixData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                               <!-- {{wixData.logo}} -->
+                              </td>
+                              <td>{{wixData.website_name}}</td>
+                              <td>{{wixData.module_name}}</td>
+                              <td>{{wixData.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="viewChannel(wixData.id,'Wix')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(wixData.id,'Wix')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                           <tr *ngFor ="let instamojoData of instamojo">
+                              <td> <img src='https://seller.shipyaari.com/client/themes/assets/images/channels/c8.png' alt=Image height='42' width='42'></td>
+                              <td>Insta Mojo</td>
+                              <td>
+                                  <img [src]="instamojoData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              <!-- {{instamojoData.module_name}} -->
+                              </td>
+                              <td>{{instamojoData.url}}</td>
+                              <td>                         
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="viewChannel(instamojoData.id,'Insta-Mogo')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(instamojoData.id,'Insta-Mogo')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                           <tr *ngFor ="let magentoData of magento_channel">
+                              <td>
+                              <img [src]="magentoData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              <!-- {{magentoData.logo}} -->
+                              </td>
+                              <td>{{magentoData.website_name}}</td>
+                              <td>Magento V1</td>
+                              <td>{{magentoData.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="open_edit_m1(e_magentov1,magentoData.id,'Magento_v1')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(magentoData.id,'Magento_v1')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                           <tr *ngFor ="let shopifyData of shopify_channel">
+                              <td>
+                              <img [src]="shopifyData.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              </td>
+                              <td>{{shopifyData.store_name}}</td>
+                              <td>Shopify</td>
+                              <td>{{shopifyData.store_name}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="edit_shopify(editshopify,shopifyData.id,'Shopify')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel"  (click)="deleteChannel(shopifyData.id,'Shopify')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                            <tr *ngFor ="let magento2 of magentov2List">
+                              <td>
+                              <img [src]="magento2.logo" style="height:50px;" onError="this.src='assets/img/sample.jpg'">
+                              <!-- {{magentoData.logo}} -->
+                              </td>
+                              <td>{{magento2.website_name}}</td>
+                              <td>Magento V2</td>
+                              <td>{{magento2.url}}</td>
+                              <td>
+                                 <a href="javascript:void(0)" tooltip="Edit Channel" data-toggle="modal" data-target="#demo-1" (click)="open_edit_m2(e_magentov2,magento2.id,'Magento_v2')" > <i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp; 
+                                 <a href="javascript:void(0)" tooltip="Delete Channel" (click)="deleteChannel(magento2.id,'Magento_v2')"><i class="fa fa-trash"></i></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  
+
+
+
+
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+
+
+<!-- shopify -->
+<ng-template #shopify>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Shopify Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_shopify()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #s="ngForm" (ngSubmit)="submit_shopify(s,shopify)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Name <b class="text-danger">*</b></label>
+                                 <input class="form-control" tooltip="website name" id="inputPassword2" placeholder="Enter your store name" [(ngModel)]="sh_storename" name="sh_storename" #Sh_storename=ngModel 
+                                 [ngClass]="{ 'is-invalid': s.submitted && Sh_storename.invalid }" required>
+                                 <div *ngIf="s.submitted && Sh_storename.invalid" class="invalid-feedback">
+                                   Store Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name <b class="text-danger">*</b></label>
+                                 <input class="form-control" tooltip="Channel Name" id="inputPassword2" placeholder="Enter Channel Name" [(ngModel)]="sh_channel_name" name="sh_channel_name" #Sh_channel_name=ngModel 
+                                 [ngClass]="{ 'is-invalid': s.submitted && Sh_channel_name.invalid }" readonly>
+                                 <div *ngIf="s.submitted && Sh_channel_name.invalid" class="invalid-feedback">
+                                    Channel Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url <b class="text-danger">*</b></label>
+                                 <input class="form-control"tooltip="Store Url" id="inputPassword2" placeholder="e.g. http://example.shopify.com without ending" [(ngModel)]="sh_storeurl" name="sh_storeurl" #Sh_storeurl=ngModel 
+                                 [ngClass]="{ 'is-invalid': s.submitted && Sh_storeurl.invalid }" required>
+                                 <div *ngIf="s.submitted && Sh_storeurl.invalid" class="invalid-feedback">
+                                    URL required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify secreate Key <b class="text-danger">*</b></label>
+                                 <input class="form-control" tooltip="Secret Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX" [(ngModel)]="sh_secretkey" name="sh_secretkey" #Sh_secretkey=ngModel 
+                                 [ngClass]="{ 'is-invalid': s.submitted && Sh_secretkey.invalid }" required>
+                                 <div *ngIf="s.submitted && Sh_secretkey.invalid" class="invalid-feedback">
+                                    Secreate key required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify api key <b class="text-danger">*</b></label>
+                                 <input class="form-control" tooltip="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"  [(ngModel)]="sh_apikey" name="sh_apikey" #Sh_apikey=ngModel 
+                                 [ngClass]="{ 'is-invalid': s.submitted && Sh_apikey.invalid }" required>
+                                 <div *ngIf="s.submitted && Sh_apikey.invalid" class="invalid-feedback">
+                                    Api key required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify location id </label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Location Id" tooltip="Location Id" [(ngModel)]="sh_locationid" name="sh_locationid" #Sh_locationid=ngModel >
+                                
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify password <b class="text-danger">*</b></label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Password" 
+                                 [(ngModel)]="sh_password" name="sh_password" #Sh_password=ngModel 
+                                 [ngClass]="{ 'is-invalid': s.submitted && Sh_password.invalid }" required>
+                                 <div *ngIf="s.submitted && Sh_password.invalid" class="invalid-feedback">
+                                    Password reuired
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo </label>
+                                 <input type="file" class="form-control" id="shopiImage" accept="image/png, image/gif, image/jpeg">
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c2.png" alt="Shopify"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Shpoify</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Shopify:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First you need to Log in to Shopify Admin Panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Go to Apps.</li>
+                              <li><i class="material-icons">navigate_next</i> By Scrolling down you will find a Manage private apps link.</li>
+                              <li><i class="material-icons">navigate_next</i> From here, You need to click on the Create new private app button.</li>
+                              <li><i class="material-icons">navigate_next</i>  Give some name in your Private app for recognise. (Like: Shipyaari).</li>
+                              <li><i class="material-icons">navigate_next</i> Next, you need to give admin access for some specific APIs:</li>
+                              <li><i class="material-icons">navigate_next</i> Read Access: Fulfillment Services & Inventory.</li>
+                              <li><i class="material-icons">navigate_next</i> Read & Write Access: Products, Product Listings, Assigned Fulfillment Orders, Customers, Draft Orders, Orders, Merchant Managed Fulfillment Orders, Order Editing, Store Content, Third-Party Fulfillment Orders.</li>
+                              <li><i class="material-icons">navigate_next</i> Save your changes to get API credentials (API Key, Password, and Shared Secret).</li>
+                              <li><i class="material-icons">navigate_next</i> <b>Note:</b> For Store URL, use: https://mystorename.myshopify.com</li>
+                              <li><i class="material-icons">navigate_next</i> Paste the same credentials here to integrate the shopify.</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_shopify()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+<!-- magento V1 -->
+<ng-template #magentov1>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Magento V1 Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_magentov1()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #m="ngForm" (ngSubmit)="submit_magento(m)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder=" Enter your website name"
+                                 [(ngModel)]="m_website" name="m_website" #M_website=ngModel 
+                                 [ngClass]="{ 'is-invalid': m.submitted && M_website.invalid }" required>
+                                 <div *ngIf="m.submitted && M_website.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="Enter Channel Name" readonly 
+                                   [(ngModel)]="m_channel" name="m_channel" #M_channel=ngModel 
+                                 [ngClass]="{ 'is-invalid': m.submitted && M_channel.invalid }" required>
+                                 <div *ngIf="m.submitted && M_channel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.magentov1.com without ending"
+                                   [(ngModel)]="m_storeurl" name="m_storeurl" #M_storeurl=ngModel 
+                                 [ngClass]="{ 'is-invalid': m.submitted && M_storeurl.invalid }" required>
+                                 <div *ngIf="m.submitted && M_storeurl.invalid" class="invalid-feedback">
+                                   Store url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Username</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                   [(ngModel)]="m_username" name="m_username" #M_username=ngModel 
+                                 [ngClass]="{ 'is-invalid': m.submitted && M_username.invalid }" required>
+                                 <div *ngIf="m.submitted && M_username.invalid" class="invalid-feedback">
+                                   Username required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label> Api key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                    [(ngModel)]="m_apikey" name="m_apikey" #M_apikey=ngModel 
+                                 [ngClass]="{ 'is-invalid': m.submitted && M_apikey.invalid }" required>
+                                 <div *ngIf="m.submitted && M_apikey.invalid" class="invalid-feedback">
+                                   Api key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control" id="Magento1_logo" 
+                                   accept="image/png, image/gif, image/jpeg"  >
+                                 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c3.png" alt="SHIPYAARI"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Magento V1 Module</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Magento:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First you need to Login into Magento Admin Panel</li>
+                              <li><i class="material-icons">navigate_next</i> Then go to the System -> Web Services -> SOAP/XML -RPC – Users.</li>
+                              <li><i class="material-icons">navigate_next</i> Then click on "Add New User".</li>
+                              <li><i class="material-icons">navigate_next</i> Then under User Info tab, fill all required details like user name, first name etc.</li>
+                              <li><i class="material-icons">navigate_next</i>  Then click on the "Save User" shown at the top right hand side.</li>
+                              <li><i class="material-icons">navigate_next</i>Again go to System -> Web Services -> SOAP/XML -RPC – Roles</li>
+                              <li><i class="material-icons">navigate_next</i> Click on Add new roles Button.</li>
+                              <li><i class="material-icons">navigate_next</i> Then click on Role Info tab and type role name like adminship</li>
+                              <li><i class="material-icons">navigate_next</i> Click on Role Resources tab, And select Resource Access – "All" from drop down menu and click "Save Role".</li>
+                              <li><i class="material-icons">navigate_next</i> Now again Go to System -> Web Services -> SOAP/XML-RPC – Users.</li>
+                              <li><i class="material-icons">navigate_next</i> Then click on user name which has been entered.</li>
+                              <li><i class="material-icons">navigate_next</i> Under User Role tab, click on assigned role name like adminship, like you have entered before.</li>
+                           </ul>
+                           <p >Now inside Shipyaari Dashboard:</p>
+                            <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Fill in the Parameters as saved from the Magento Panel Store URL : The URL of your store. API Key & API Username : API details of your Magento Panel</li>
+                            </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_magentov1()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+
+<!-- Woo-commerce -->
+<ng-template #woo>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Woo-Commerce Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_woo()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #w="ngForm" (ngSubmit)="submit_woo(w)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder="Enter your website name"
+                                 [(ngModel)]="wooname" name="wooname" #Wooname=ngModel 
+                                 [ngClass]="{ 'is-invalid': w.submitted && Wooname.invalid }" required>
+                                 <div *ngIf="w.submitted && Wooname.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="" readonly 
+                                [(ngModel)]="woochannel" name="woochannel" #Woochannel=ngModel 
+                                 [ngClass]="{ 'is-invalid': w.submitted && Woochannel.invalid }" >
+                                 <div *ngIf="w.submitted && Woochannel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.woocommerce.com without ending" 
+                                 [(ngModel)]="wurl" name="wurl" #Wurl=ngModel 
+                                 [ngClass]="{ 'is-invalid': w.submitted && Wurl.invalid }" required>
+                                 <div *ngIf="w.submitted && Wurl.invalid" class="invalid-feedback">
+                                   Store Url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Consumer Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                [(ngModel)]="wconsumer_key" name="wconsumer_key" #Wconsumer_key=ngModel 
+                                 [ngClass]="{'is-invalid': w.submitted && Wconsumer_key.invalid }" required>
+                                 <div *ngIf="w.submitted && Wconsumer_key.invalid" class="invalid-feedback">
+                                   Consumer key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Consumer Secret</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                 [(ngModel)]="wconsumer_secret" name="wconsumer_secret" #Wconsumer_secret=ngModel 
+                                 [ngClass]="{ 'is-invalid': w.submitted && Wconsumer_secret.invalid }" required>
+                                 <div *ngIf="w.submitted && Wconsumer_secret.invalid" class="invalid-feedback">
+                                   Consumer Secret required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control" id="woo_logo" accept="image/png, image/gif, image/jpeg">
+                                
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c4.png" alt="Woo-commerce"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Woo-Commerce</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Woo-Commerce:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Enter your store name/website name.</li>
+                              <li><i class="material-icons">navigate_next</i> Now enter your store URL.</li>
+                              <li><i class="material-icons">navigate_next</i> Enable REST API in your WooCommerce plugin.To enable REST API in WooCommerce, Navigate to Woocommerce>Settings>Advanced>Legacy API.</li>
+                              <li><i class="material-icons">navigate_next</i> Now click on Enable Rest API and save the settings.</li>
+                              <li><i class="material-icons">navigate_next</i> Now click on add key button and save the consumer secret and consumer key.</li>
+                              <li><i class="material-icons">navigate_next</i> Paste those details here in shipyaari that you have copied from wooCommerce admin panel.</li>
+                          
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_woo()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<!-- magento V2 -->
+<ng-template #magentov2>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Magento V2 Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_magentov2()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #g="ngForm" (ngSubmit)="submit_mv2(g)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder=" Enter your website name"
+                                 [(ngModel)]="mageV2name" name="mageV2name" #MageV2name=ngModel 
+                                 [ngClass]="{'is-invalid': g.submitted && MageV2name.invalid }" required>
+                                 <div *ngIf="g.submitted && MageV2name.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="" readonly
+                                 [(ngModel)]="m2_channel" name="m2_channel" #M2_channel=ngModel 
+                                 [ngClass]="{'is-invalid': g.submitted && M2_channel.invalid }" required>
+                                 <div *ngIf="g.submitted && M2_channel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+
+                                 
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.magentov2.com without ending"
+                               [(ngModel)]="magev2_url" name="magev2_url" #Magev2_url=ngModel 
+                                 [ngClass]="{'is-invalid': g.submitted && Magev2_url.invalid }" required>
+                                 <div *ngIf="g.submitted && Magev2_url.invalid" class="invalid-feedback">
+                                   Store Url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Username</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                  [(ngModel)]="magev2_username" name="magev2_username" #Magev2_username=ngModel 
+                                 [ngClass]="{'is-invalid': g.submitted && Magev2_username.invalid }" required>
+                                 <div *ngIf="g.submitted && Magev2_username.invalid" class="invalid-feedback">
+                                   Username required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label> Api Key</label>
+                                 <input class="form-control" tooltip="Api Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                [(ngModel)]="v2apikey" name="v2apikey" #V2apikey=ngModel 
+                                 [ngClass]="{'is-invalid': g.submitted && V2apikey.invalid }" required>
+                                 <div *ngIf="g.submitted && V2apikey.invalid" class="invalid-feedback">
+                                   Key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label> Vendor Type</label>
+                                 <select class="form-control"  [(ngModel)]="vendor_type" name="vendor_type" #Vendor_type=ngModel tooltip="vendor Type" placeholder="Select Type"
+                                 [ngClass]="{'is-invalid': g.submitted && Vendor_type.invalid }" required>
+                                    <option value="single" selected>Single</option>
+                                    <option value="multi">Multiple</option>
+                                 </select>
+                                 <div *ngIf="g.submitted && Vendor_type.invalid" class="invalid-feedback">
+                                   Type required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label> Password</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                [(ngModel)]="magev2_password" name="magev2_password" #Magev2_password=ngModel 
+                                 [ngClass]="{'is-invalid': g.submitted && Magev2_password.invalid }" required>
+                                 <div *ngIf="g.submitted && Magev2_password.invalid" class="invalid-feedback">
+                                   Password required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control"  id="m2_logo" accept="image/png, image/gif, image/jpeg">
+                                
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c3.png" alt="SHIPYAARI"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Magento V2 Module</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Magento:</p>
+                           <p>In Magento Admin Panel:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First login to Magento admin panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Then go to system -> all users as shown below</li>
+                              <li><i class="material-icons">navigate_next</i> Now click on the "Add New User" option.</li>
+                              <li><i class="material-icons">navigate_next</i>Inside the User Info tab, fill all required details like user name, first name, etc.</li>
+                              <li><i class="material-icons">navigate_next</i>  Now click on the "Save User" which is located at the top right hand side.</li>
+                              <li><i class="material-icons">navigate_next</i> Then click on the "User role", for example adminship to give access.</li>
+                           </ul>
+                            <p>In Shipyaari Dashboard:</p>
+                             <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Fill in the Parameters as saved from the Magento Panel Store URL : The URL of your store. API Key & API Username :- API details of your Magento Admin Panel.</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_magentov2()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<!-- OpenCart -->
+<ng-template #opencart>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Opencart Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_opencart()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #p="ngForm" (ngSubmit)="submit_Opencart(p)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder=" Enter your website name"
+                                 [(ngModel)]="opencartname" name="opencartname" #Opencartname=ngModel 
+                                 [ngClass]="{'is-invalid': p.submitted && Opencartname.invalid }" required>
+                                 <div *ngIf="p.submitted && Opencartname.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="Enter Channel Name" readonly 
+                                 [(ngModel)]="opencartchannel" name="opencartchannel" #Opencartchannel=ngModel 
+                                 [ngClass]="{'is-invalid': p.submitted && Opencartchannel.invalid }" required>
+                                 <div *ngIf="p.submitted && Opencartchannel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.opencart.com without ending"
+                                 [(ngModel)]="opencarturl" name="opencarturl" #Opencarturl=ngModel 
+                                 [ngClass]="{'is-invalid': p.submitted && Opencarturl.invalid }" required>
+                                 <div *ngIf="p.submitted && Opencarturl.invalid" class="invalid-feedback">
+                                   Store Url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Api Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                 [(ngModel)]="opencart_key" name="opencart_key" #Opencart_key=ngModel 
+                                 [ngClass]="{'is-invalid': p.submitted && Opencart_key.invalid }" required>
+                                 <div *ngIf="p.submitted && Opencart_key.invalid" class="invalid-feedback">
+                                   Api Key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Api username</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                 [(ngModel)]="opencart_api_username" name="opencart_api_username" #Opencart_api_username=ngModel 
+                                 [ngClass]="{'is-invalid': p.submitted && Opencart_api_username.invalid }" required>
+                                 <div *ngIf="p.submitted && Opencart_api_username.invalid" class="invalid-feedback">
+                                   Api username required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control"  id="opencart1_logo" accept="image/png, image/gif, image/jpeg"
+                                    >
+                                
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c5.png" alt="SHIPYAARI"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Opencart</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate opencart:</p>
+                           <p >In Opencart Admin:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Go to your opencart admin panel</li>
+                              <li><i class="material-icons">navigate_next</i> Enable API in your Opencart admin panel.</li>
+                              <li><i class="material-icons">navigate_next</i> To enable API in Opencart, Navigate to System>Users>API.</li>
+                              <li><i class="material-icons">navigate_next</i> Add API username and API key and status Enable.</li>
+                            </ul>
+                             <p >In shipyaari Dashboard:</p>
+                        <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i>  Add those details that where copy from your opencart admin panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Download opencart plugin from given link: <a href="/assets/shipyaari.zip">Download Plugin</a></li>
+                              <li><i class="material-icons">navigate_next</i> Please unzip and upload the shipyaari plugin folder inside catalog > controller within your file manager. for example http://yourdomain.com/catalog/controller</li>
+                              <li><i class="material-icons">navigate_next</i>All done, now scyn order and confirm.</li>
+                            </ul> 
+                           
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_opencart()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+<!-- Zoho -->
+<ng-template #zoho>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Zoho Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_zoho()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #s="ngForm" (ngSubmit)="submit_shopify(s,shopify)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder="Enter your website name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Website Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="Enter Channel Name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Channel Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="Store Url"
+                                    >
+                                 <div class="invalid-feedback">
+                                    URL required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify secreate Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="Enter user name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    User Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify api key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="API Key"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Api key required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify location id</label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Location Id" 
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify password</label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Password"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control"  accept="image/png, image/gif, image/jpeg"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c7.png" alt="SHIPYAARI"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">ZOHO</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Magento:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First you need to Log in to Shopify Admin Panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Go to Apps.</li>
+                              <li><i class="material-icons">navigate_next</i> By Scrolling down you will find a Manage private apps link.</li>
+                              <li><i class="material-icons">navigate_next</i> From here, You need to click on the Create new private app button.</li>
+                              <li><i class="material-icons">navigate_next</i>  Give some name in your Private app for recognise. (Like: Shipyaari).</li>
+                              <li><i class="material-icons">navigate_next</i> Next, you need to give admin access for some specific APIs:</li>
+                              <li><i class="material-icons">navigate_next</i> Read Access: Fulfillment Services & Inventory.</li>
+                              <li><i class="material-icons">navigate_next</i> Read & Write Access: Products, Product Listings, Assigned Fulfillment Orders, Customers, Draft Orders, Orders, Merchant Managed Fulfillment Orders, Order Editing, Store Content, Third-Party Fulfillment Orders.</li>
+                              <li><i class="material-icons">navigate_next</i> Save your changes to get API credentials (API Key, Password, and Shared Secret).</li>
+                              <li><i class="material-icons">navigate_next</i> <b>Note:</b> For Store URL, use: https://mystorename.myshopify.com</li>
+                              <li><i class="material-icons">navigate_next</i> Paste the same credentials here to integrate the shopify.</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_zoho()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<!-- Wix -->
+<ng-template #wix>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Wix Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_wix()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <!-- <form #s="ngForm" (ngSubmit)="submit_shopify(s,shopify)" autocomplete="off"> -->
+                       <!--  <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder="Enter your website name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Website Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="Enter Channel Name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Channel Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="Store Url"
+                                    >
+                                 <div class="invalid-feedback">
+                                    URL required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify secreate Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="Enter user name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    User Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify api key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="API Key"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Api key required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify location id</label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Location Id" 
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify password</label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Password"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control" 
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                        </div> -->
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm" (click)="go_to_wix()">Integrate</button>
+                        </div>
+                        <!-- </form> -->
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Wix.com_website_logo.svg/1024px-Wix.com_website_logo.svg.png" alt="WIX" style="height: 40px;"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Wix</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Wix:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i>Click on Intregrate now or Update now button It will redirect you to wix website.</li>
+                              <li><i class="material-icons">navigate_next</i>Click on add to site button</li>
+                              <li><i class="material-icons">navigate_next</i> If you are not logged in wix will ask you to login first.</li>
+                              <li><i class="material-icons">navigate_next</i>After login to your account wix will ask you to select store which you want to intregrate with shipyaari.</li>
+                              <li><i class="material-icons">navigate_next</i> Select the store then you will redirect to shipyaari website for identification (Note: You must login to your shipyaari account in a same browser).</li>
+                              <li><i class="material-icons">navigate_next</i> Then you will be taken to wix website to grant some permissons.</li>
+                              <li><i class="material-icons">navigate_next</i> Click on add to site button then you will be redirect to shipyaari website.</li>
+                              <li><i class="material-icons">navigate_next</i> All done, now scyn order and confirm.</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_wix()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+
+<!-- instamojo -->
+<ng-template #insta>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Instamojo Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_instamojo_()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+  
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <!-- <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder="Enter your website name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Website Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="Enter Channel Name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Channel Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="Store Url"
+                                    >
+                                 <div class="invalid-feedback">
+                                    URL required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify secreate Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="Enter user name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    User Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify api key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="API Key"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Api key required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify location id</label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Location Id" 
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify password</label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Password"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control" 
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                        </div> -->
+                        <div class="col-lg-12">
+                           <button type="button" name="button" class="btn btn-primary btn-sm" (click)="go_to_instamojo()">Integrate</button>
+                        </div>
+                    
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c8.png" style="height: 40px;" alt="instamojo"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Instamojo</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Magento:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First you need to Log in to Shopify Admin Panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Go to Apps.</li>
+                              <li><i class="material-icons">navigate_next</i> By Scrolling down you will find a Manage private apps link.</li>
+                              <li><i class="material-icons">navigate_next</i> From here, You need to click on the Create new private app button.</li>
+                              <li><i class="material-icons">navigate_next</i>  Give some name in your Private app for recognise. (Like: Shipyaari).</li>
+                              <li><i class="material-icons">navigate_next</i> Next, you need to give admin access for some specific APIs:</li>
+                              <li><i class="material-icons">navigate_next</i> Read Access: Fulfillment Services & Inventory.</li>
+                              <li><i class="material-icons">navigate_next</i> Read & Write Access: Products, Product Listings, Assigned Fulfillment Orders, Customers, Draft Orders, Orders, Merchant Managed Fulfillment Orders, Order Editing, Store Content, Third-Party Fulfillment Orders.</li>
+                              <li><i class="material-icons">navigate_next</i> Save your changes to get API credentials (API Key, Password, and Shared Secret).</li>
+                              <li><i class="material-icons">navigate_next</i> <b>Note:</b> For Store URL, use: https://mystorename.myshopify.com</li>
+                              <li><i class="material-icons">navigate_next</i> Paste the same credentials here to integrate the shopify.</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_instamojo_()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+
+<!-- prestashop -->
+<!-- <ng-template #presta>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Prestashop Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_presta()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div> -->
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <!-- <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #s="ngForm" (ngSubmit)="submit_shopify(s,shopify)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder="Enter your website name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Website Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="Enter Channel Name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Channel Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="Store Url"
+                                    >
+                                 <div class="invalid-feedback">
+                                    URL required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify secreate Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="Enter user name"
+                                    >
+                                 <div class="invalid-feedback">
+                                    User Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify api key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="API Key"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Api key required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify location id</label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Location Id" 
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify password</label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Password"
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control" 
+                                    >
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c3.png" alt="SHIPYAARI"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Magento V1 Module</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Magento:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First you need to Log in to Shopify Admin Panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Go to Apps.</li>
+                              <li><i class="material-icons">navigate_next</i> By Scrolling down you will find a Manage private apps link.</li>
+                              <li><i class="material-icons">navigate_next</i> From here, You need to click on the Create new private app button.</li>
+                              <li><i class="material-icons">navigate_next</i>  Give some name in your Private app for recognise. (Like: Shipyaari).</li>
+                              <li><i class="material-icons">navigate_next</i> Next, you need to give admin access for some specific APIs:</li>
+                              <li><i class="material-icons">navigate_next</i> Read Access: Fulfillment Services & Inventory.</li>
+                              <li><i class="material-icons">navigate_next</i> Read & Write Access: Products, Product Listings, Assigned Fulfillment Orders, Customers, Draft Orders, Orders, Merchant Managed Fulfillment Orders, Order Editing, Store Content, Third-Party Fulfillment Orders.</li>
+                              <li><i class="material-icons">navigate_next</i> Save your changes to get API credentials (API Key, Password, and Shared Secret).</li>
+                              <li><i class="material-icons">navigate_next</i> <b>Note:</b> For Store URL, use: https://mystorename.myshopify.com</li>
+                              <li><i class="material-icons">navigate_next</i> Paste the same credentials here to integrate the shopify.</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer "> -->
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+     <!--  <button type="button" (click)="close_presta()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template> -->
+
+
+<!-- Edit-Shopify -->
+<ng-template #editshopify>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel"> Edit Shopify Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_edit_shopify()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #ss="ngForm" (ngSubmit)="edit_submit_shopify(ss)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Name <b class="text-danger">*</b></label>
+                                 <input class="form-control" tooltip="website name" id="inputPassword2" placeholder="Enter your store name" [(ngModel)]="sh_storename" name="sh_storename" #Sh_storename=ngModel 
+                                 [ngClass]="{ 'is-invalid': ss.submitted && Sh_storename.invalid }" required>
+                                 <div *ngIf="ss.submitted && Sh_storename.invalid" class="invalid-feedback">
+                                   Store Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name <b class="text-danger">*</b></label>
+                                 <input class="form-control" tooltip="Channel Name" id="inputPassword2" placeholder="Enter Channel Name" [(ngModel)]="sh_channel_name" name="sh_channel_name" #Sh_channel_name=ngModel 
+                                 [ngClass]="{ 'is-invalid': ss.submitted && Sh_channel_name.invalid }" readonly>
+                                 <div *ngIf="ss.submitted && Sh_channel_name.invalid" class="invalid-feedback">
+                                    Channel Name required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url <b class="text-danger">*</b></label>
+                                 <input class="form-control"tooltip="Store Url" id="inputPassword2" placeholder="e.g. http://example.shopify.com without ending" [(ngModel)]="sh_storeurl" name="sh_storeurl" #Sh_storeurl=ngModel 
+                                 [ngClass]="{ 'is-invalid': ss.submitted && Sh_storeurl.invalid }" required>
+                                 <div *ngIf="ss.submitted && Sh_storeurl.invalid" class="invalid-feedback">
+                                    URL required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify secreate Key <b class="text-danger">*</b></label>
+                                 <input class="form-control" tooltip="Secret Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX" [(ngModel)]="sh_secretkey" name="sh_secretkey" #Sh_secretkey=ngModel 
+                                 [ngClass]="{ 'is-invalid': ss.submitted && Sh_secretkey.invalid }" required>
+                                 <div *ngIf="ss.submitted && Sh_secretkey.invalid" class="invalid-feedback">
+                                    Secreate key required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify api key <b class="text-danger">*</b></label>
+                                 <input class="form-control" tooltip="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"  [(ngModel)]="sh_apikey" name="sh_apikey" #Sh_apikey=ngModel 
+                                 [ngClass]="{ 'is-invalid': ss.submitted && Sh_apikey.invalid }" required>
+                                 <div *ngIf="ss.submitted && Sh_apikey.invalid" class="invalid-feedback">
+                                    Api key required!!
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify location id </label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Location Id" tooltip="Location Id" [(ngModel)]="sh_locationid" name="sh_locationid" #Sh_locationid=ngModel >
+                                
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Shopify password <b class="text-danger">*</b></label>
+                                 <input type="text" class="form-control" placeholder="Enter Shopify Password" 
+                                 [(ngModel)]="sh_password" name="sh_password" #Sh_password=ngModel 
+                                 [ngClass]="{ 'is-invalid': ss.submitted && Sh_password.invalid }" required>
+                                 <div *ngIf="ss.submitted && Sh_password.invalid" class="invalid-feedback">
+                                    Password reuired
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo </label>
+                                 <input type="file" class="form-control" id="e_shopiImage" accept="image/png, image/gif, image/jpeg">
+                                 <div class="invalid-feedback">
+                                    Choose File!!
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c2.png" alt="Shopify"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Shpoify</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Shopify:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First you need to Log in to Shopify Admin Panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Go to Apps.</li>
+                              <li><i class="material-icons">navigate_next</i> By Scrolling down you will find a Manage private apps link.</li>
+                              <li><i class="material-icons">navigate_next</i> From here, You need to click on the Create new private app button.</li>
+                              <li><i class="material-icons">navigate_next</i>  Give some name in your Private app for recognise. (Like: Shipyaari).</li>
+                              <li><i class="material-icons">navigate_next</i> Next, you need to give admin access for some specific APIs:</li>
+                              <li><i class="material-icons">navigate_next</i> Read Access: Fulfillment Services & Inventory.</li>
+                              <li><i class="material-icons">navigate_next</i> Read & Write Access: Products, Product Listings, Assigned Fulfillment Orders, Customers, Draft Orders, Orders, Merchant Managed Fulfillment Orders, Order Editing, Store Content, Third-Party Fulfillment Orders.</li>
+                              <li><i class="material-icons">navigate_next</i> Save your changes to get API credentials (API Key, Password, and Shared Secret).</li>
+                              <li><i class="material-icons">navigate_next</i> <b>Note:</b> For Store URL, use: https://mystorename.myshopify.com</li>
+                              <li><i class="material-icons">navigate_next</i> Paste the same credentials here to integrate the shopify.</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_edit_shopify()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+
+
+
+<!--edit Woo-commerce -->
+<ng-template #edit_woo>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Woo-Commerce Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_edit_woo()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #ww="ngForm" (ngSubmit)="edit_submit_woo(ww)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder="Enter your website name"
+                                 [(ngModel)]="wooname" name="wooname" #Wooname=ngModel 
+                                 [ngClass]="{ 'is-invalid': ww.submitted && Wooname.invalid }" required>
+                                 <div *ngIf="ww.submitted && Wooname.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="" readonly 
+                                [(ngModel)]="woochannel" name="woochannel" #Woochannel=ngModel 
+                                 [ngClass]="{ 'is-invalid': ww.submitted && Woochannel.invalid }" >
+                                 <div *ngIf="ww.submitted && Woochannel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.woocommerce.com without ending" 
+                                 [(ngModel)]="wurl" name="wurl" #Wurl=ngModel 
+                                 [ngClass]="{ 'is-invalid': ww.submitted && Wurl.invalid }" required>
+                                 <div *ngIf="ww.submitted && Wurl.invalid" class="invalid-feedback">
+                                   Store Url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Consumer Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                [(ngModel)]="wconsumer_key" name="wconsumer_key" #Wconsumer_key=ngModel 
+                                 [ngClass]="{'is-invalid': ww.submitted && Wconsumer_key.invalid }" required>
+                                 <div *ngIf="ww.submitted && Wconsumer_key.invalid" class="invalid-feedback">
+                                   Consumer key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Consumer Secret</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                 [(ngModel)]="wconsumer_secret" name="wconsumer_secret" #Wconsumer_secret=ngModel 
+                                 [ngClass]="{ 'is-invalid': ww.submitted && Wconsumer_secret.invalid }" required>
+                                 <div *ngIf="ww.submitted && Wconsumer_secret.invalid" class="invalid-feedback">
+                                   Consumer Secret required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control" id="edit_woo_logo" accept="image/png, image/gif, image/jpeg">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c4.png" alt="Woo-commerce"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Woo-Commerce</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Woo-Commerce:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Enter your store name/website name.</li>
+                              <li><i class="material-icons">navigate_next</i> Now enter your store URL.</li>
+                              <li><i class="material-icons">navigate_next</i> Enable REST API in your WooCommerce plugin.To enable REST API in WooCommerce, Navigate to Woocommerce>Settings>Advanced>Legacy API.</li>
+                              <li><i class="material-icons">navigate_next</i> Now click on Enable Rest API and save the settings.</li>
+                              <li><i class="material-icons">navigate_next</i> Now click on add key button and save the consumer secret and consumer key.</li>
+                              <li><i class="material-icons">navigate_next</i> Paste those details here in shipyaari that you have copied from wooCommerce admin panel.</li>
+                          
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_edit_woo()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+
+<!-- magento V1 -->
+<ng-template #e_magentov1>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Magento V1 Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_edit_m1()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #mm="ngForm" (ngSubmit)="edit_submit_magento(mm)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder=" Enter your website name"
+                                 [(ngModel)]="m_website" name="m_website" #M_website=ngModel 
+                                 [ngClass]="{ 'is-invalid': mm.submitted && M_website.invalid }" required>
+                                 <div *ngIf="mm.submitted && M_website.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="Enter Channel Name" readonly 
+                                   [(ngModel)]="m_channel" name="m_channel" #M_channel=ngModel 
+                                 [ngClass]="{ 'is-invalid': mm.submitted && M_channel.invalid }" required>
+                                 <div *ngIf="mm.submitted && M_channel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.magentov1.com without ending"
+                                   [(ngModel)]="m_storeurl" name="m_storeurl" #M_storeurl=ngModel 
+                                 [ngClass]="{ 'is-invalid': mm.submitted && M_storeurl.invalid }" required>
+                                 <div *ngIf="mm.submitted && M_storeurl.invalid" class="invalid-feedback">
+                                   Store url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Username</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                   [(ngModel)]="m_username" name="m_username" #M_username=ngModel 
+                                 [ngClass]="{ 'is-invalid': mm.submitted && M_username.invalid }" required>
+                                 <div *ngIf="mm.submitted && M_username.invalid" class="invalid-feedback">
+                                   Username required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label> Api key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                    [(ngModel)]="m_apikey" name="m_apikey" #M_apikey=ngModel 
+                                 [ngClass]="{ 'is-invalid': mm.submitted && M_apikey.invalid }" required>
+                                 <div *ngIf="mm.submitted && M_apikey.invalid" class="invalid-feedback">
+                                   Api key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control" id="edit_magento_logo" 
+                                   accept="image/png, image/gif, image/jpeg"  >
+                                 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c3.png" alt="SHIPYAARI"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Magento V1 Module</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Magento:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First you need to Login into Magento Admin Panel</li>
+                              <li><i class="material-icons">navigate_next</i> Then go to the System -> Web Services -> SOAP/XML -RPC – Users.</li>
+                              <li><i class="material-icons">navigate_next</i> Then click on "Add New User".</li>
+                              <li><i class="material-icons">navigate_next</i> Then under User Info tab, fill all required details like user name, first name etc.</li>
+                              <li><i class="material-icons">navigate_next</i>  Then click on the "Save User" shown at the top right hand side.</li>
+                              <li><i class="material-icons">navigate_next</i>Again go to System -> Web Services -> SOAP/XML -RPC – Roles</li>
+                              <li><i class="material-icons">navigate_next</i> Click on Add new roles Button.</li>
+                              <li><i class="material-icons">navigate_next</i> Then click on Role Info tab and type role name like adminship</li>
+                              <li><i class="material-icons">navigate_next</i> Click on Role Resources tab, And select Resource Access – "All" from drop down menu and click "Save Role".</li>
+                              <li><i class="material-icons">navigate_next</i> Now again Go to System -> Web Services -> SOAP/XML-RPC – Users.</li>
+                              <li><i class="material-icons">navigate_next</i> Then click on user name which has been entered.</li>
+                              <li><i class="material-icons">navigate_next</i> Under User Role tab, click on assigned role name like adminship, like you have entered before.</li>
+                           </ul>
+                           <p >Now inside Shipyaari Dashboard:</p>
+                            <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Fill in the Parameters as saved from the Magento Panel Store URL : The URL of your store. API Key & API Username : API details of your Magento Panel</li>
+                            </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_edit_m1()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<!-- OpenCart -->
+<ng-template #e_opencart>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Opencart Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_edit_opencart()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #pp="ngForm" (ngSubmit)="e_submit_Opencart(pp)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder=" Enter your website name"
+                                 [(ngModel)]="opencartname" name="opencartname" #Opencartname=ngModel 
+                                 [ngClass]="{'is-invalid': pp.submitted && Opencartname.invalid }" required>
+                                 <div *ngIf="pp.submitted && Opencartname.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="Enter Channel Name" readonly 
+                                 [(ngModel)]="opencartchannel" name="opencartchannel" #Opencartchannel=ngModel 
+                                 [ngClass]="{'is-invalid': pp.submitted && Opencartchannel.invalid }" required>
+                                 <div *ngIf="pp.submitted && Opencartchannel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.opencart.com without ending"
+                                 [(ngModel)]="opencarturl" name="opencarturl" #Opencarturl=ngModel 
+                                 [ngClass]="{'is-invalid': pp.submitted && Opencarturl.invalid }" required>
+                                 <div *ngIf="pp.submitted && Opencarturl.invalid" class="invalid-feedback">
+                                   Store Url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Api Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                 [(ngModel)]="opencart_key" name="opencart_key" #Opencart_key=ngModel 
+                                 [ngClass]="{'is-invalid': pp.submitted && Opencart_key.invalid }" required>
+                                 <div *ngIf="pp.submitted && Opencart_key.invalid" class="invalid-feedback">
+                                   Api Key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Api username</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                 [(ngModel)]="opencart_api_username" name="opencart_api_username" #Opencart_api_username=ngModel 
+                                 [ngClass]="{'is-invalid': pp.submitted && Opencart_api_username.invalid }" required>
+                                 <div *ngIf="pp.submitted && Opencart_api_username.invalid" class="invalid-feedback">
+                                   Api username required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control"  id="edit_open_logo" accept="image/png, image/gif, image/jpeg"
+                                    >
+                                
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c5.png" alt="SHIPYAARI"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Opencart</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate opencart:</p>
+                           <p >In Opencart Admin:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Go to your opencart admin panel</li>
+                              <li><i class="material-icons">navigate_next</i> Enable API in your Opencart admin panel.</li>
+                              <li><i class="material-icons">navigate_next</i> To enable API in Opencart, Navigate to System>Users>API.</li>
+                              <li><i class="material-icons">navigate_next</i> Add API username and API key and status Enable.</li>
+                            </ul>
+                             <p >In shipyaari Dashboard:</p>
+                        <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i>  Add those details that where copy from your opencart admin panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Download opencart plugin from given link: <a href="/assets/shipyaari.zip">Download Plugin</a></li>
+                              <li><i class="material-icons">navigate_next</i> Please unzip and upload the shipyaari plugin folder inside catalog > controller within your file manager. for example http://yourdomain.com/catalog/controller</li>
+                              <li><i class="material-icons">navigate_next</i>All done, now scyn order and confirm.</li>
+                            </ul> 
+                           
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_edit_opencart()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<!-- magento V2 -->
+<ng-template #e_magentov2>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Magento V2 Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_edit_m2()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #vg="ngForm" (ngSubmit)="e_submit_mv2(vg)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder=" Enter your website name"
+                                 [(ngModel)]="mageV2name" name="mageV2name" #MageV2name=ngModel 
+                                 [ngClass]="{'is-invalid': vg.submitted && MageV2name.invalid }" required>
+                                 <div *ngIf="vg.submitted && MageV2name.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="" readonly
+                                 [(ngModel)]="m2_channel" name="m2_channel" #M2_channel=ngModel 
+                                 [ngClass]="{'is-invalid': vg.submitted && M2_channel.invalid }" required>
+                                 <div *ngIf="vg.submitted && M2_channel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+
+                                 
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.magentov2.com without ending"
+                               [(ngModel)]="magev2_url" name="magev2_url" #Magev2_url=ngModel 
+                                 [ngClass]="{'is-invalid': vg.submitted && Magev2_url.invalid }" required>
+                                 <div *ngIf="vg.submitted && Magev2_url.invalid" class="invalid-feedback">
+                                   Store Url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Username</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                  [(ngModel)]="magev2_username" name="magev2_username" #Magev2_username=ngModel 
+                                 [ngClass]="{'is-invalid': vg.submitted && Magev2_username.invalid }" required>
+                                 <div *ngIf="vg.submitted && Magev2_username.invalid" class="invalid-feedback">
+                                   Username required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label> Api Key</label>
+                                 <input class="form-control" tooltip="Api Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                [(ngModel)]="v2apikey" name="v2apikey" #V2apikey=ngModel 
+                                 [ngClass]="{'is-invalid': vg.submitted && V2apikey.invalid }" required>
+                                 <div *ngIf="vg.submitted && V2apikey.invalid" class="invalid-feedback">
+                                   Key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label> Vendor Type</label>
+                                 <select class="form-control"  [(ngModel)]="vendor_type" name="vendor_type" #Vendor_type=ngModel tooltip="vendor Type" placeholder="Select Type"
+                                 [ngClass]="{'is-invalid': vg.submitted && Vendor_type.invalid }" required>
+                                    <option value="single" selected>Single</option>
+                                    <option value="multi">Multiple</option>
+                                 </select>
+                                 <div *ngIf="vg.submitted && Vendor_type.invalid" class="invalid-feedback">
+                                   Type required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label> Password</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                [(ngModel)]="magev2_password" name="magev2_password" #Magev2_password=ngModel 
+                                 [ngClass]="{'is-invalid': vg.submitted && Magev2_password.invalid }" required>
+                                 <div *ngIf="vg.submitted && Magev2_password.invalid" class="invalid-feedback">
+                                   Password required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control"  id="edit_magento2" accept="image/png, image/gif, image/jpeg"
+                                    >
+                                
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c3.png" alt="SHIPYAARI"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Magento V2 Module</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Magento:</p>
+                           <p>In Magento Admin Panel:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> First login to Magento admin panel.</li>
+                              <li><i class="material-icons">navigate_next</i> Then go to system -> all users as shown below</li>
+                              <li><i class="material-icons">navigate_next</i> Now click on the "Add New User" option.</li>
+                              <li><i class="material-icons">navigate_next</i>Inside the User Info tab, fill all required details like user name, first name, etc.</li>
+                              <li><i class="material-icons">navigate_next</i>  Now click on the "Save User" which is located at the top right hand side.</li>
+                              <li><i class="material-icons">navigate_next</i> Then click on the "User role", for example adminship to give access.</li>
+                           </ul>
+                            <p>In Shipyaari Dashboard:</p>
+                             <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Fill in the Parameters as saved from the Magento Panel Store URL : The URL of your store. API Key & API Username :- API details of your Magento Admin Panel.</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_edit_m2()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+
+
+<!-- Woo-commerce -->
+<ng-template #e_woo>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Woo-Commerce Module</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_e_woo()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <!-- <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off"> -->
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-6 p-2"  style="border-right: 1px solid black;">
+                        <form #ww="ngForm" (ngSubmit)="e_submit_woo(ww)" autocomplete="off">
+                        <div class="row" style="padding: 10px;">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="website name" id="inputPassword2" placeholder="Enter your website name"
+                                 [(ngModel)]="wooname" name="wooname" #Wooname=ngModel 
+                                 [ngClass]="{ 'is-invalid': ww.submitted && Wooname.invalid }" required>
+                                 <div *ngIf="ww.submitted && Wooname.invalid" class="invalid-feedback">
+                                   Website Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Channel Name</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Channel Name" id="inputPassword2" placeholder="" readonly 
+                                [(ngModel)]="woochannel" name="woochannel" #Woochannel=ngModel 
+                                 [ngClass]="{ 'is-invalid': ww.submitted && Woochannel.invalid }" >
+                                 <div *ngIf="ww.submitted && Woochannel.invalid" class="invalid-feedback">
+                                   Channel Name required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Store Url</label>
+                                 <input class="form-control" data-toggle="tooltip" title="Store Url" id="inputPassword2" placeholder="e.g. http://example.woocommerce.com without ending" 
+                                 [(ngModel)]="wurl" name="wurl" #Wurl=ngModel 
+                                 [ngClass]="{ 'is-invalid': ww.submitted && Wurl.invalid }" required>
+                                 <div *ngIf="ww.submitted && Wurl.invalid" class="invalid-feedback">
+                                   Store Url required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Consumer Key</label>
+                                 <input class="form-control" data-toggle="tooltip" title="UserName" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                [(ngModel)]="wconsumer_key" name="wconsumer_key" #Wconsumer_key=ngModel 
+                                 [ngClass]="{'is-invalid': ww.submitted && Wconsumer_key.invalid }" required>
+                                 <div *ngIf="ww.submitted && Wconsumer_key.invalid" class="invalid-feedback">
+                                   Consumer key required!! 
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Consumer Secret</label>
+                                 <input class="form-control" data-toggle="tooltip" title="API Key" id="inputPassword2" placeholder="e.g. XXXXXXXXXXXXX"
+                                 [(ngModel)]="wconsumer_secret" name="wconsumer_secret" #Wconsumer_secret=ngModel 
+                                 [ngClass]="{ 'is-invalid': ww.submitted && Wconsumer_secret.invalid }" required>
+                                 <div *ngIf="ww.submitted && Wconsumer_secret.invalid" class="invalid-feedback">
+                                   Consumer Secret required!! 
+                                 </div>
+                              </div>
+                           </div>
+                          
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label>Website logo</label>
+                                 <input type="file" class="form-control" id="e_woo_logo" accept="image/png, image/gif, image/jpeg">
+                                
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-12 ">
+                           <button type="submit" name="button" class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                        </form>
+                     </div>
+                     <div class="col-6 p-2">
+                        <div class="text-center"> 
+                           <img src="https://seller.shipyaari.com/client/themes/assets/images/channels/c4.png" alt="Woo-commerce"> 
+                        </div>
+                        <div class="modules_modal">
+                           <p class="channel_txt">Woo-Commerce</p>
+                           <span>Marketplace</span>
+                           <p style="color: #ef6730">Use the following instructions to integrate Woo-Commerce:</p>
+                           <ul style="font-size: 12px; color: black">
+                              <li><i class="material-icons">navigate_next</i> Enter your store name/website name.</li>
+                              <li><i class="material-icons">navigate_next</i> Now enter your store URL.</li>
+                              <li><i class="material-icons">navigate_next</i> Enable REST API in your WooCommerce plugin.To enable REST API in WooCommerce, Navigate to Woocommerce>Settings>Advanced>Legacy API.</li>
+                              <li><i class="material-icons">navigate_next</i> Now click on Enable Rest API and save the settings.</li>
+                              <li><i class="material-icons">navigate_next</i> Now click on add key button and save the consumer secret and consumer key.</li>
+                              <li><i class="material-icons">navigate_next</i> Paste those details here in shipyaari that you have copied from wooCommerce admin panel.</li>
+                          
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      <!--    <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button> -->
+      <button type="button" (click)="close_e_woo()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>

@@ -1,0 +1,390 @@
+/* @import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "~@ng-select/ng-select/themes/default.theme.css"; */
+a{
+    cursor: pointer;
+}
+
+/* ------------------------------------------Loader CSS--------------------------------------------- */
+
+.rad_0
+{
+  border-radius: 0px;
+  font-size: 14px;
+}
+
+.dash_tab
+{
+  color: black;
+    border-bottom: 4px solid #0770c1;
+}
+
+.sbl-circ-bg {
+    position: fixed !important;
+    padding: 0px !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    z-index: 9998 !important;
+    background: #000 !important;
+    opacity: 0.6 !important;
+    transition: opacity 0.3s linear !important;
+  }  
+  .sbl-circ {
+      position: fixed !important;
+      padding: 0px !important;
+      top: 39% !important;
+      left: 50% !important;
+      height: 8% !important;
+      width: 4% !important;
+      z-index: 9998 !important;
+      background: #0000 !important;
+      opacity: 0.6 !important;
+      transition: opacity 0.3s linear !important;
+      color:#00bdff;
+      display: inline-block;
+      border: 5px solid;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: rotate 1s linear infinite;
+      
+  }
+  .sbl-circ:before {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    background-color: #0099fe;
+    border-radius: 100%;
+    -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
+    animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0); }
+    100% {
+      transform: rotate(360deg); } }
+  /* ------------------------------------------Loader CSS--------------------------------------------- */
+  
+  
+  /* Center the loader */
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 13px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 13px solid #0966be;
+    width: 110px;
+    height: 110px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    display: block!important;
+  }
+
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  } 
+  
+  .bs-datepicker-container {
+    padding: 0px;
+  }
+  
+  .theme-green .bs-datepicker-head {
+    background-color: #0d4c90;
+  }
+  .theme-green .bs-datepicker-body table td.week span {
+    color: #0f417e;
+  }
+  
+  .theme-green .bs-datepicker-body table td span.selected{
+    background-color: #0d4c90;
+  }
+  
+  .apexcharts-toolbar{
+    display: none;
+  }
+  
+
+  .ngx-pagination a:hover, .ngx-pagination button:hover {
+    background: #e6e6e6;
+    color: #000;
+    text-decoration: none;
+}
+
+.ngx-pagination a, .ngx-pagination button {
+    color: #0a0a0a;
+    margin-left: 7px;
+    margin-top: 10px;
+   /* background-color: #fff;*/
+    background-color: #ecf7ff;
+    display: block;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    padding: 0.1875rem 0.625rem;
+}
+
+.ngx-pagination .disabled {
+    padding: 0.1875rem 0.625rem;
+    margin-right: 7px;
+    border-radius: 3px;
+    color: #cacaca;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    cursor: default;
+}
+
+.ngx-pagination .current {
+    border-radius: 3px;
+    margin-left: 7px;
+}
+
+.ngx-pagination {
+  margin-bottom: 0px!important;
+  display: contents;
+}
+
+.dataTables_info{color: #212529;}
+
+
+.ng-select .ng-select-container {
+      color: #495057;
+      padding-left: 5px;
+    background-color: red;
+    border-radius: 4px;
+    border: 2px solid #c5c5c5;
+    min-height: 31px;
+    align-items: center;
+}
+
+.ng-select.ng-touched.ng-invalid {
+            border: 1px solid #dc3545;
+             border-radius: 4px;
+        }
+
+        .ng-select.is-invalid {
+            border: 1px solid #dc3545;
+             border-radius: 4px;
+        }
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+    top: 0;
+     padding-top: 0;
+    padding-bottom: 0;
+}
+.ql-container {
+  height: auto !important;
+}
+
+table, tr td th {
+    border: 1px solid rgb(214, 214, 214) !important;
+    font-size: 12px!important;
+    text-align: center;
+}
+
+.ng-select.ng-select-opened>.ng-select-container {
+      background-color: #fdfdff!important;
+    border-color: #e4e6fc!important;
+}
+
+
+.ng-select ::ng-deep .ng-arrow {
+    display: none;
+}
+.ng-select ::ng-deep .ng-arrow-wrapper {
+    height: 14px;
+    width: 14px;
+    background-image: url('/assets/img/arrow-down.svg')!important;
+    background-repeat: no-repeat;
+    margin-right: 12px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.ng-select-opened ::ng-deep .ng-arrow-wrapper { 
+    background-image: url('/assets/icons/arrow-up.svg');
+}
+
+.ng-option-marked
+{
+   background-color: #e1e4fb!important;
+}
+
+.ng-dropdown-panel {
+    background: #f0f2f5;
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 0px 0px 3px 3px;
+
+}
+
+.ql-toolbar.ql-snow {
+    border-top: 1px solid #e4e6fc;
+    border-bottom:1px solid #e4e6fc00;
+    border-left: 1px solid #e4e6fc;
+    border-right: 1px solid #e4e6fc;
+    border-top-left-radius:0.25rem;
+    border-top-right-radius:0.25rem;
+}
+
+.ql-container.ql-snow {
+    border: 1px solid #e4e6fc!important;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.dis-none{
+  display: none;
+}
+
+.input-group input{
+  text-align: left !important;
+}
+
+.radio_size
+{
+  width: 18px;
+  height: 18px;
+}
+
+
+.panel.card.panel-default
+{
+      background-color:#fff;
+     border-radius:none; 
+     border: none; 
+     position:relative; 
+     margin-bottom: 0 ;
+     box-shadow: 0 1px 3px #0000291f; 
+   border-top: none;
+}
+
+
+
+
+
+.breadcrumb-new {
+  /*centering*/
+  display: inline-block;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  border-radius: 5px;
+  /*Lets add the numbers for each link using CSS counters. flag is the name of the counter. to be defined using counter-reset in the parent element of the links*/
+  counter-reset: flag; 
+}
+
+.breadcrumb-new a {
+  text-decoration: none;
+  outline: none;
+  display: block;
+  float: left;
+  font-size: 12px;
+  line-height: 36px;
+  color: white;
+  /*need more margin on the left of links to accomodate the numbers*/
+  padding: 0 9px 0 38px;
+  background: #666;
+  background: linear-gradient(#666, #333);
+  position: relative;
+}
+/*since the first link does not have a triangle before it we can reduce the left padding to make it look consistent with other links*/
+.breadcrumb-new a:first-child {
+  padding-left: 17px;
+  border-radius: 5px 0 0 5px; /*to match with the parent's radius*/
+}
+.breadcrumb-new a:first-child:before {
+  left: 14px;
+}
+.breadcrumb-new a:last-child {
+  border-radius: 0 5px 5px 0; /*this was to prevent glitches on hover*/
+  padding-right: 20px;
+}
+
+/*hover/active styles*/
+.breadcrumb-new a.active, .breadcrumb-new a:hover{
+  background: #333;
+  background: linear-gradient(#333, #000);
+}
+.breadcrumb-new a.active:after, .breadcrumb-new a:hover:after {
+  background: #333;
+  background: linear-gradient(135deg, #333, #000);
+}
+
+/*adding the arrows for the breadcrumbs using rotated pseudo elements*/
+.breadcrumb-new a:after {
+  content: '';
+  position: absolute;
+  top: 0; 
+  right: -18px; /*half of square's length*/
+  /*same dimension as the line-height of .breadcrumb a */
+  width: 36px; 
+  height: 36px;
+  /*as you see the rotated square takes a larger height. which makes it tough to position it properly. So we are going to scale it down so that the diagonals become equal to the line-height of the link. We scale it to 70.7% because if square's: 
+  length = 1; diagonal = (1^2 + 1^2)^0.5 = 1.414 (pythagoras theorem)
+  if diagonal required = 1; length = 1/1.414 = 0.707*/
+  transform: scale(0.707) rotate(45deg);
+  /*we need to prevent the arrows from getting buried under the next link*/
+  z-index: 1;
+  /*background same as links but the gradient will be rotated to compensate with the transform applied*/
+  background: #666;
+  background: linear-gradient(135deg, #666, #333);
+  /*stylish arrow design using box shadow*/
+  box-shadow: 
+    2px -2px 0 2px rgb(80,148,201), 
+    3px -3px 0 2px rgb(80,148,201);
+  /*
+    5px - for rounded arrows and 
+    50px - to prevent hover glitches on the border created using shadows*/
+  border-radius: 0 5px 0 50px;
+}
+/*we dont need an arrow after the last link*/
+.breadcrumb-new a:last-child:after {
+  content: none;
+}
+/*we will use the :before element to show numbers*/
+/*.breadcrumb-new a:before {
+  content: counter(flag);
+  counter-increment: flag;
+
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  margin: 8px 0;
+  position: absolute;
+  top: 0;
+  left: 30px;
+  background: #444;
+  background: linear-gradient(#444, #222);
+  font-weight: bold;
+}
+*/
+
+.flat a, .flat a:after {
+  background: white;
+  color: black;
+  font-weight: 600;
+  transition: all 0.5s;
+}
+.flat a:before {
+  background: white;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px #ccc;
+}
+.flat a:hover, .flat a.active, 
+.flat a:hover:after, .flat a.active:after{
+  /*background: #9EEB62;*/
+  color: white;
+  font-weight: 600;
+  background:#0667b2;
+}
+
+
+

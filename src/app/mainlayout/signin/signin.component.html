@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <div [innerHTML]="Loader"></div> 
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style media="screen">   
+    </style>   
+  </head>
+  <body style="background-image: url(assets/img/login_bg.jpg);overflow: hidden;background-size: cover;width: 100%;position: absolute;">
+    <div class="row justify-content-center"  *ngIf="flag == 0">
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+    <div class="wrapper">
+      <div class="row align-items-center">        
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+          <div class="login_detail login_show">
+            <img src="assets/img/logo.png" alt="" class="back_image">
+                   <div class="p-1"><alert></alert></div>
+            <h2 class="log_h3 login-btn">Login </h2>
+            <hr>            
+            <div class="">
+              <div>           
+              <form id="loginForm"  #f="ngForm" (submit)="submit(f)" novalidate>
+              <div class="email">
+                <label for="">E-mail</label>
+                <input type="text" class="form-control"   name="username"  placeholder="name@company.com" [(ngModel)]="username" #username1="ngModel" required>
+                <small *ngIf="(username == null || username == '') && f.submitted" class="text-danger">Username required.</small>
+                    <small *ngIf="(!username1.valid && (username != '' && username != null)) && f.submitted"
+                      class="text-danger">Please enter username address.</small>
+              </div>
+              <div class="email mt12">
+                <label for="">Password</label>
+                <input [type]="isTextFieldType ? 'text' : 'password'" name="password"
+                 placeholder="" class="form-control" [(ngModel)]="password" #password1="ngModel" required autocomplete="on">
+                <small *ngIf="!password1.valid && f.submitted" class="text-danger">Password required.</small>
+                <span class="pass_val"></span>
+              </div>
+              <div class="fir_pass">
+                 <div>
+                  <a href="javascript:void(0)" (click)="goto_forget_pass()">Forgot Password?</a>
+                </div>
+              </div>
+              <div class="mt12">           
+                <button class="btn btn-primary login_btn" type="submit">Login</button>               
+              </div>
+            </form>
+              <div class="mt12 signu_c">
+                Don't have an account? <a href="javascript:" (click)="go_to_register()" class="log_btn sign_here" style="color: white font-we;"> Signup here</a>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+          <div class="right_data" >
+            <div class="">
+              <img src="assets/img/login.png" class="log" >    
+            </div>
+          </div>
+        </div>       
+      </div>
+    </div>
+</div>
+</div>
+<div *ngIf="flag == 1">
+  <div class="row justify-content-center register">
+         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+            <div class="wrapper">
+               <div class="mb-2 text-center forget-logo">
+                  <img src="assets/img/logo.png" alt="" style=" background: cornflowerblue;
+    border-radius: 4px;"class="forget-logo">
+               </div>
+               <div class="row align-items-center">
+                  <div class="col-3"></div>
+                  <div class="col-6">
+                     <div class="login_detail_for login_show">
+                        <div class="p-1">
+                           <alert></alert>
+                        </div>
+                        <h2 class="log_h3">Forgot Password </h2>
+                        <hr>                        
+                          <form #f="ngForm" (ngSubmit)="getforgotpassword(f)" autocomplete="off">
+                        <div class="email">
+                          <label for="">E-mail<span class="text-danger">*</span></label>
+                          <input type="text" style="font-size:20px;" id="forgpass" class="form-control" name="username2"
+                            pattern="^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$"
+                            placeholder="name@company.com" [(ngModel)]="username2" #username1="ngModel" required
+                            [ngClass]="{'is-invalid': f.submitted || username1.errors && (username1.touched || username1.dirty ), 'is-valid':username1.valid}">
+                          <div class="invalid-feedback">
+                            <div *ngIf="username1.errors?.required">
+                              Email is required.</div>
+                          </div>                       
+                        </div>
+                        <div class="my-3">
+                          <button class="btn btn-primary" type="submit">Send OTP</button>                                     
+                          <button class="btn btn-primary ml-4" type="submit"
+                            (click)="go_to_login()">Back</button>                         
+                        </div>
+                      </form>
+                     </div>
+                  </div>
+                  <div class="col-3"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+</div>
+<div *ngIf="flag == 2">  
+    <div class="row">     
+      <div class="col-3"></div>
+       <div class="col-6">         
+          <div class="row"> 
+            <div class="col-12">              
+               <div class="mb-2 text-center mt-5">
+                  <img src="assets/img/logo.png" alt="">
+               </div>
+                <h2 class="log_h3">Forgot Password </h2>
+                <hr>               
+                <form #f="ngForm" (ngSubmit)="getchangepass(f)" autocomplete="off">
+               <div class="">
+                <label for="">OTP<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" name="email_otp" placeholder="Enter OTP" required  [(ngModel)]="email_otp" name="email_otp" #Emailotp="ngModel">                   
+              </div>              
+              <small *ngIf="(email_otp == null || email_otp == '') && f.submitted" class="text-danger">OTP Required</small>
+
+              <div class="new_passowrd mt-3">
+                <label for="">New Password<span class="text-danger"> *</span></label>
+                <input type="password" id="new_password" class="form-control" name="new_password"  placeholder="Enter New Password" [(ngModel)]="new_password" name="new_password" #Newpassword="ngModel">
+                <small *ngIf="(new_password == null || new_password == '') && f.submitted" class="text-danger">Please enter new password</small>            
+              </div>
+              <div class="new_passowrd  mt-3">
+                <label for="">Confirm New Password<span class="text-danger"> *</span></label>
+                <input type="password" id="con_new_password" class="form-control" name="con_new_password"   placeholder="Enter Confirm New Password" required
+                [(ngModel)]="con_new_password" name="con_new_password" #Confnewpassword="ngModel">  
+                <small *ngIf="(con_new_password == null || con_new_password == '') && f.submitted" class="text-danger">Please enter confirm new password</small>                          
+              </div>
+              <div class="my-3  mt-3">
+                <button type="submit" class="btn btn-primary btn-sm m-2 "> Update Password</button>              
+              </div>
+            </form>
+            </div>
+          </div>
+       </div>
+        <div class="col-3"></div>
+   </div> 
+</div>
+  </body>
+</html>
+

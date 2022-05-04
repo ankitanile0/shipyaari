@@ -1,0 +1,140 @@
+<!-- <div [innerHTML]="Loader"></div> -->
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Invoice Details</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> -->
+               <!--  <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Invoice Details</li> -->
+              <!--  <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_all_inv()">All Invoices</button>
+               <button type="button" class="btn btn-secondary rad_0" (click)="go_to_cod()">COD</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_reports()">Reports</button> -->
+            <!-- </ol> -->
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_all_inv()" class="active">All Invoices</a>
+               <a href="javascript:" (click)="go_to_cod()">COD</a>
+               <a href="javascript:" (click)="go_to_reports()">Reports</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>All Orders</h4>
+                  <div class="card-header-form">
+                   <!--   <div class="form-check form-check-inline">
+                       B2B &nbsp;<a href="javascript:" (click)="open_b2b(b2b)" data-toggle="modal" tooltip="B2B" data-target="#exampleModal"> <i class="fa fa-upload fa-lg blue"></i></a>  &nbsp;
+                       B2C &nbsp;<a href="javascript:" (click)="open_b2c(b2c)" data-toggle="modal" tooltip="B2B" data-target="#exampleModal"> <i class="fa fa-upload fa-lg blue"></i></a>  
+                     </div> -->
+                  </div>
+               </div>
+               <div class="card-body">
+                  <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'shipping_charges')" id="process-tab2" data-toggle="tab" href="#process" role="tab" aria-controls="home" aria-selected="true" (click)="click_change('shipping_charges')">
+                        Shipping Charges&nbsp;<span class="badge badge-light">{{count.count_shipping_cahnges}}</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'wt_recon')" id="ship-tab2" data-toggle="tab" href="#ship" role="tab" aria-controls="profile" aria-selected="false" (click)="click_change('wt_recon')">
+                        Weight Reconciliation&nbsp;<span class="badge badge-light">{{count.count_wt_conciln}}</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'paylog')" id="pick-tab2" data-toggle="tab" href="#pick" role="tab" aria-controls="contact" aria-selected="false" (click)="click_change('paylog')">
+                        Recharge OR Payment Log&nbsp;<span class="badge badge-light">{{count.count_rechange_and_payment}}</span> 
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'invoice')" id="transit-tab2" data-toggle="tab" href="#transit" role="tab" aria-controls="contact" aria-selected="false" (click)="click_change('invoice')">
+                        Invoices&nbsp;<span class="badge badge-light">{{count.count_invoices}}</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item order-nav"> 
+                        <a class="nav-link" [class.active]="(active_tab == 'credit_note')" id="complete-tab2" data-toggle="tab" href="#complete" role="tab" aria-controls="contact" aria-selected="false" (click)="click_change('credit_note')">
+                        Credit Notes&nbsp;
+                        </a> 
+                     </li>
+                    
+                  </ul>
+                  <div class="tab-content tab-bordered" id="myTab3Content">
+                     <div class="tab-pane fade p-0 br-0" id="process" role="tabpanel" aria-labelledby="home-tab2" *ngIf="active_tab == 'shipping_charges'" [class.show]="(active_tab == 'shipping_charges')" [class.active]="(active_tab == 'shipping_charges')">
+                       <app-shipping-charge></app-shipping-charge>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" id="ship" role="tabpanel" aria-labelledby="profile-tab2" *ngIf="active_tab == 'wt_recon'" [class.show]="(active_tab == 'wt_recon')" [class.active]="(active_tab == 'wt_recon')">
+                     
+                       <app-weight-recon></app-weight-recon>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" id="pick" role="tabpanel" aria-labelledby="contact-tab2" *ngIf="active_tab == 'paylog'" [class.show]="(active_tab == 'paylog')" [class.active]="(active_tab == 'paylog')">
+                       <app-recharge-payment></app-recharge-payment>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" id="transit" role="tabpanel" aria-labelledby="invoice-tab2" *ngIf="active_tab == 'invoice'" [class.show]="(active_tab == 'invoice')" [class.active]="(active_tab == 'invoice')">
+                       <app-invoice></app-invoice>
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" id="complete" role="tabpanel" aria-labelledby="creadit-note-tab2" *ngIf="active_tab == 'credit_note'" [class.show]="(active_tab == 'credit_note')" [class.active]="(active_tab == 'credit_note')">
+                        <app-credit-note></app-credit-note>
+                     </div>
+                     
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+
+<!-- <ng-template #b2b>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Add B2B Bulk Consignment
+</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_b2b()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #f="ngForm" (ngSubmit)="submit(f)" autocomplete="off" enctype="multipart/form-data">
+   <div class="modal-body">
+    <a class="btn btn-primary btn-sm mb-2" href="javascript:" (click)="dowload_b2b()" > Download Sample File</a>
+   
+    <div class="form-group">
+     <input type="file" class="form-control" [(ngModel)]="fileb2b" name="fileb2b" #Fileb2b="ngModel" id="b2bexcel_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <small *ngIf="(fileb2b == null || fileb2b == '') && f.submitted" class="text-danger">Attach Files</small>
+    </div>
+   </div>
+   <div class="modal-footer">
+     <button type="submit" class="btn btn-primary btn-sm"> Upload</button>
+      <button type="button" (click)="close_b2b()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+   </ng-template>
+
+
+   <ng-template #b2c>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Add B2C Bulk Consignment
+</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_b2c()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #g="ngForm" (ngSubmit)="submit_b2c(g)" autocomplete="off" enctype="multipart/form-data">
+   <div class="modal-body">
+    <a class="btn btn-primary btn-sm mb-2" href="javascript:" (click)="dowload_b2c()" > Download Sample File</a>
+   
+    <div class="form-group">
+     <input type="file" class="form-control" [(ngModel)]="fileb2c" name="fileb2c" #Fileb2c="ngModel" id="b2cexcel_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <small *ngIf="(fileb2c == null || fileb2c == '') && g.submitted" class="text-danger">Attach Files</small>
+    </div>
+   </div>
+   <div class="modal-footer">
+     <button type="submit" class="btn btn-primary btn-sm"> Upload</button>
+      <button type="button" (click)="close_b2c()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+   </ng-template> -->
+
+
+
+  

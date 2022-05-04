@@ -1,0 +1,22 @@
+.model{
+	padding: 10px!important;
+}
+.notify-btn{
+	background-image: linear-gradient(to bottom right, #077bd4, #064575)!important;
+    border-radius: 4px;
+ 
+    color: #fff;
+    font-weight: 500;
+}
+
+.update-btn{
+background-image: linear-gradient(to bottom right, #077bd4, #064575)!important;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    color: #fff;
+    font-weight: 500;	
+}
+.model-ISSUES{
+    padding: 21px;
+}

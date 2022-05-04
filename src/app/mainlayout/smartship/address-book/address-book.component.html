@@ -1,0 +1,934 @@
+
+<div [innerHTML]="Loader"></div>
+<app-toastr></app-toastr>
+<div class="main-content">
+   <section class="section">
+      <div class="d-flex space-between align-items-center m-b-15">
+         <div class="crumb">
+            <!-- <h4>Address Book</h4> -->
+            <!-- <ol class="breadcrumb p-0 m-b-0"> -->
+              <!--  <li class="breadcrumb-item"><a href="javascript:" (click)="go_to_home()">Home</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Address Book</li> -->
+               <!-- <button type="button" class="btn btn-secondary rad_0" (click)="go_to_template()">Template</button>
+                  <button type="button" class="btn btn-secondary rad_0 dash_tab"  (click)="go_to_add_book()">Address Book</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_module()">Module</button>
+                  <button type="button" class="btn btn-secondary rad_0"  (click)="go_to_api_doc()">Api Documentation</button> -->
+            <!-- </ol> -->
+            <div class="breadcrumb-new flat">
+               <a href="javascript:" (click)="go_to_template()" >Template</a>
+               <a href="javascript:" (click)="go_to_add_book()" class="active">Address Book</a>
+               <a href="javascript:" (click)="go_to_module()">Module</a>
+               <a href="javascript:" (click)="go_to_api_doc()">Api Documentation</a>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+           <!--  <alert></alert> -->
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Address Details</h4>
+               </div>
+               <div class="card-body">
+                  <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                     <li class="nav-item"> <a class="nav-link active" id="all-tab2" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="true" (click)="getData('')">Pickup </a> </li>
+                     <li class="nav-item"> <a class="nav-link" id="trackrto-tab2" data-toggle="tab" href="#trackrto" role="tab" aria-controls="profile" aria-selected="false" (click)="getData('delivery')">Delivery </a> </li>
+                  </ul>
+                  <div class="tab-content tab-bordered" id="myTab3Content">
+                     <div class="tab-pane fade show active p-0 br-0" id="all" role="tabpanel" aria-labelledby="home-tab2">
+                        <!-- Pickup tab here -->
+                        <div class="row">
+                           <div class="col mr-3">
+                              <div  class="float-right" data-toggle="tooltip" title="Add Pickup">
+                                 <a class="pointer" (click)="addPickupAddress(addPickup)"><i class="fa fa-plus fa-lg" style="color: #077bd4;" aria-hidden="true"></i></a>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2"
+                           [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+                        <div class="table-responsive">
+                           <table class="table table-striped table-hover" id="save-stage">
+                              <thead>
+                                 <tr>
+                                    <th class="col-1">Sr No</th>
+                                    <th class="col-1">Name</th>
+                                    <th class="col-1 mobtawid">Mobile (+91)</th>
+                                    <th class="col-2">Landmark</th>
+                                    <th class="col-3">Address</th>
+                                    <th class="col-1">City</th>
+                                    <th class="col-1">State</th>
+                                    <!-- <th style="width: 10%;">Address 2</th> -->
+                                    <th class="col-1">Pincode</th>
+                                    <th class="col-2">Action</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr  *ngFor ="let data of Table_PickUpAddr ; let i = index ">
+                                    <td>{{i+1}}</td>
+                                    <td>{{data.pickup_name | titlecase}}</td>
+                                    <td>{{data.contact_number}}</td>
+                                    <td>{{data.pickup_landmark | titlecase}}</td>
+                                    <td>{{data.pickup_address1| titlecase}}</td>
+                                    <td>{{data.city| titlecase}}</td>
+                                    <td>{{data.state_name| titlecase}}</td>
+                                   <!--  <td>{{data.pickup_address2}}</td> -->
+                                    <td>{{data.pickup_pincode}}</td>
+                                    <td class="text-center blue">
+                                       <a href="javascript:" tooltip="View Details" (click)="viewPickupDetailsmodal(ViewPickup,data.pickup_id)" > <i  class="fa fa-eye mr-2"></i></a>
+                                       <a href="javascript:" (click)="editPickup(UpdatePickup, data.pickup_id)" data-toggle="modal" tooltip="Edit"> <i class="fa fa-pencil text-warning mr-2"></i></a> <!-- 
+                                       <a *ngIf="data.status != 0" href="javascript:" (click)="DeactivePickup(data.pickup_id)" tooltip="Deactive"><i class="fa fa-ban text-danger mr-2"></i></a>
+
+                                       <a *ngIf="data.status == 0" href="javascript:" (click)="ActivePickup(data.pickup_id)" tooltip="Active"><i class="fa fa-check-circle text-success mr-2"></i></a> -->
+
+                                       <a *ngIf="data.status == 0" href="javascript:" tooltip="Active" (click)="DeactivePickup(data.pickup_id)"><i class="fa fa-ban text-danger mr-2"></i></a>
+                                       <a *ngIf="data.status == 1" href="javascript:" tooltip="Deactivate" (click)="ActivePickup(data.pickup_id)"><i class="fa fa-check-circle text-success mr-2"></i></a> 
+
+                                    </td>
+                                 </tr>
+                                 <tr *ngIf="Table_PickUpAddr == null || Table_PickUpAddr.length == 0">
+                                    <td colspan="10">
+                                       <div class="col-lg-12 mt-5 mb-5 text-center">
+                                          <img src="assets/img/alert.png">
+                                          <p class="mb-0"><small>Data Not Found</small></p>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                       <!--  <div class="row mb-3">
+                           <div class="col-sm-12 col-md-5 align-right"></div>
+                           <div class="col-sm-12 col-md-7 align-right">
+                              <div class="dataTables_paginate paging_simple_numbers align-right" id="table-1_paginate">
+                                 <ul class="align-right pagination">
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div> -->
+                        <!-- <app-pickup></app-pickup> -->
+                     </div>
+                     <div class="tab-pane fade p-0 br-0" id="trackrto" role="tabpanel" aria-labelledby="profile-tab2">
+                        <!-- Success tab here -->
+                        <div class="row">
+                           <div class="col mr-3">
+                              <div  class="float-right" data-toggle="tooltip" title="Add delivery">
+                                 <a class="pointer"><i class="fa fa-plus fa-lg" style="color: #077bd4;" (click)="addDeliveryAddress(addDelivery)" aria-hidden="true"></i></a>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScrollDelivery()">
+                        <div class="table-responsive">
+                           <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                              <thead>
+                                 <tr>
+                                    <th>Sr No</th>
+                                    <th>Name</th>
+                                    <th>Mobile (+91)</th>
+                                    <th>Landmark</th>
+                                    <th>Address</th>                                             
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Pincode</th>
+                                    <th>Action</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr *ngFor ="let data of Table_Delivery_Addr ; let i = index ">
+                                    <td>{{i+1}}</td>
+                                    <td>{{data.delivery_address_name | titlecase}}</td>
+                                    <td>{{data.mobile_number}}</td>
+                                    <td>{{data.landmark | titlecase}}</td>
+                                    <td>{{data.address1 | titlecase}}</td>
+                                    <td> {{data.city | titlecase}}</td>
+                                    <td>{{data.state | titlecase}}</td>
+                                    <td>{{data.delivery_pincode}}</td>
+                                    <td class="text-center blue">
+                                       <a href="javascript:" tooltip="View Details" (click)="viewDeliveryModal(ViewDel,data.id)"> <i  class="fa fa-eye mr-2"></i></a> 
+                                       <a href="javascript:" tooltip="Edit" (click)="editDelivery(UpdateDelivery,data.id)"> <i class="fa fa-pencil mr-2 text-warning"></i></a> 
+
+                                       <a *ngIf="data.status == 0" href="javascript:" tooltip="Active" (click)="DeactivateDelivery(data.id)"><i class="fa fa-ban text-danger mr-2"></i></a>
+                                       <a *ngIf="data.status == 1" href="javascript:" tooltip="Deactivate" (click)="ActiveDelivery(data.id)"><i class="fa fa-check-circle text-success mr-2"></i></a> 
+
+                                       <a *ngIf="data.status == 0" href="javascript:" tooltip="Delete" (click)="delete_del(data.id)"><i class="fa fa-trash text-dark mr-2"></i></a> 
+                                    </td>
+                                 </tr>
+                                 <tr *ngIf="Table_Delivery_Addr == null || Table_Delivery_Addr.length == 0">
+                                    <td colspan="10">
+                                       <div class="col-lg-12 mt-5 mb-5 text-center">
+                                          <img src="assets/img/alert.png">
+                                          <p class="mb-0"><small>>Data Not Found</small></p>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                       <!--  <div class="row mb-3">
+                           <div class="col-sm-12 col-md-5 align-right"></div>
+                           <div class="col-sm-12 col-md-7 align-right">
+                              <div class="dataTables_paginate paging_simple_numbers align-right" id="table-1_paginate">
+                                 <ul class="align-right pagination">
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div> -->
+                        <!-- <app-delivery></app-delivery> -->
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+<!-- view Pickup Address modal -->
+<ng-template #ViewPickup>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Pickup Address Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePickupView()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="table-responsive">
+         <table class="table table-striped table-hover text-left" id="save-stage" style="width:100%;">
+            <tbody>
+               <tr>
+                  <td>Name</td>
+                  <td>{{contact_person  | titlecase}}</td>
+               </tr>
+               <tr>
+                  <td>Mobile</td>
+                  <td>{{contact_number}}</td>
+               </tr>
+               <tr>
+                  <td>Address 1</td>
+                  <td>{{pickup_address1 | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>Address 2</td>
+                  <td>{{pickup_address2  | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>Landmark</td>
+                  <td>{{pickup_landmark | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>City</td>
+                  <td>{{city | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>State</td>
+                  <td>{{state_name | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>Pincode</td>
+                  <td>{{pickup_pincode}}</td>
+               </tr>
+                <tr>
+                  <td>GST Number</td>
+                  <td>{{gst_number1}}</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="closePickupView()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<!-- view Delivery Address modal -->
+<ng-template #ViewDel>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Delivery Address Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeDeliveryDetails()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+      <div class="table-responsive">
+         <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+            <tbody>
+               <tr>
+                  <td>Name</td>
+                  <td>{{contact_person | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>Mobile</td>
+                  <td>{{contact_number}}</td>
+               </tr>
+               <tr>
+                  <td>Email</td>
+                  <td>{{Edit_delivery_email}}</td>
+               </tr>
+               <tr>
+                  <td>Address 1</td>
+                  <td>{{pickup_address1 | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>Address 2</td>
+                  <td>{{pickup_address2 | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>Landmark</td>
+                  <td >{{pickup_landmark | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>City</td>
+                  <td>{{city | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>State</td>
+                  <td>{{state_name | titlecase }}</td>
+               </tr>
+               <tr>
+                  <td>Pincode</td>
+                  <td>{{pickup_pincode}}</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" (click)="closeDeliveryDetails()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+</ng-template>
+<!-- Add Pickup Address modal -->
+<ng-template #addPickup>
+     <form #add="ngForm" (ngSubmit)="AddPickup(add)" autocomplete="off">
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Add Pickup Address</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeAddPickup()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <div class="modal-body">
+                 <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                     <div class="card">
+                        <div class="card-header">
+                           <h4>Personal Details</h4> 
+                        </div>
+                      
+                        <div class="card-body">
+                           
+                           <div class="col-12">
+                              <div class="row">
+                                 <div class="col-3 plr-5">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Pickup Name" tooltip="Pickup Name" required
+                                        [(ngModel)]="pickupname" name="pickupname" #Pickupname="ngModel">
+                                       <small *ngIf="(pickupname == null || pickupname == '') && add.submitted" class="text-danger">Name Required</small>
+                                      
+                                       </div>
+                                    </div>
+                                    
+                                 <div class="col-3 plr-5">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Company Name" tooltip="Company Name" required
+                                        [(ngModel)]="pickupcompanyname" name="pickupcompanyname" #Pickupcompanyname="ngModel">
+                                       <small *ngIf="(pickupcompanyname == null || pickupcompanyname == '') && add.submitted" class="text-danger">Company name Required</small> 
+                                       
+                                    </div>
+                                 </div>
+                                 <div class="col-3 plr-5">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Contact Name" tooltip="Contact Name" required
+                                       [(ngModel)]="contactperson" name="contactperson" #Contactperson="ngModel">
+                                       <small *ngIf="(contactperson == null || contactperson == '') && add.submitted" class="text-danger">person Name Required</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 plr-5">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Pickup Contact Number" tooltip="Pickup Contact Number" required pattern="^((\\+91-?)|0)?[0-9]{10}$" onKeyPress="if(this.value.length==10) return false;"
+                                       [(ngModel)]="contactnumber" name="contactnumber" #Contactnumber="ngModel">
+                                       <small *ngIf="(contactnumber == null || contactnumber == '') && add.submitted" class="text-danger">Mobile number Required</small>
+                                       <small *ngIf="(!Contactnumber.valid && (contactnumber != '' && contactnumber != null)) && add.submitted" class="text-danger">Please enter correct mobile no.</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 plr-5">
+                                    <div class="form-group">
+                                       <input type="email" class="form-control" placeholder="Pickup Email Id" tooltip="Pickup Email Id" required
+                                        [(ngModel)]="pickupemail" name="pickupemail" #Pickupemail="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
+                                       <small *ngIf="(pickupemail == null || pickupemail == '') && add.submitted" class="text-danger">Email Required</small>
+                                        <small *ngIf="(!Pickupemail.valid && (pickupemail != '' && pickupemail != null)) && add.submitted" class="text-danger">Please enter valid Email</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 plr-5">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="GST Number" tooltip="GST Number" required 
+                                       [(ngModel)]="gst_number" name="gst_number" #Gst_number="ngModel">
+                                       <small *ngIf="(gst_number == null || gst_number == '') && add.submitted" class="text-danger">GST Number Required</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 plr-5">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Landmark" tooltip="Landmark" required
+                                        [(ngModel)]="pickuplandmark" name="pickuplandmark" #Pickuplandmark="ngModel">
+                                       <small *ngIf="(pickuplandmark == null || pickuplandmark == '') && add.submitted" class="text-danger">Landmark Required</small>
+                                        
+                                    </div>
+                                 </div>
+                                 <div class="col-3 plr-5">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Pincode" tooltip="Pincode" required
+                                       [(ngModel)]="pickuppincode" name="pickuppincode" #Pickuppincode="ngModel" pattern="^[1-9][0-9]{5}$" onKeyPress="if(this.value.length==6)return false;">
+                                       <small *ngIf="(pickuppincode == null || pickuppincode == '') && add.submitted" class="text-danger">Pincode Required</small>
+                                       <small *ngIf="(!Pickuppincode.valid && (pickuppincode != '' && pickuppincode != null)) && add.submitted" class="text-danger">Please enter valid Pincode</small>
+                                    </div>
+                                 </div>                                
+                                  <div class="col-6">
+                                    <div class="form-group">
+                                       <textarea rows="1" class="form-control" placeholder="Address1" tooltip="Address1" required 
+                                        [(ngModel)]="pickupaddress1" name="pickupaddress1" #Pickupaddress1="ngModel">  
+                                       </textarea>                                       
+                                       <small *ngIf="(pickupaddress1 == null || pickupaddress1 == '') && add.submitted" class="text-danger">Address 1 Required</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-6">
+                                    <div class="form-group">
+                                       <textarea rows="1" class="form-control" placeholder="Address2" tooltip="Address2" required
+                                 [(ngModel)]="pickupaddress2" name="pickupaddress2" #Pickaddress="ngModel">  
+                                       </textarea>                                      
+                                       <small *ngIf="(pickupaddress2 == null || pickupaddress2 == '') && add.submitted" class="text-danger">Address 2  Required</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-4 plr-5">
+                                    <div class="form-group">
+                                       <ng-select [items]="countryList"
+                                        bindLabel="country_name"
+                                        bindValue="country_id"
+                                        name="Addcountry"
+                                        (change)="Get_State()"
+                                        #Country="ngModel"
+                                        tooltip="Country" 
+                                        [(ngModel)]="Addcountry"
+                                        placeholder = "Select Country">
+
+                                      </ng-select>
+                                         <small *ngIf="(Addcountry == null || Addcountry == '') && add.submitted" class="text-danger">Country
+                                       Required.</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-4 plr-5">
+                                    <div class="form-group">
+                                        <ng-select [items]="statelist"
+                                        bindLabel="state_name"
+                                        bindValue="state_id"
+                                        (change)="Get_City()"
+                                        name="Addstate"
+                                        #State="ngModel"
+                                        tooltip="State"
+                                        [(ngModel)]="Addstate"
+                                        placeholder = "Select State">
+                                        </ng-select>
+                                         <small *ngIf="(Addstate == null || Addstate == '') && add.submitted" class="text-danger">State
+                                       Required.</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-4 plr-5">
+                                    <div class="form-group">
+                                        <ng-select [items]="citylist"
+                                        bindLabel="city"
+                                        bindValue="city_id"
+                                        name="Addcity"
+                                        #State="ngModel"
+                                        tooltip="City"
+                                        [(ngModel)]="Addcity"
+                                        placeholder = "Select City">
+                                      </ng-select>
+                                      <small *ngIf="(Addcity == null || Addcity == '') && add.submitted" class="text-danger">City
+                                       Required.</small>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+                           <div class="col-lg-12">
+                             <!--  <button type="button" class="btn btn-primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                              <button type="button" class="btn btn-primary">Cancel</button> -->
+                           </div>
+                        </div>
+                     
+                     </div>
+                  </div>
+               </div>
+   </div>
+   <div class="modal-footer">
+       <button type="submit" class="btn btn-primary btn-sm m-2 "> Submit</button>
+      <button type="button" (click)="closeAddPickup()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+   </form>
+</ng-template>
+
+<!-- Add Delivery Address modal -->
+<ng-template #addDelivery>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Add Delivery Address</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeAddDelivery()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+     <form #add="ngForm" (ngSubmit)="onSubmitDelivery(add)" autocomplete="off">
+   <div class="modal-body">
+                        <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                     <div class="card">
+                        <div class="card-header">
+                           <h4>Personal Details</h4> 
+                        </div>
+                      
+                        <div class="card-body">
+                           <div class="col-12">
+                              <div class="row">
+                                 <div class="col-3">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Delivery Name" tooltip="Delivery Name"
+                                       [(ngModel)]="delivname" name="delivname" #Delivname="ngModel" required >
+                                        <small *ngIf="(delivname == null || delivname == '') && add.submitted" class="text-danger">Name Required</small>
+                                      
+                                    </div>
+                                 </div>
+                                 <div class="col-3">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Company Name" tooltip="Company Name"
+                                       [(ngModel)]="companyname" name="companyname" #Companyname="ngModel" required>
+                                        <small *ngIf="(companyname == null || companyname == '') && add.submitted" class="text-danger">Company Required</small>
+                                       
+                                    </div>
+                                 </div>
+                                 <div class="col-3">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Contact Name" tooltip="Contact Name"
+                                       [(ngModel)]="contactname" name="contactname" #Contactname="ngModel" required>
+                                        <small *ngIf="(contactname == null || contactname == '') && add.submitted" class="text-danger">Contact person Name Required</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-3">
+                                    <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Delivery Contact Number" tooltip="Delivery Contact Number"
+                                     [(ngModel)]="delivcontact" name="delivcontact" #Delivcontact="ngModel" required 
+                                      pattern="^((\\+91-?)|0)?[0-9]{10}$" onKeyPress="if(this.value.length==10) return false;" >
+                                       <small *ngIf="(delivcontact == null || delivcontact == '') && add.submitted" class="text-danger">Mobile Number Required</small>
+                                        <small *ngIf="(!Delivcontact.valid && (delivcontact != '' && delivcontact != null)) && add.submitted" class="text-danger">Please enter valid Mobile No.</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                       <input type="email" class="form-control" placeholder="Delivery Email Id" tooltip="Delivery Email Id"
+                                       [(ngModel)]="delivemail" name="delivemail" #Delivemail="ngModel" required 
+                                       pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                        <small *ngIf="(delivemail == null || delivemail == '') && add.submitted" class="text-danger">Email Required</small>
+                                         <small *ngIf="(!Delivemail.valid && (delivemail != '' && delivemail != null)) && add.submitted" class="text-danger">Please enter valid Email</small>
+                                    </div>
+                                 </div>
+                           
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Pincode" tooltip="Pincode"
+                                       [(ngModel)]="delivpincode" name="delivpincode" #Delivpincode="ngModel" required
+                                        pattern="^[1-9][0-9]{5}$" onKeyPress="if(this.value.length==6)return false;" >
+                                         <small *ngIf="(delivpincode == null || delivpincode == '') && add.submitted" class="text-danger">Pincode Required</small>
+                                          <small *ngIf="(!Delivpincode.valid && (delivpincode != '' && delivpincode != null)) && add.submitted" class="text-danger">Please enter valid Pincode</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                       <input type="text" class="form-control" placeholder="Landmark" tooltip="Landmark"
+                                       [(ngModel)]="delLandmark" name="delLandmark" #DelLandmark="ngModel" required> 
+                                        <small *ngIf="(delLandmark == null || delLandmark == '') && add.submitted" class="text-danger">Landmark Required</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-6">
+                                    <div class="form-group">
+                                        <textarea class="form-control"  placeholder="Address1" tooltip="Address1"
+                                       [(ngModel)]="address1" name="address1" #Address1="ngModel" required></textarea>                                      
+                                       <small *ngIf="(address1 == null || address1 == '') && add.submitted" class="text-danger">Address 1 Required</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-6">
+                                    <div class="form-group">
+                                       <textarea class="form-control" placeholder="Address2" tooltip="Address2"
+                                       [(ngModel)]="address2" name="address2" #Address2="ngModel" required></textarea>                                      
+                                       <small *ngIf="(address2 == null || address2 == '') && add.submitted" class="text-danger">Address 2 Required</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                        <ng-select [items]="countryList"
+                                        bindLabel="country_name"
+                                        bindValue="country_id"
+                                        name="Addcountry"
+                                        (change)="Get_State()"
+                                        #Country="ngModel"
+                                        tooltip="Country"
+                                        [(ngModel)]="Addcountry"
+                                        placeholder = "Select Country">
+                                      </ng-select>
+                                         <small *ngIf="(Addcountry == null || Addcountry == '') && add.submitted" class="text-danger">Country
+                                       Required.</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                        <ng-select [items]="statelist"
+                                        bindLabel="state_name"
+                                        bindValue="state_id"
+                                        (change)="Get_City()"
+                                        name="Addstate"
+                                        #State="ngModel"
+                                        tooltip="State"
+                                        [(ngModel)]="Addstate"
+                                        placeholder = "Select State">
+                                        </ng-select>
+                                         <small *ngIf="(Addstate == null || Addstate == '') && add.submitted" class="text-danger">State
+                                       Required.</small>
+                                    </div>
+                                 </div>
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                        <ng-select [items]="citylist"
+                                        bindLabel="city"
+                                        bindValue="city_id"
+                                        name="Addcity"
+                                        #State="ngModel"
+                                        tooltip="City"
+                                        [(ngModel)]="Addcity"
+                                        placeholder = "Select City">
+                                      </ng-select>
+                                      <small *ngIf="(Addcity == null || Addcity == '') && add.submitted" class="text-danger">City
+                                       Required.</small>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+                           <div class="col-lg-12">
+                              <!-- <button type="button" class="btn btn-primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                              <button type="button" class="btn btn-primary">Cancel</button> -->
+                           </div>
+                        </div>
+                      
+                     </div>
+                  </div>
+               </div>
+   </div>
+   <div class="modal-footer">
+       <button type="submit"  class="btn btn-primary btn-sm m-2"> Submit</button>
+      <button type="button" (click)="closeAddDelivery()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+     </form>
+</ng-template>
+
+
+<!-- Update Pickup Address modal -->
+<ng-template #UpdatePickup>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Pickup Address</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeEditPickModal()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #up="ngForm" (submit)="onSubmitUpdatePick(up)" autocomplete="off">
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                 <h4>Personal Details</h4>
+               </div>
+               <div class="card-body">
+                  <div class="col-12">
+                     <div class="row">
+                        <div class="col-3">
+                           <div class="form-group">
+                             <input type="text" class="form-control" placeholder="Pickup Name" tooltip="Pickup Name"
+                             [(ngModel)]="Edit_pickup_name" #Pickup_name="ngModel" name="Edit_pickup_name" required>
+                             <small *ngIf="(Edit_pickup_name == null || Edit_pickup_name == '') && up.submitted" class="text-danger">Pickup Name Required</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                             <input type="text" class="form-control" placeholder="Company Name" tooltip="Pickup Company"
+                             [(ngModel)]="Edit_pickup_company_name" name="Edit_pickup_company_name"  #Pickup_compnany_name="ngModel" required> 
+                             <small *ngIf="(Edit_pickup_company_name == null || Edit_pickup_company_name == '') && up.submitted" class="text-danger">Company Name Required</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                             <input type="text" class="form-control" placeholder="Contact Name" tooltip="Contact Name"
+                             [(ngModel)]="Edit_contact_person" name="Edit_contact_person"  #Contact_person="ngModel">
+                             <small *ngIf="(Edit_contact_person == null || Edit_contact_person == '') && up.submitted" class="text-danger">Contact Name Required</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                             <input type="text" class="form-control" placeholder="Pickup Contact Number" pattern="^((\\+91-?)|0)?[0-9]{10}$" onKeyPress="if(this.value.length==10) return false;" tooltip="Mobile Number"
+                             [(ngModel)]="Edit_contact_number" name="Edit_contact_number" #Contact_number="ngModel" required>
+                             <small *ngIf="(Edit_contact_number == null || Edit_contact_number == '') && up.submitted" class="text-danger">Contact No.
+                             required.</small> <small *ngIf="(!Contact_number.valid && (Edit_contact_number != '' && Edit_contact_number != null)) && up.submitted" class="text-danger">Please enter valid Contact No.</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                             <input type="email" class="form-control" placeholder="Pickup Email Id" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" tooltip="Pickup Email"
+                             [(ngModel)]="Edit_pickup_email" name="Edit_pickup_email" #Pickup_email="ngModel">
+                            <small *ngIf="(!Pickup_email.valid && (Edit_pickup_email != '' && Edit_pickup_email != null)) && up.submitted" class="text-danger">Email Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="GST Number" [(ngModel)]="Edit_gst_number" name="Edit_gst_number" #GST="ngModel" tooltip="GST Number"> 
+                              <small *ngIf="(Edit_gst_number == null || Edit_gst_number == '') && up.submitted" class="text-danger">GST
+                             Required.</small>
+                             
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Pincode" pattern="^[1-9][0-9]{5}$" onKeyPress="if(this.value.length==6)return false;" [(ngModel)]="Edit_pickup_pincode" name="Edit_pickup_pincode"  #Pickup_pincode="ngModel" tooltip="Pickup Pincode" required>
+                              <small *ngIf="(Edit_pickup_pincode == null || Edit_pickup_pincode == '') && up.submitted" class="text-danger">Pincode
+                              required.</small> <small *ngIf="(!Pickup_pincode.valid && (Edit_pickup_pincode != '' && Edit_pickup_pincode != null)) && up.submitted" class="text-danger">Please enter valid Pincode.</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Landmark" tooltip="Pickup Landmark"
+                              [(ngModel)]="Edit_pickup_landmark" name="Edit_pickup_landmark" #Pickup_landmark="ngModel"> 
+                              <small *ngIf="(Edit_pickup_landmark == null || Edit_pickup_landmark == '') && up.submitted" class="text-danger">Landmark
+                             Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-6">
+                           <div class="form-group">
+                              <textarea rows="1" class="form-control" placeholder="Address1" tooltip="Address 1"
+                              [(ngModel)]="Edit_pickup_address1" name="Edit_pickup_address1" #Address1="ngModel">  
+                              </textarea> 
+                              <small *ngIf="(Edit_pickup_address1 == null || Edit_pickup_address1 == '') && up.submitted" class="text-danger">Address 1
+                             Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-6">
+                           <div class="form-group">
+                              <textarea rows="1" class="form-control" placeholder="Address2" tooltip="Address 2"
+                                 [(ngModel)]="Edit_pickup_address2" name="Edit_pickup_address2" #Address2="ngModel">  
+                              </textarea>                              
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">                        
+                              <ng-select [items]="Pick_country_list"
+                                    bindLabel="country_name"
+                                    bindValue="country_id"
+                                    name="Edit_pickup_country"
+                                    (change)="getState()"
+                                    #Country="ngModel"
+                                    tooltip="Country"
+                                    [(ngModel)]="Edit_pickup_country">
+                              </ng-select>
+                              <small *ngIf="(Edit_pickup_country == null || Edit_pickup_country == '') && up.submitted" class="text-danger">Country Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">                           
+                              <ng-select [items]="Pick_State_list"
+                                    bindLabel="state_name"
+                                    bindValue="state_id"
+                                    (change)="get_City()"
+                                    name="Edit_pickup_state"
+                                    #State="ngModel"
+                                    tooltip="State"
+                                    [(ngModel)]="Edit_pickup_state">
+                              </ng-select>
+                              <small *ngIf="(Edit_pickup_state == null || Edit_pickup_state == '') && up.submitted" class="text-danger">State
+                             Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">                           
+                              <ng-select [items]="pick_city_list"
+                                    bindLabel="city"
+                                    bindValue="city_id"
+                                    name="Edit_pickup_city"
+                                    #State="ngModel"
+                                    tooltip="City"
+                                    [(ngModel)]="Edit_pickup_city">
+                              </ng-select>
+                              <small *ngIf="(Edit_pickup_city == null || Edit_pickup_city == '') && up.submitted" class="text-danger">City
+                             Required.</small>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>                 
+               </div>
+            </div>
+        </div>  
+   </div>
+   <div class="modal-footer">     
+         <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button>
+         <button type="button" (click)="closeEditPickModal()" class="btn btn-primary btn-sm"> Close</button>
+   </div>  
+   </form>
+</ng-template>
+
+
+<!-- Update Delivry Address modal -->
+<ng-template #UpdateDelivery>
+   <div class="modal-header head-modal">
+      <h5 class="modal-title" id="exampleModalLabel">Edit Delivery Address</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close_editDelivery()"> 
+      <span aria-hidden="true">&times;</span> 
+      </button>
+   </div>
+   <form #f="ngForm" (submit)="onSubmitUpdateDel(f)" autocomplete="off">
+   <div class="modal-body">
+      <div class="row">
+         <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Personal Details</h4>
+               </div>
+               <div class="card-body">
+                  <div class="col-12">
+                     <div class="row">
+                        <div class="col-3">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Delivery Name" tooltip="Delivery Name" 
+                              [(ngModel)]="Edit_delivery_address_name" #Delivery_address_name="ngModel" name="Edit_delivery_address_name" required>
+                              <small *ngIf="(Edit_delivery_address_name == null || Edit_delivery_address_name == '') && f.submitted" class="text-danger">Delivery Name Required</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Company Name" tooltip="Delivery Company Name"
+                              [(ngModel)]="Edit_company_name" name="Edit_company_name"  #Delivery_compnany_name="ngModel" required> 
+                              <small *ngIf="(Edit_company_name == null || Edit_company_name == '') && f.submitted" class="text-danger">Company Name Required</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Contact Name" tooltip="Contact Person Name"
+                              [(ngModel)]="Edit_name" name="Edit_name"  #Contact_person="ngModel">
+                              <small *ngIf="(Edit_name == null || Edit_name == '') && f.submitted" class="text-danger">Contact Name Required</small>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Delivery Contact Number" pattern="^((\\+91-?)|0)?[0-9]{10}$" onKeyPress="if(this.value.length==10) return false;" tooltip="Mobile number"
+                              [(ngModel)]="Edit_mobile_number" name="Edit_mobile_number" #Contact_number="ngModel" required>
+                              <small *ngIf="(Edit_mobile_number == null || Edit_mobile_number == '') && f.submitted" class="text-danger">Contact No.
+                              required.</small> <small *ngIf="(!Contact_number.valid && (Edit_mobile_number != '' && Edit_mobile_number != null)) && f.submitted" class="text-danger">Please enter valid Contact No.</small>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <input type="email" class="form-control" placeholder="Delivery Email Id" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" tooltip="Email"
+                              [(ngModel)]="Edit_delivery_email" name="Edit_delivery_email" #Delivery_email="ngModel">
+                             <small *ngIf="(!Delivery_email.valid && (Edit_delivery_email != '' && Edit_delivery_email != null)) && f.submitted" class="text-danger">Email Required.</small>
+                           </div>
+                        </div>
+                     
+                        <div class="col-4">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Pincode" pattern="^[1-9][0-9]{5}$" onKeyPress="if(this.value.length==6)return false;" [(ngModel)]="Edit_delivery_pincode" name="Edit_delivery_pincode"  #Delivery_pincode="ngModel" tooltip="Pincode" required>
+                              <small *ngIf="(Edit_delivery_pincode == null || Edit_delivery_pincode == '') && f.submitted" class="text-danger">Pincode
+                              required.</small> <small *ngIf="(!Delivery_pincode.valid && (Edit_delivery_pincode != '' && Edit_delivery_pincode != null)) && f.submitted" class="text-danger">Please enter valid Pincode.</small>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Landmark" tooltip="Landmark"
+                              [(ngModel)]="Edit_landmark" name="Edit_landmark" #Delivery_landmark="ngModel"> 
+                             <small *ngIf="(Edit_landmark == null || Edit_landmark == '') && f.submitted" class="text-danger">Landmark
+                              Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-6">
+                           <div class="form-group">
+                              <textarea class="form-control" placeholder="Address1" tooltip="Address 1"
+                              [(ngModel)]="Edit_address1" name="Edit_address1" #Address1="ngModel"></textarea>                              
+                             <small *ngIf="(Edit_address1 == null || Edit_address1 == '') && f.submitted" class="text-danger">Address 1
+                              Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-6">
+                           <div class="form-group">
+                              <textarea class="form-control" placeholder="Address2" tooltip="Address 2" 
+                              [(ngModel)]="Edit_address2" name="Edit_address2" #Address2="ngModel"></textarea>                             
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                             <!--  <input type="text" class="form-control select2" [(ngModel)]="Edit_country" name="Edit_country" readonly tooltip="Country" > -->
+                              <ng-select [items]="Del_country_list"
+                                        bindLabel="country_name"
+                                        bindValue="country_id"
+                                        (change)="get_State()"
+                                        name="Edit_country"
+                                        #Country="ngModel"
+                                        tooltip="Country"
+                                        [(ngModel)]="Edit_country">
+                             </ng-select>
+                               <small *ngIf="(!Country.valid && (Edit_country != '' && Edit_country != null)) && f.submitted" class="text-danger">Country
+                              Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                             <!--  <input type="text" class="form-control select2" [(ngModel)]="Edit_state" name="Edit_state" readonly tooltip="State"> -->
+                             <ng-select [items]="Del_state_list"
+                                        bindLabel="state_name"
+                                        bindValue="state_id"
+                                        (change)="get__City()"
+                                        name="Edit_state"
+                                        #State="ngModel"
+                                        tooltip="State"
+                                        [(ngModel)]="Edit_state">
+                             </ng-select>
+                                <small *ngIf="(!State.valid && (Edit_state != '' && Edit_state != null)) && f.submitted" class="text-danger">State
+                              Required.</small>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <!-- <input type="text" class="form-control select2" [(ngModel)]="Edit_Del_city" name="Edit_Del_city" readonly tooltip="City" > -->
+                                <ng-select [items]="Del_City_list"
+                                        bindLabel="city"
+                                        bindValue="city_id"
+                                        name="Edit_Del_city"
+                                        #city="ngModel"
+                                        tooltip="City"
+                                        [(ngModel)]="Edit_Del_city">
+                             </ng-select>
+                             <small *ngIf="(!city.valid && (Edit_Del_city != '' && Edit_Del_city != null)) && f.submitted" class="text-danger">City
+                              Required.</small>
+                           </div>
+                        </div>
+                      
+                     </div>
+                  </div>
+                  
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal-footer ">
+      
+      <button type="submit" class="btn btn-primary btn-sm m-2">Submit</button>
+      <button type="button" (click)="close_editDelivery()" class="btn btn-primary btn-sm"> Close</button>
+   </div>
+  <!--  <div>
+      note: for made changes in City, State, Country please change Pincode..
+   </div> -->
+   </form>
+</ng-template>
